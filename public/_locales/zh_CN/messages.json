@@ -175,6 +175,10 @@
     "message": "刷新",
     "description": "刷新按钮"
   },
+  "refreshPage": {
+    "message": "刷新页面",
+    "description": "刷新页面按钮"
+  },
   "fetchingModels": {
     "message": "正在获取模型列表...",
     "description": "获取模型列表状态"

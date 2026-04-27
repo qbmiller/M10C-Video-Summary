@@ -1,30 +1,27 @@
 import { Check, ChevronsUpDown, Search } from "lucide-react"
 import { useEffect, useState } from "react"
+import { storage } from "@wxt-dev/storage"
 
-import { Storage } from "@plasmohq/storage"
-
-import { Button } from "~components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "~components/ui/card"
+import { Button } from "~/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from "~components/ui/dropdown-menu"
-import { Input } from "~components/ui/input"
-import { Label } from "~components/ui/label"
-import { RadioGroup, RadioGroupItem } from "~components/ui/radio-group"
+} from "~/components/ui/dropdown-menu"
+import { Input } from "~/components/ui/input"
+import { Label } from "~/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "~components/ui/select"
-import { cn } from "~lib/utils"
-import { t } from "~utils/i18n"
-
-import "~style.css"
+} from "~/components/ui/select"
+import { cn } from "~/lib/utils"
+import { t } from "~/utils/i18n"
 
 interface AIProvider {
   id: string
@@ -123,7 +120,6 @@ function OptionsPage() {
   const [useCustomModel, setUseCustomModel] = useState(false)
   const [openModelSelect, setOpenModelSelect] = useState(false)
   const [modelSearchQuery, setModelSearchQuery] = useState("")
-  const storage = new Storage()
 
   useEffect(() => {
     loadConfig()
@@ -131,7 +127,7 @@ function OptionsPage() {
 
   const loadConfig = async () => {
     try {
-      const config = await storage.get<AIConfig>("aiConfig")
+      const config = await storage.getItem<AIConfig>("local:aiConfig")
       if (config) {
         setAiConfig(config)
         // 检查是否使用自定义模型
@@ -177,7 +173,7 @@ function OptionsPage() {
         }
       }
 
-      await storage.set("aiConfig", configToSave)
+      await storage.setItem("local:aiConfig", configToSave)
       setSaved(true)
       setTimeout(() => setSaved(false), 2000)
     } catch (error) {
@@ -242,7 +238,7 @@ function OptionsPage() {
     const provider = AI_PROVIDERS.find((p) => p.id === providerId)
     if (provider) {
       // 从存储中加载完整配置，以获取该服务商之前保存的baseUrl
-      const savedConfig = await storage.get<AIConfig>("aiConfig")
+      const savedConfig = await storage.getItem<AIConfig>("local:aiConfig")
 
       // 优先使用该服务商之前保存的baseUrl，否则使用默认的baseUrl
       let newBaseUrl = provider.baseUrl
@@ -310,24 +306,24 @@ function OptionsPage() {
   const currentProvider = AI_PROVIDERS.find((p) => p.id === aiConfig.provider)
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="min-w-[800px] max-w-5xl mx-auto p-10">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-4xl font-bold tracking-tight">
           {t("optionsTitle")}
         </h1>
       </div>
 
       <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>{t("aiServiceConfig")}</CardTitle>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-2xl font-bold">{t("aiServiceConfig")}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="ai-provider">{t("aiProvider")}</Label>
+            <Label htmlFor="ai-provider" className="text-lg font-semibold">{t("aiProvider")}</Label>
             <Select
               value={aiConfig.provider}
               onValueChange={handleProviderChange}>
-              <SelectTrigger>
+              <SelectTrigger className="h-12 text-lg">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -342,10 +338,11 @@ function OptionsPage() {
 
           {currentProvider?.baseUrl && (
             <div className="space-y-2">
-              <Label htmlFor="api-address">{t("apiAddress")}</Label>
+              <Label htmlFor="api-address" className="text-lg font-semibold">{t("apiAddress")}</Label>
               <Input
                 id="api-address"
                 type="text"
+                className="h-12 text-lg"
                 value={aiConfig.baseUrl || ""}
                 onChange={(e) =>
                   setAiConfig({
@@ -362,12 +359,13 @@ function OptionsPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="api-key">
+            <Label htmlFor="api-key" className="text-lg font-semibold">
               {currentProvider?.apiKeyLabel || "API Key"}
             </Label>
             <Input
               id="api-key"
               type="password"
+              className="h-12 text-lg"
               value={
                 aiConfig.apiKeys?.[
                   aiConfig.provider as keyof typeof aiConfig.apiKeys
@@ -385,7 +383,7 @@ function OptionsPage() {
           </div>
 
           <div className="space-y-4">
-            <Label className="text-base font-medium">
+            <Label className="text-xl font-bold">
               {t("modelSelection")}
             </Label>
 
@@ -396,7 +394,7 @@ function OptionsPage() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="preset" id="preset-model" />
-                  <Label htmlFor="preset-model" className="cursor-pointer">
+                    <Label htmlFor="preset-model" className="cursor-pointer text-lg">
                     {t("usePresetModel")}
                   </Label>
                 </div>
@@ -511,7 +509,7 @@ function OptionsPage() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="custom" id="custom-model" />
-                  <Label htmlFor="custom-model" className="cursor-pointer">
+                  <Label htmlFor="custom-model" className="cursor-pointer text-lg">
                     {t("useCustomModel")}
                   </Label>
                 </div>
@@ -519,6 +517,7 @@ function OptionsPage() {
                 {useCustomModel && (
                   <div className="ml-6">
                     <Input
+                      className="h-12 text-lg"
                       value={aiConfig.customModel || aiConfig.model}
                       onChange={(e) => handleModelChange(e.target.value)}
                       placeholder={t("enterCustomModelName")}
@@ -534,13 +533,13 @@ function OptionsPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="reply-language">{t("aiReplyLanguage")}</Label>
+            <Label htmlFor="reply-language" className="text-lg font-semibold">{t("aiReplyLanguage")}</Label>
             <Select
               value={aiConfig.replyLanguage || "auto"}
               onValueChange={(value) =>
                 setAiConfig({ ...aiConfig, replyLanguage: value })
               }>
-              <SelectTrigger>
+              <SelectTrigger className="h-12 text-lg">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -561,7 +560,7 @@ function OptionsPage() {
               onClick={saveConfig}
               disabled={saving}
               variant={saved ? "default" : "default"}
-              className={saved ? "bg-green-600 hover:bg-green-700" : ""}>
+              className={cn("px-8 py-6 text-lg font-semibold", saved ? "bg-green-600 hover:bg-green-700" : "")}>
               {saving ? t("saving") : saved ? t("saved") : t("saveConfig")}
             </Button>
           </div>
@@ -569,10 +568,10 @@ function OptionsPage() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-4">
           <CardTitle>{t("usageInstructions")}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <div>
             <a
               href="https://github.com/SSShooter/Video-Summary/blob/master/guide/index.md"

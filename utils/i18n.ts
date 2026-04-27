@@ -39,22 +39,6 @@ export function isEnglish(): boolean {
   return lang.includes("en")
 }
 
-/**
- * 格式化时间显示
- * @param seconds 秒数
- * @returns 格式化后的时间字符串
- */
-export function formatTime(seconds: number): string {
-  const hours = Math.floor(seconds / 3600)
-  const minutes = Math.floor((seconds % 3600) / 60)
-  const secs = Math.floor(seconds % 60)
-
-  if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  } else {
-    return `${minutes}:${secs.toString().padStart(2, "0")}`
-  }
-}
 
 /**
  * 获取相对时间描述

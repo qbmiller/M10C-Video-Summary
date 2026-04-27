@@ -1,12 +1,10 @@
 import { Brain, Check, Copy } from "lucide-react"
 import React, { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
-
-import { Storage } from "@plasmohq/storage"
-
-import { Button } from "~components/ui/button"
-import { ScrollArea } from "~components/ui/scroll-area"
-import { t } from "~utils/i18n"
+import { storage } from "@wxt-dev/storage"
+import { Button } from "~/components/ui/button"
+import { ScrollArea } from "~/components/ui/scroll-area"
+import { t } from "~/utils/i18n"
 
 import { ReasoningDisplay } from "./ReasoningDisplay"
 import { SimpleMarkdown } from "./SimpleMarkdown"
@@ -22,13 +20,15 @@ interface SummaryDisplayProps {
   cacheKey?: string
   generateButtonText?: string
   noSummaryText?: string
+  generatePromptText?: string
 }
 
 export function SummaryDisplay({
   generateConfig,
   cacheKey,
   generateButtonText,
-  noSummaryText
+  noSummaryText,
+  generatePromptText
 }: SummaryDisplayProps) {
   const [markdownContent, setMarkdownContent] = useState<string>("")
   const [aiLoading, setAiLoading] = useState(false)
@@ -36,9 +36,6 @@ export function SummaryDisplay({
   const [isCopied, setIsCopied] = useState(false)
   const [reasoning, setReasoning] = useState("")
 
-  const storage = new Storage({
-    area: "local"
-  })
   const portRef = useRef<chrome.runtime.Port | null>(null)
 
   // 加载缓存数据
@@ -46,10 +43,10 @@ export function SummaryDisplay({
     if (!cacheKey) return
 
     try {
-      const cached = await storage.get<{
+      const cached = await storage.getItem<{
         content: string
         timestamp: number
-      }>(cacheKey)
+      }>(`local:${cacheKey}`)
       if (cached && cached.content) {
         const isExpired = Date.now() - cached.timestamp > 24 * 60 * 60 * 1000 // 24小时过期
         if (!isExpired) {
@@ -71,7 +68,7 @@ export function SummaryDisplay({
         content,
         timestamp: Date.now()
       }
-      await storage.set(cacheKey, cacheData)
+      await storage.setItem(`local:${cacheKey}`, cacheData)
     } catch (error) {
       console.error("保存缓存失败:", error)
     }
@@ -188,7 +185,7 @@ export function SummaryDisplay({
       {!markdownContent && !aiLoading && (
         <div className="text-center py-[40px] px-[20px] text-gray-600">
           <div className="mb-[12px]">{noSummaryText || t("noAiSummary")}</div>
-          <div className="text-[12px]">{t("clickToGenerateVideoSummary")}</div>
+          <div className="text-[12px]">{generatePromptText || t("clickToGenerateVideoSummary")}</div>
         </div>
       )}
 

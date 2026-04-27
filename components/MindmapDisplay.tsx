@@ -5,25 +5,23 @@ import type { MindElixirData } from "mind-elixir"
 import { plaintextToMindElixir } from "mind-elixir/plaintextConverter"
 import React, { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
-
-import { Storage } from "@plasmohq/storage"
-
+import { storage } from "@wxt-dev/storage"
 import MindElixirReact, {
   type MindElixirReactRef
-} from "~components/MindElixirReact"
-import { ReasoningDisplay } from "~components/ReasoningDisplay"
-import { Button } from "~components/ui/button"
+} from "~/components/MindElixirReact"
+import { ReasoningDisplay } from "~/components/ReasoningDisplay"
+import { Button } from "~/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuTrigger
-} from "~components/ui/dropdown-menu"
-import { fullscreen } from "~utils/fullscreen"
-import { t } from "~utils/i18n"
-import { options } from "~utils/mind-elixir"
-import { ResponseParser } from "~utils/response-parser"
+} from "~/components/ui/dropdown-menu"
+import { fullscreen } from "~/utils/fullscreen"
+import { t } from "~/utils/i18n"
+import { options } from "~/utils/mind-elixir"
+import { ResponseParser } from "~/utils/response-parser"
 
 export interface MindmapGenerateConfig {
   action: string
@@ -57,9 +55,6 @@ export function MindmapDisplay({
   const [cacheLoaded, setCacheLoaded] = useState(false)
   const [reasoning, setReasoning] = useState("")
 
-  const storage = new Storage({
-    area: "local"
-  })
 
   // tab hidden cause render error, so refresh to fix it when tab is shown
   useEffect(() => {
@@ -74,10 +69,10 @@ export function MindmapDisplay({
     if (!cacheKey) return
 
     try {
-      const cached = await storage.get<{
+      const cached = await storage.getItem<{
         mindmapData: MindElixirData
         timestamp: number
-      }>(cacheKey)
+      }>(`local:${cacheKey}`)
       if (cached && cached.mindmapData) {
         const isExpired = Date.now() - cached.timestamp > 24 * 60 * 60 * 1000 // 24小时过期
         if (!isExpired) {
@@ -99,7 +94,7 @@ export function MindmapDisplay({
         mindmapData,
         timestamp: Date.now()
       }
-      await storage.set(cacheKey, cacheData)
+      await storage.setItem(`local:${cacheKey}`, cacheData)
     } catch (error) {
       console.error("保存缓存失败:", error)
     }

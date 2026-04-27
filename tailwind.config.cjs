@@ -2,9 +2,7 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./popup.tsx",
-    "./options.tsx",
-    "./contents/**/*.{js,ts,jsx,tsx}",
+    "./entrypoints/**/*.{js,ts,jsx,tsx,html}",
     "./components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {

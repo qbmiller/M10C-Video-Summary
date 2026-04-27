@@ -1,23 +1,11 @@
-import styleOverride from "data-text:./mind-elixir-css-override.css"
-import tailwindStyles from "data-text:~style.css"
-import styleText from "data-text:mind-elixir/style.css"
-import sonnerStyle from "data-text:sonner/dist/styles.css"
-import type { PlasmoCSConfig, PlasmoGetStyle } from "plasmo"
+import ReactDOM from "react-dom/client"
 import { useEffect, useState } from "react"
-
-import { SubtitlePanel } from "~components/SubtitlePanel"
-import { t } from "~utils/i18n"
-
-export const config: PlasmoCSConfig = {
-  matches: ["https://www.youtube.com/watch*"],
-  all_frames: false
-}
-
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = tailwindStyles + styleText + styleOverride + sonnerStyle
-  return style
-}
+import { SubtitlePanel } from "~/components/SubtitlePanel"
+import { t } from "~/utils/i18n"
+import mainStyles from "@/assets/style.css?inline"
+import elixirStyles from "mind-elixir/style.css?inline"
+import overrideStyles from "@/assets/mind-elixir-override.css?inline"
+import sonnerStyles from "sonner/dist/styles.css?inline"
 
 interface SubtitleItem {
   start: number
@@ -320,4 +308,24 @@ function YouTubeSubtitlePanel() {
     />
   )
 }
-export default YouTubeSubtitlePanel
+
+export default defineContentScript({
+  matches: ["https://www.youtube.com/watch*"],
+  async main(ctx) {
+    const ui = await createShadowRootUi(ctx, {
+      name: "youtube-subtitle-panel",
+      position: "overlay",
+      zIndex: 2147483647,
+      css: `${mainStyles}${elixirStyles}${overrideStyles}${sonnerStyles}`,
+      onMount: (container) => {
+        const root = ReactDOM.createRoot(container)
+        root.render(<YouTubeSubtitlePanel />)
+        return root
+      },
+      onRemove: (root) => {
+        root?.unmount()
+      }
+    })
+    ui.mount()
+  }
+})

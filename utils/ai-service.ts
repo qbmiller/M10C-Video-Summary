@@ -1,4 +1,4 @@
-import { Storage } from "@plasmohq/storage"
+import { storage } from "@wxt-dev/storage"
 
 export interface AIConfig {
   provider: string
@@ -22,11 +22,9 @@ export interface AIConfig {
 }
 
 class AIService {
-  private storage = new Storage()
-
   async getConfig(): Promise<AIConfig | null> {
     try {
-      return await this.storage.get("aiConfig")
+      return await storage.getItem<AIConfig>("local:aiConfig")
     } catch (error) {
       console.error("获取AI配置失败:", error)
       return null

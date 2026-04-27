@@ -7,9 +7,12 @@ export interface BaseSubtitleItem {
 }
 
 export interface VideoInfo {
-  id: string
+  id?: string
+  videoId?: string
+  bvid?: string
+  cid?: number
   title: string
-  platform: "bilibili" | "youtube"
+  platform?: "bilibili" | "youtube"
 }
 
 // 格式化时间显示

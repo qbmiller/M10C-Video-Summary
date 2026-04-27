@@ -175,6 +175,10 @@
     "message": "Refresh",
     "description": "Refresh button"
   },
+  "refreshPage": {
+    "message": "Refresh Page",
+    "description": "Refresh page button"
+  },
   "fetchingModels": {
     "message": "Fetching model list...",
     "description": "Fetching models status"

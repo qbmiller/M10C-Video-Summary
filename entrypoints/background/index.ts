@@ -1,8 +1,5 @@
-// Background script to handle AI API requests and avoid CORS issues
-
-import { Storage } from "@plasmohq/storage"
-
 import { PROMPTS } from "./prompts"
+import { storage } from "@wxt-dev/storage"
 
 interface AIConfig {
   provider: string
@@ -209,7 +206,6 @@ class ClaudeProvider implements ProviderConfig {
 }
 
 class BackgroundAIService {
-  private storage = new Storage()
   private providers: Record<string, ProviderConfig> = {
     openai: new OpenAIProvider(),
     "openai-compatible": new OpenAIProvider(),
@@ -218,12 +214,9 @@ class BackgroundAIService {
     openrouter: new OpenAIProvider()
   }
 
-  // 从prompts文件导入提示词
-  private readonly USER_PROMPT_TEMPLATE = PROMPTS.SUBTITLE_SUMMARY_USER
-
   async getConfig(): Promise<AIConfig | null> {
     try {
-      const config = await this.storage.get<AIConfig>("aiConfig")
+      const config = await storage.getItem<AIConfig>("local:aiConfig")
       return config || null
     } catch (error) {
       console.error("获取AI配置失败:", error)
@@ -385,173 +378,173 @@ class BackgroundAIService {
   }
 }
 
-const backgroundAIService = new BackgroundAIService()
+export default defineBackground(() => {
+  const backgroundAIService = new BackgroundAIService()
+  let capturedSubtitleUrl: string | null = null
 
-// YouTube字幕URL监听器
-let capturedSubtitleUrl: string | null = null
+  // 监听YouTube的timedtext API请求
+  chrome.webRequest.onBeforeRequest.addListener(
+    (details) => {
+      const url = new URL(details.url)
 
-// 监听YouTube的timedtext API请求
-chrome.webRequest.onBeforeRequest.addListener(
-  (details) => {
-    const url = new URL(details.url)
-
-    // 检查是否是YouTube的timedtext API请求
-    if (
-      url.hostname === "www.youtube.com" &&
-      url.pathname === "/api/timedtext"
-    ) {
-      // 检查是否包含pot参数（表示这是一个有效的字幕请求）
-      if (url.searchParams.has("pot")) {
-        console.log("捕获到YouTube字幕URL:", details.url)
-        capturedSubtitleUrl = details.url
-
-        // 通知content script字幕URL已捕获
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          if (tabs[0]?.id) {
-            chrome.tabs
-              .sendMessage(tabs[0].id, {
-                type: "SUBTITLE_URL_CAPTURED",
-                url: details.url
-              })
-              .catch(() => {
-                // 忽略发送失败的错误（可能content script还未加载）
-              })
-          }
-        })
-      }
-    }
-  },
-  {
-    urls: ["https://www.youtube.com/api/timedtext*"]
-  }
-)
-
-// Listen for messages from content scripts
-chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
-  if (request.action === "formatSubtitles") {
-    const formatted = backgroundAIService.formatSubtitlesForAI(
-      request.subtitles
-    )
-    sendResponse({ success: true, data: formatted })
-  }
-
-  if (request.action === "getCapturedSubtitleUrl") {
-    sendResponse({ success: true, data: capturedSubtitleUrl })
-  }
-
-  if (request.action === "clearCapturedSubtitleUrl") {
-    capturedSubtitleUrl = null
-    sendResponse({ success: true })
-  }
-})
-
-// Handle streaming connections
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === "AI_STREAM") {
-    let controller: AbortController | null = null
-
-    port.onDisconnect.addListener(() => {
-      console.log("Port disconnected, aborting stream")
-      if (controller) {
-        controller.abort()
-        controller = null
-      }
-    })
-
-    const safePostMessage = (msg: any) => {
-      try {
-        port.postMessage(msg)
-      } catch (e) {
-        // Ignore disconnected port errors
-        console.warn("Failed to post message to port (disconnected?):", e)
-      }
-    }
-
-    port.onMessage.addListener(async (msg) => {
-      // Abort previous request if new one comes on same port (unlikely but safe)
-      if (controller) {
-        controller.abort()
-      }
-      controller = new AbortController()
-      const signal = controller.signal
-
-      if (msg.action === "summarizeSubtitlesStream") {
-        try {
-          const systemPrompt = await PROMPTS.SUBTITLE_SUMMARY_SYSTEM()
-          const userPrompt = PROMPTS.SUBTITLE_SUMMARY_USER(msg.subtitles)
-
-          await backgroundAIService.streamAI(
-            systemPrompt,
-            userPrompt,
-            (chunk) => {
-              safePostMessage({
-                type: "chunk",
-                content: chunk.content,
-                reasoning: chunk.reasoning
-              })
-            },
-            () => {
-              safePostMessage({ type: "done" })
-              controller = null
-            },
-            (error) => {
-              if (signal.aborted) return
-              safePostMessage({ type: "error", error })
-              controller = null
-            },
-            signal
-          )
-        } catch (error) {
-          if (signal.aborted) return
-          safePostMessage({
-            type: "error",
-            error: error instanceof Error ? error.message : String(error)
-          })
-          controller = null
-        }
-      }
-
+      // 检查是否是YouTube的timedtext API请求
       if (
-        msg.action === "generateMindmapStream" ||
-        msg.action === "generateArticleMindmapStream"
+        url.hostname === "www.youtube.com" &&
+        url.pathname === "/api/timedtext"
       ) {
-        try {
-          const mindmapPrompt = await PROMPTS.MINDMAP_GENERATION()
-          const userPrompt =
-            msg.action === "generateMindmapStream"
-              ? PROMPTS.MINDMAP_VIDEO_USER(msg.subtitles)
-              : PROMPTS.MINDMAP_ARTICLE_USER(msg.content, msg.title)
+        // 检查是否包含pot参数（表示这是一个有效的字幕请求）
+        if (url.searchParams.has("pot")) {
+          console.log("捕获到YouTube字幕URL:", details.url)
+          capturedSubtitleUrl = details.url
 
-          await backgroundAIService.streamAI(
-            mindmapPrompt,
-            userPrompt,
-            (chunk) => {
-              safePostMessage({
-                type: "chunk",
-                content: chunk.content,
-                reasoning: chunk.reasoning
-              })
-            },
-            () => {
-              safePostMessage({ type: "done" })
-              controller = null
-            },
-            (error) => {
-              if (signal.aborted) return
-              safePostMessage({ type: "error", error })
-              controller = null
-            },
-            signal
-          )
-        } catch (error) {
-          if (signal.aborted) return
-          safePostMessage({
-            type: "error",
-            error: error instanceof Error ? error.message : String(error)
+          // 通知content script字幕URL已捕获
+          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (tabs[0]?.id) {
+              chrome.tabs
+                .sendMessage(tabs[0].id, {
+                  type: "SUBTITLE_URL_CAPTURED",
+                  url: details.url
+                })
+                .catch(() => {
+                  // 忽略发送失败的错误（可能content script还未加载）
+                })
+            }
           })
-          controller = null
         }
       }
-    })
-  }
+    },
+    {
+      urls: ["https://www.youtube.com/api/timedtext*"]
+    }
+  )
+
+  // Listen for messages from content scripts
+  chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
+    if (request.action === "formatSubtitles") {
+      const formatted = backgroundAIService.formatSubtitlesForAI(
+        request.subtitles
+      )
+      sendResponse({ success: true, data: formatted })
+    }
+
+    if (request.action === "getCapturedSubtitleUrl") {
+      sendResponse({ success: true, data: capturedSubtitleUrl })
+    }
+
+    if (request.action === "clearCapturedSubtitleUrl") {
+      capturedSubtitleUrl = null
+      sendResponse({ success: true })
+    }
+  })
+
+  // Handle streaming connections
+  chrome.runtime.onConnect.addListener((port) => {
+    if (port.name === "AI_STREAM") {
+      let controller: AbortController | null = null
+
+      port.onDisconnect.addListener(() => {
+        console.log("Port disconnected, aborting stream")
+        if (controller) {
+          controller.abort()
+          controller = null
+        }
+      })
+
+      const safePostMessage = (msg: any) => {
+        try {
+          port.postMessage(msg)
+        } catch (e) {
+          // Ignore disconnected port errors
+          console.warn("Failed to post message to port (disconnected?):", e)
+        }
+      }
+
+      port.onMessage.addListener(async (msg) => {
+        // Abort previous request if new one comes on same port (unlikely but safe)
+        if (controller) {
+          controller.abort()
+        }
+        controller = new AbortController()
+        const signal = controller.signal
+
+        if (msg.action === "summarizeSubtitlesStream") {
+          try {
+            const systemPrompt = await PROMPTS.SUBTITLE_SUMMARY_SYSTEM()
+            const userPrompt = PROMPTS.SUBTITLE_SUMMARY_USER(msg.subtitles)
+
+            await backgroundAIService.streamAI(
+              systemPrompt,
+              userPrompt,
+              (chunk) => {
+                safePostMessage({
+                  type: "chunk",
+                  content: chunk.content,
+                  reasoning: chunk.reasoning
+                })
+              },
+              () => {
+                safePostMessage({ type: "done" })
+                controller = null
+              },
+              (error) => {
+                if (signal.aborted) return
+                safePostMessage({ type: "error", error })
+                controller = null
+              },
+              signal
+            )
+          } catch (error) {
+            if (signal.aborted) return
+            safePostMessage({
+              type: "error",
+              error: error instanceof Error ? error.message : String(error)
+            })
+            controller = null
+          }
+        }
+
+        if (
+          msg.action === "generateMindmapStream" ||
+          msg.action === "generateArticleMindmapStream"
+        ) {
+          try {
+            const mindmapPrompt = await PROMPTS.MINDMAP_GENERATION()
+            const userPrompt =
+              msg.action === "generateMindmapStream"
+                ? PROMPTS.MINDMAP_VIDEO_USER(msg.subtitles)
+                : PROMPTS.MINDMAP_ARTICLE_USER(msg.content, msg.title)
+
+            await backgroundAIService.streamAI(
+              mindmapPrompt,
+              userPrompt,
+              (chunk) => {
+                safePostMessage({
+                  type: "chunk",
+                  content: chunk.content,
+                  reasoning: chunk.reasoning
+                })
+              },
+              () => {
+                safePostMessage({ type: "done" })
+                controller = null
+              },
+              (error) => {
+                if (signal.aborted) return
+                safePostMessage({ type: "error", error })
+                controller = null
+              },
+              signal
+            )
+          } catch (error) {
+            if (signal.aborted) return
+            safePostMessage({
+              type: "error",
+              error: error instanceof Error ? error.message : String(error)
+            })
+            controller = null
+          }
+        }
+      })
+    }
+  })
 })

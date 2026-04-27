@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :host(plasmo-csui),
+  :host,
   :root {
     --background: 240 15% 97%;
     --foreground: 240 80% 15%;
@@ -54,7 +54,7 @@
   * {
     @apply border-border;
   }
-  body {
+  :host {
     @apply bg-background text-foreground;
   }
 }

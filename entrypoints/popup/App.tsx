@@ -1,13 +1,10 @@
-import iconBase64 from "data-base64:~assets/icon.png"
+import iconBase64 from "~/assets/icon.png"
 import { useEffect, useState } from "react"
+import { storage } from "@wxt-dev/storage"
 
-import { Storage } from "@plasmohq/storage"
-
-import { Button } from "~components/ui/button"
-import type { AIConfig } from "~utils/ai-service"
-import { t } from "~utils/i18n"
-
-import "~style.css"
+import { Button } from "~/components/ui/button"
+import type { AIConfig } from "~/utils/ai-service"
+import { t } from "~/utils/i18n"
 
 function IndexPopup() {
   const [aiEnabled, setAiEnabled] = useState(false)
@@ -16,16 +13,18 @@ function IndexPopup() {
   const [isVideoPage, setIsVideoPage] = useState(false)
   const [isArticlePage, setIsArticlePage] = useState(false)
   const [panelTriggering, setPanelTriggering] = useState(false)
-  const storage = new Storage()
 
   useEffect(() => {
+    console.log("Popup mounted");
     loadAIStatus()
     getCurrentPageInfo()
   }, [])
 
   const loadAIStatus = async () => {
     try {
-      const config = await storage.get<AIConfig>("aiConfig")
+      console.log("Loading AI status...");
+      const config = await storage.getItem<AIConfig>("local:aiConfig")
+      console.log("AI Config:", config);
       // 检查是否有配置的API密钥
       const hasApiKey =
         config &&
@@ -41,9 +40,14 @@ function IndexPopup() {
 
   const getCurrentPageInfo = async () => {
     try {
+      if (typeof chrome === 'undefined' || !chrome.tabs) {
+        console.warn("chrome.tabs is not available");
+        return;
+      }
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (tabs[0]?.url) {
           const url = tabs[0].url
+          console.log("Current URL:", url);
 
           // 检测是否为视频页面
           const isVideo =
@@ -72,6 +76,7 @@ function IndexPopup() {
       setPanelTriggering(true)
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         if (tabs[0]?.id) {
+          console.log("Sending message to tab:", tabs[0].id, "isVideoPage:", isVideoPage, "isArticlePage:", isArticlePage);
           if (isVideoPage) {
             chrome.tabs.sendMessage(tabs[0].id, {
               type: "SHOW_SUBTITLE_PANEL"
@@ -130,7 +135,7 @@ function IndexPopup() {
   const pageInfo = getPageTypeInfo()
 
   return (
-    <div className="w-80 bg-blue-100">
+    <div className="w-96 bg-blue-100">
       {/* 头部区域 */}
       <div className="bg-gradient-to-r from-purple-950 to-indigo-950 p-3 text-white">
         <div className="flex items-center mb-2">

@@ -1,46 +1,27 @@
-import styleOverride from "data-text:./mind-elixir-css-override.css"
-import tailwindStyles from "data-text:~style.css"
-import styleText from "data-text:mind-elixir/style.css"
-import sonnerStyle from "data-text:sonner/dist/styles.css"
-import type { PlasmoCSConfig, PlasmoGetStyle } from "plasmo"
+import ReactDOM from "react-dom/client"
 import { useEffect, useRef, useState } from "react"
-
 import {
   MindmapDisplay,
   type MindmapGenerateConfig
-} from "~components/MindmapDisplay"
+} from "~/components/MindmapDisplay"
 import {
   SummaryDisplay,
   type SummaryGenerateConfig
-} from "~components/SummaryDisplay"
-import { Button } from "~components/ui/button"
-import { Toaster } from "~components/ui/sonner"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~components/ui/tabs"
-import { detectArticle, type ArticleInfo } from "~utils/article-detector"
-import { detectAndConvertArticle } from "~utils/html-to-markdown"
-import { t } from "~utils/i18n"
-
-export const config: PlasmoCSConfig = {
-  matches: ["<all_urls>"],
-  exclude_matches: [
-    "https://www.youtube.com/*",
-    "https://www.bilibili.com/*",
-    "https://youtube.com/*"
-  ],
-  all_frames: false
-}
-
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = tailwindStyles + styleText + styleOverride + sonnerStyle
-  return style
-}
+} from "~/components/SummaryDisplay"
+import { Button } from "~/components/ui/button"
+import { Toaster } from "~/components/ui/sonner"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { detectArticle, type ArticleInfo } from "~/utils/article-detector"
+import { detectAndConvertArticle } from "~/utils/html-to-markdown"
+import { t } from "~/utils/i18n"
+import mainStyles from "@/assets/style.css?inline"
+import elixirStyles from "mind-elixir/style.css?inline"
+import overrideStyles from "@/assets/mind-elixir-override.css?inline"
+import sonnerStyles from "sonner/dist/styles.css?inline"
 
 function ArticleMindmapPanel() {
   const [articleInfo, setArticleInfo] = useState<ArticleInfo | null>(null)
-
   const [isVisible, setIsVisible] = useState(false)
-
   const panelRef = useRef<HTMLDivElement>(null)
 
   // 获取文章内容
@@ -87,7 +68,9 @@ function ArticleMindmapPanel() {
   // 监听来自popup的消息
   useEffect(() => {
     const messageListener = (message: any) => {
+      console.log("Article content script received message:", message);
       if (message.type === "SHOW_ARTICLE_MINDMAP_PANEL") {
+        console.log("Setting Article panel to visible");
         setIsVisible(true)
       }
     }
@@ -182,4 +165,31 @@ function ArticleMindmapPanel() {
   )
 }
 
-export default ArticleMindmapPanel
+export default defineContentScript({
+  matches: ["<all_urls>"],
+  excludeMatches: [
+    "https://www.youtube.com/*",
+    "https://www.bilibili.com/*",
+    "https://youtube.com/*"
+  ],
+  async main(ctx) {
+    console.log("Article content script main started");
+    const ui = await createShadowRootUi(ctx, {
+      name: "article-mindmap-panel",
+      position: "overlay",
+      zIndex: 2147483647,
+      css: `${mainStyles}${elixirStyles}${overrideStyles}${sonnerStyles}`,
+      onMount: (container) => {
+        console.log("Article UI mounting...");
+        const root = ReactDOM.createRoot(container)
+        root.render(<ArticleMindmapPanel />)
+        return root
+      },
+      onRemove: (root) => {
+        root?.unmount()
+      }
+    })
+    ui.mount()
+    console.log("Article UI mounted");
+  }
+})

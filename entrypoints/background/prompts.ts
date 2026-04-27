@@ -2,8 +2,7 @@
  * AI提示词配置文件
  * 包含所有用于AI分析的系统提示词和用户提示词模板
  */
-
-import { Storage } from "@plasmohq/storage"
+import { storage } from "@wxt-dev/storage"
 
 // 语言映射表
 const LANGUAGE_MAP: Record<string, string> = {
@@ -42,8 +41,7 @@ interface AIConfig {
 // 获取用户设置的回复语言
 async function getReplyLanguage(): Promise<string> {
   try {
-    const storage = new Storage()
-    const config = await storage.get<AIConfig>("aiConfig")
+    const config = await storage.getItem<AIConfig>("local:aiConfig")
     const languageCode = config?.replyLanguage || "auto"
     return LANGUAGE_MAP[languageCode] || LANGUAGE_MAP["auto"]
   } catch (error) {
@@ -61,7 +59,7 @@ export const PROMPTS = {
     return `你是一个知识提取专家。请仔细分析用户提供的内容，并按照以下要求生成结构化的分析结果：
 
 **分析要求：**
-1. **总结**：生成500-1000字的精炼总结，概括视频的核心内容和主要观点。
+1. **总结**：生成500-1000字的精炼总结，概括视频的核心内容 and 主要观点。
 2. **关键要点**：提取3-8个最重要的知识点或观点，每个要点简洁明了，使用列表形式。
 3. **主要话题**：识别2-6个核心话题标签，便于分类和检索。
 

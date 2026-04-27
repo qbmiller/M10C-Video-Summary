@@ -1,26 +1,11 @@
-import styleOverride from "data-text:./mind-elixir-css-override.css"
-import tailwindStyles from "data-text:~style.css"
-import styleText from "data-text:mind-elixir/style.css"
-import sonnerStyle from "data-text:sonner/dist/styles.css"
-import type { PlasmoCSConfig, PlasmoGetStyle } from "plasmo"
-import { useEffect, useRef, useState } from "react"
-
-import { SubtitlePanel } from "~components/SubtitlePanel"
-import { t } from "~utils/i18n"
-
-export const config: PlasmoCSConfig = {
-  matches: [
-    "https://www.bilibili.com/video/*",
-    "https://www.bilibili.com/list/watchlater*"
-  ],
-  all_frames: false
-}
-
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = tailwindStyles + styleText + styleOverride + sonnerStyle
-  return style
-}
+import ReactDOM from "react-dom/client"
+import { useEffect, useState } from "react"
+import { SubtitlePanel } from "~/components/SubtitlePanel"
+import { t } from "~/utils/i18n"
+import mainStyles from "@/assets/style.css?inline"
+import elixirStyles from "mind-elixir/style.css?inline"
+import overrideStyles from "@/assets/mind-elixir-override.css?inline"
+import sonnerStyles from "sonner/dist/styles.css?inline"
 
 interface SubtitleItem {
   from: number
@@ -128,6 +113,11 @@ function BilibiliSubtitlePanel() {
       console.log("字幕列表:", subtitleList)
 
       // 获取第一个字幕文件
+      if (!subtitleList || subtitleList.length === 0) {
+        setError(t("noSubtitleOrLoginRequired"))
+        return
+      }
+
       const subtitleUrl = subtitleList[0].subtitle_url
       console.log("字幕文件URL:", subtitleUrl)
 
@@ -196,7 +186,9 @@ function BilibiliSubtitlePanel() {
 
     // 监听来自popup的消息
     const messageListener = (message: any) => {
+      console.log("Bilibili content script received message:", message);
       if (message.type === "SHOW_SUBTITLE_PANEL") {
+        console.log("Setting Bilibili panel to visible");
         setIsVisible(true)
       }
     }
@@ -241,4 +233,29 @@ function BilibiliSubtitlePanel() {
   )
 }
 
-export default BilibiliSubtitlePanel
+export default defineContentScript({
+  matches: [
+    "https://www.bilibili.com/video/*",
+    "https://www.bilibili.com/list/watchlater*"
+  ],
+  async main(ctx) {
+    console.log("Bilibili content script main started");
+    const ui = await createShadowRootUi(ctx, {
+      name: "bilibili-subtitle-panel",
+      position: "overlay",
+      zIndex: 2147483647,
+      css: `${mainStyles}${elixirStyles}${overrideStyles}${sonnerStyles}`,
+      onMount: (container) => {
+        console.log("Bilibili UI mounting...");
+        const root = ReactDOM.createRoot(container)
+        root.render(<BilibiliSubtitlePanel />)
+        return root
+      },
+      onRemove: (root) => {
+        root?.unmount()
+      }
+    })
+    ui.mount()
+    console.log("Bilibili UI mounted");
+  }
+})
