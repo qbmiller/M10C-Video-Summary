@@ -5,7 +5,7 @@ export const SimpleMarkdown = ({ content }: { content: string }) => {
 
   // Split content by lines but keep code blocks together? For simplicity, line by line.
   const lines = content.trim().split("\n")
-  const elements = []
+  const elements: React.ReactNode[] = []
   let listBuffer: React.ReactNode[] = []
 
   const flushList = (keyPrefix: string) => {
@@ -44,6 +44,9 @@ export const SimpleMarkdown = ({ content }: { content: string }) => {
           {trimmed.replace(/^##\s+/, "")}
         </h2>
       )
+    } else if (/^([-*_])\s*\1\s*\1(\s*\1)*$/.test(trimmed)) {
+      flushList(key)
+      elements.push(<hr key={key} className="my-4 border-t border-gray-300" />)
     } else if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
       flushList(key)
       elements.push(
