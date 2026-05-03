@@ -213,7 +213,7 @@ function IndexPopup() {
         </div>
 
         {/* 快速操作区域 */}
-        <div className="space-y-2 mb-3">
+        <div className="space-y-2">
           <Button
             onClick={triggerPanel}
             disabled={!pageInfo.available || panelTriggering}
