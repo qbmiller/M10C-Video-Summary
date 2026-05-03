@@ -26,5 +26,13 @@ export default defineConfig({
       page: 'entrypoints/options/index.html',
       open_in_tab: true,
     },
+    browser_specific_settings: {
+      gecko: {
+        data_collection_permissions: {
+          required: ["browsingActivity", "websiteContent"],
+          // optional: ["technicalAndInteraction"] 
+        }
+      }
+    }
   },
 });
