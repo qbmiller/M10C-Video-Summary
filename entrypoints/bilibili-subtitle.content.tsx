@@ -25,6 +25,7 @@ function BilibiliSubtitlePanel() {
   const [error, setError] = useState<string | null>(null)
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [currentBvid, setCurrentBvid] = useState<string | null>(null)
 
   // 从URL中提取BVID
   const extractBVID = (): string | null => {
@@ -173,22 +174,56 @@ function BilibiliSubtitlePanel() {
     setIsVisible(false)
   }
 
+  // 加载视频字幕
+  const loadVideoSubtitles = async (bvid: string) => {
+    if (bvid === currentBvid) {
+      return // 相同视频，不重复加载
+    }
+
+    console.log("检测到新视频，BVID:", bvid)
+    setCurrentBvid(bvid)
+    setSubtitles([]) // 清空旧字幕
+    setError(null)
+
+    const info = await fetchVideoInfo(bvid)
+    if (info) {
+      setVideoInfo(info)
+      await fetchSubtitles(info.bvid, info.cid)
+    }
+  }
+
   useEffect(() => {
+    // 初始加载
     const bvid = extractBVID()
     if (bvid) {
-      fetchVideoInfo(bvid).then(async (info) => {
-        if (info) {
-          setVideoInfo(info)
-          fetchSubtitles(info.bvid, info.cid)
-        }
-      })
+      loadVideoSubtitles(bvid)
     }
+
+    // 监听URL变化（Bilibili是SPA，需要监听pushState/replaceState）
+    let lastUrl = window.location.href
+    const checkUrlChange = () => {
+      const currentUrl = window.location.href
+      if (currentUrl !== lastUrl) {
+        lastUrl = currentUrl
+        const newBvid = extractBVID()
+        if (newBvid && newBvid !== currentBvid) {
+          console.log("URL变化，检测到新BVID:", newBvid)
+          loadVideoSubtitles(newBvid)
+        }
+      }
+    }
+
+    // 使用定时器检测URL变化（处理SPA导航）
+    const urlCheckInterval = setInterval(checkUrlChange, 1000)
+
+    // 同时监听popstate事件（处理浏览器前进后退）
+    window.addEventListener("popstate", checkUrlChange)
 
     // 监听来自popup的消息
     const messageListener = (message: any) => {
-      console.log("Bilibili content script received message:", message);
+      console.log("Bilibili content script received message:", message)
       if (message.type === "SHOW_SUBTITLE_PANEL") {
-        console.log("Setting Bilibili panel to visible");
+        console.log("Setting Bilibili panel to visible")
         setIsVisible(true)
       }
     }
@@ -196,9 +231,11 @@ function BilibiliSubtitlePanel() {
     chrome.runtime.onMessage.addListener(messageListener)
 
     return () => {
+      clearInterval(urlCheckInterval)
+      window.removeEventListener("popstate", checkUrlChange)
       chrome.runtime.onMessage.removeListener(messageListener)
     }
-  }, [])
+  }, [currentBvid])
 
   if (!isVisible) {
     return null
@@ -222,6 +259,7 @@ function BilibiliSubtitlePanel() {
 
   return (
     <SubtitlePanel
+      key={videoInfo?.bvid || 'no-video'}
       subtitles={convertedSubtitles}
       loading={loading}
       error={error}

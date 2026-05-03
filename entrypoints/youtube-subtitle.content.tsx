@@ -24,6 +24,7 @@ function YouTubeSubtitlePanel() {
   const [error, setError] = useState<string | null>(null)
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [currentVideoId, setCurrentVideoId] = useState<string | null>(null)
 
   // 从URL中提取视频ID
   const extractVideoId = (): string | null => {
@@ -238,15 +239,50 @@ function YouTubeSubtitlePanel() {
     setIsVisible(false)
   }
 
+  // 加载视频字幕
+  const loadVideoSubtitles = async (videoId: string) => {
+    if (videoId === currentVideoId) {
+      return // 相同视频，不重复加载
+    }
+
+    console.log("检测到新视频，Video ID:", videoId)
+    setCurrentVideoId(videoId)
+    setSubtitles([]) // 清空旧字幕
+    setError(null)
+
+    const title = getVideoTitle()
+    setVideoInfo({ videoId, title })
+
+    // 开始字幕逻辑
+    await startSubtitleLogic(videoId)
+  }
+
   useEffect(() => {
+    // 初始加载
     const videoId = extractVideoId()
     if (videoId) {
-      const title = getVideoTitle()
-      setVideoInfo({ videoId, title })
-
-      // 开始字幕逻辑
-      startSubtitleLogic(videoId)
+      loadVideoSubtitles(videoId)
     }
+
+    // 监听URL变化（YouTube是SPA，需要监听pushState/replaceState）
+    let lastUrl = window.location.href
+    const checkUrlChange = () => {
+      const currentUrl = window.location.href
+      if (currentUrl !== lastUrl) {
+        lastUrl = currentUrl
+        const newVideoId = extractVideoId()
+        if (newVideoId && newVideoId !== currentVideoId) {
+          console.log("URL变化，检测到新Video ID:", newVideoId)
+          loadVideoSubtitles(newVideoId)
+        }
+      }
+    }
+
+    // 使用定时器检测URL变化（处理SPA导航）
+    const urlCheckInterval = setInterval(checkUrlChange, 1000)
+
+    // 同时监听popstate事件（处理浏览器前进后退）
+    window.addEventListener("popstate", checkUrlChange)
 
     // 监听来自popup的消息
     const messageListener = (message: any) => {
@@ -258,39 +294,11 @@ function YouTubeSubtitlePanel() {
     chrome.runtime.onMessage.addListener(messageListener)
 
     return () => {
+      clearInterval(urlCheckInterval)
+      window.removeEventListener("popstate", checkUrlChange)
       chrome.runtime.onMessage.removeListener(messageListener)
     }
-  }, [])
-
-  // 监听页面变化
-  useEffect(() => {
-    const handleUrlChange = () => {
-      const newVideoId = extractVideoId()
-      if (newVideoId && newVideoId !== videoInfo?.videoId) {
-        const title = getVideoTitle()
-        setVideoInfo({ videoId: newVideoId, title })
-        setSubtitles([])
-        setError(null)
-
-        // 开始新的字幕逻辑
-        startSubtitleLogic(newVideoId)
-      }
-    }
-
-    // 监听pushstate和popstate事件
-    const originalPushState = history.pushState
-    history.pushState = function (...args) {
-      originalPushState.apply(history, args)
-      setTimeout(handleUrlChange, 1000)
-    }
-
-    window.addEventListener("popstate", handleUrlChange)
-
-    return () => {
-      history.pushState = originalPushState
-      window.removeEventListener("popstate", handleUrlChange)
-    }
-  }, [videoInfo?.videoId])
+  }, [currentVideoId])
 
   if (!isVisible) {
     return null
@@ -298,6 +306,7 @@ function YouTubeSubtitlePanel() {
 
   return (
     <SubtitlePanel
+      key={videoInfo?.videoId || 'no-video'}
       subtitles={subtitles}
       loading={loading}
       error={error}
