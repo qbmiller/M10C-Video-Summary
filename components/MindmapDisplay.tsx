@@ -131,11 +131,12 @@ export function MindmapDisplay({
       // 根据不同的action设置不同的内容字段
       if (generateConfig.action === "generateArticleMindmapStream") {
         messageData.content = content
-        if (generateConfig.getTitle) {
-          messageData.title = generateConfig.getTitle()
-        }
       } else {
         messageData.subtitles = content
+      }
+
+      if (generateConfig.getTitle) {
+        messageData.title = generateConfig.getTitle()
       }
 
       // Establish streaming connection

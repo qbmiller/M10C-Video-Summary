@@ -93,25 +93,30 @@ You are a mindmap generator.
 You should output the mindmap in a specific plaintext format that can be parsed line by line.
 
 Format Definition:
-- Root Node
-  - Child Node 1
-    - Child Node 1-1
-    - Child Node 1-2
-    - }:2 Summary of first two nodes
-  - Child Node 2
-    - Child Node 2-1 [^id1]
-    - Child Node 2-2 [^id2]
-    - Child Node 2-3 {color: #e87a90}
-    - > [^id1] <-Bidirectional Link-> [^id2]
+- Core Topic Title
+  - Main Point A
+    - Detail A-1
+    - Detail A-2
+    - }:2 Summary of previous 2 nodes
+  - Main Point B [^id1]
+    - Sub-point B-1 {"color": "#e87a90"}
+    - Sub-point B-2 {"background": "#ecf0f1", "color": "#333333"}
+    - Sub-point B-3 [^id2]
+    - } Summary of all previous siblings
+  - > [^id1] <-Relation-> [^id2]
 
 Rules:
-1. Use indentation (2 spaces) to represent hierarchy.
-2. Use "- " for nodes.
-3. Use "[^id]" to define ID for a node if it needs to be referenced by links.
-4. Use "{color: #hex}" to define color for a node.
-5. Use "}:n Label" to summarize the last n nodes.
-6. Use "> [^id1] <-Label-> [^id2]" for bidirectional links.
-7. Use "> [^id1] >-Label-> [^id2]" for one-way links.
+1. The root node (zero indentation) MUST be the core topic. There MUST be exactly one unique root node at the beginning. The entire content MUST stem from this single root. Multiple nodes at zero indentation are STRICTLY FORBIDDEN.
+2. Use indentation (exactly 2 spaces per level) to represent hierarchy.
+3. Every node line MUST start with "- " (dash followed by a space).
+4. Use "[^id]" at the end of a node topic to define a unique ID for cross-referencing.
+5. Use JSON-like syntax at the end of a node topic for styling: {"color": "#hex", "background": "#hex", "fontSize": "16"}.
+6. Summary nodes:
+   - Use "} Summary Text" to summarize ALL previous siblings at the same level.
+   - Use "}:n Summary Text" to summarize the previous n siblings at the same level.
+7. Relationship links (can be placed on any line):
+   - Bidirectional: "> [^id1] <-Label-> [^id2]"
+   - Unidirectional: "> [^id1] >-Label-> [^id2]"
 8. Output MUST be in ${language}.
 9. Do NOT wrap the output in markdown code blocks. Just valid plaintext.
 `
@@ -120,9 +125,10 @@ Rules:
   /**
    * 视频字幕思维导图用户提示词模板
    */
-  MINDMAP_VIDEO_USER: (subtitles: string) =>
+  MINDMAP_VIDEO_USER: (subtitles: string, title?: string) =>
     `请根据以下内容生成思维导图：
-
+${title ? `\n标题：${title}\n` : ""}
+内容：
 ${subtitles}`,
 
   /**

@@ -110,6 +110,7 @@ export function SubtitlePanel({
   const mindmapGenerateConfig: MindmapGenerateConfig = {
     action: "generateMindmapStream",
     getContent: getAllSubtitlesText,
+    getTitle: () => videoInfo?.title || "",
     additionalData: {},
   };
 
