@@ -25,12 +25,17 @@ function IndexPopup() {
       console.log("Loading AI status...");
       const config = await storage.getItem<AIConfig>("local:aiConfig")
       console.log("AI Config:", config);
+      // mind-elixir provider uses the built-in backend — no API key needed.
+      // If there is no saved config at all, background also falls back to the
+      // built-in endpoint, so treat that as enabled too.
+      const isMindElixirProvider =
+        !config || config?.provider === "mind-elixir"
       // 检查是否有配置的API密钥
       const hasApiKey =
         config &&
         config.apiKeys &&
         config.apiKeys[config.provider as keyof typeof config.apiKeys]
-      setAiEnabled(!!hasApiKey)
+      setAiEnabled(isMindElixirProvider || !!hasApiKey)
     } catch (error) {
       console.error("加载AI配置失败:", error)
     } finally {

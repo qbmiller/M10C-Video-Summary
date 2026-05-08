@@ -478,5 +478,29 @@
   "connecting": {
     "message": "连接中...",
     "description": "连接中状态"
+  },
+  "defaultModelTitle": {
+    "message": "内置 Mind Elixir 模型（无需 API Key）",
+    "description": "默认模型横幅标题"
+  },
+  "defaultModelDesc": {
+    "message": "即使不配置 AI 服务商，也可以直接使用内置的 Mind Elixir 托管模型，消耗 Mind Elixir 账户的星星余额。",
+    "description": "默认模型横幅描述"
+  },
+  "defaultModelEndpoint": {
+    "message": "默认接口",
+    "description": "默认模型接口标签"
+  },
+  "defaultModelRecharge": {
+    "message": "充值星星请访问",
+    "description": "默认模型充值链接标签"
+  },
+  "meProviderDesc": {
+    "message": "使用内置 Mind Elixir 模型，无需 API Key，请求将从您的 Mind Elixir 星星余额中扣除。",
+    "description": "Mind Elixir 服务商面板描述"
+  },
+  "meProviderRecharge": {
+    "message": "充值星星：",
+    "description": "Mind Elixir 服务商充值标签"
   }
 }

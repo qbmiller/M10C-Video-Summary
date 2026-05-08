@@ -110,7 +110,7 @@ Rules:
 2. Use indentation (exactly 2 spaces per level) to represent hierarchy.
 3. Every node line MUST start with "- " (dash followed by a space).
 4. Use "[^id]" at the end of a node topic to define a unique ID for cross-referencing.
-5. Use JSON-like syntax at the end of a node topic for styling: {"color": "#hex", "background": "#hex", "fontSize": "16"}.
+5. Use JSON-like syntax at the end of a node topic for styling: {"color": "#hex", "background": "#hex", "fontSize": "16"}. Use this feature with extreme restraint. By default, do NOT add colors or background styles to standard nodes. Only apply styling to highly critical or special nodes that require strong visual emphasis.
 6. Summary nodes:
    - Use "} Summary Text" to summarize ALL previous siblings at the same level.
    - Use "}:n Summary Text" to summarize the previous n siblings at the same level.

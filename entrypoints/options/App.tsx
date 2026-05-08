@@ -33,6 +33,11 @@ interface AIProvider {
 
 const AI_PROVIDERS: AIProvider[] = [
   {
+    id: "mind-elixir",
+    name: "Mind Elixir ⭐",
+    apiKeyLabel: ""
+  },
+  {
     id: "openai",
     name: "OpenAI",
     apiKeyLabel: "API Key",
@@ -105,9 +110,9 @@ interface AIConfig {
 
 function OptionsPage() {
   const [aiConfig, setAiConfig] = useState<AIConfig>({
-    provider: "openai",
+    provider: "mind-elixir",
     apiKeys: {},
-    model: "gpt-3.5-turbo",
+    model: "",
     baseUrls: {},
     replyLanguage: "auto"
   })
@@ -305,6 +310,8 @@ function OptionsPage() {
 
   const currentProvider = AI_PROVIDERS.find((p) => p.id === aiConfig.provider)
 
+  const isMindElixir = aiConfig.provider === "mind-elixir"
+
   return (
     <div className="min-w-[800px] max-w-5xl mx-auto p-10">
       <div className="mb-6">
@@ -336,53 +343,75 @@ function OptionsPage() {
             </Select>
           </div>
 
-          {currentProvider?.baseUrl && (
-            <div className="space-y-2">
-              <Label htmlFor="api-address" className="text-lg font-semibold">{t("apiAddress")}</Label>
-              <Input
-                id="api-address"
-                type="text"
-                className="h-12 text-lg"
-                value={aiConfig.baseUrl || ""}
-                onChange={(e) =>
-                  setAiConfig({
-                    ...aiConfig,
-                    baseUrl: e.target.value || undefined
-                  })
-                }
-                placeholder={currentProvider.baseUrl}
-              />
-              <p className="text-xs text-muted-foreground">
-                {t("customApiAddressTip")}
+          {/* Mind Elixir built-in provider panel */}
+          {isMindElixir ? (
+            <div className="rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-5 space-y-3">
+              <p className="text-sm font-medium text-amber-900 dark:text-amber-200">
+                {t("meProviderDesc")}
+              </p>
+              <p className="text-sm text-amber-800 dark:text-amber-300">
+                {t("meProviderRecharge")}{" "}
+                <a
+                  href="https://app.mind-elixir.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold underline underline-offset-2 hover:text-amber-950 dark:hover:text-amber-100"
+                >
+                  app.mind-elixir.com
+                </a>
               </p>
             </div>
+          ) : (
+            <>
+              {currentProvider?.baseUrl && (
+                <div className="space-y-2">
+                  <Label htmlFor="api-address" className="text-lg font-semibold">{t("apiAddress")}</Label>
+                  <Input
+                    id="api-address"
+                    type="text"
+                    className="h-12 text-lg"
+                    value={aiConfig.baseUrl || ""}
+                    onChange={(e) =>
+                      setAiConfig({
+                        ...aiConfig,
+                        baseUrl: e.target.value || undefined
+                      })
+                    }
+                    placeholder={currentProvider.baseUrl}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    {t("customApiAddressTip")}
+                  </p>
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="api-key" className="text-lg font-semibold">
+                  {currentProvider?.apiKeyLabel || "API Key"}
+                </Label>
+                <Input
+                  id="api-key"
+                  type="password"
+                  className="h-12 text-lg"
+                  value={
+                    aiConfig.apiKeys?.[
+                      aiConfig.provider as keyof typeof aiConfig.apiKeys
+                    ] || ""
+                  }
+                  onChange={(e) => handleApiKeyChange(e.target.value)}
+                  placeholder={t(
+                    "enterApiKeyPlaceholder",
+                    currentProvider?.name || ""
+                  )}
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t("autoFetchModelsTip")}
+                </p>
+              </div>
+            </>
           )}
 
-          <div className="space-y-2">
-            <Label htmlFor="api-key" className="text-lg font-semibold">
-              {currentProvider?.apiKeyLabel || "API Key"}
-            </Label>
-            <Input
-              id="api-key"
-              type="password"
-              className="h-12 text-lg"
-              value={
-                aiConfig.apiKeys?.[
-                  aiConfig.provider as keyof typeof aiConfig.apiKeys
-                ] || ""
-              }
-              onChange={(e) => handleApiKeyChange(e.target.value)}
-              placeholder={t(
-                "enterApiKeyPlaceholder",
-                currentProvider?.name || ""
-              )}
-            />
-            <p className="text-xs text-muted-foreground">
-              {t("autoFetchModelsTip")}
-            </p>
-          </div>
-
-          <div className="space-y-4">
+          {!isMindElixir && <div className="space-y-4">
             <Label className="text-xl font-bold">
               {t("modelSelection")}
             </Label>
@@ -530,7 +559,7 @@ function OptionsPage() {
             <p className="text-xs text-muted-foreground">
               {t("supportsAutoFetchModels")}
             </p>
-          </div>
+          </div>}
 
           <div className="space-y-2">
             <Label htmlFor="reply-language" className="text-lg font-semibold">{t("aiReplyLanguage")}</Label>

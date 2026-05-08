@@ -478,5 +478,29 @@
   "connecting": {
     "message": "Connecting...",
     "description": "Connecting status"
+  },
+  "defaultModelTitle": {
+    "message": "Built-in Mind Elixir Model (No API Key Required)",
+    "description": "Default model banner title"
+  },
+  "defaultModelDesc": {
+    "message": "Even without configuring an AI provider, you can use the built-in Mind Elixir hosted model right away. It consumes Star balance from your Mind Elixir account.",
+    "description": "Default model banner description"
+  },
+  "defaultModelEndpoint": {
+    "message": "Default endpoint",
+    "description": "Default model endpoint label"
+  },
+  "defaultModelRecharge": {
+    "message": "Recharge Stars at",
+    "description": "Default model recharge link label"
+  },
+  "meProviderDesc": {
+    "message": "Using the built-in Mind Elixir model. No API key needed — requests are billed from your Mind Elixir Star balance.",
+    "description": "Mind Elixir provider inline panel description"
+  },
+  "meProviderRecharge": {
+    "message": "Recharge Stars:",
+    "description": "Mind Elixir provider recharge label"
   }
 }

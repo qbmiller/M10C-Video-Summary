@@ -205,8 +205,26 @@ class ClaudeProvider implements ProviderConfig {
   }
 }
 
+// Default fallback endpoint powered by Mind Elixir Star balance.
+// Used when the user has not configured a personal AI provider.
+const DEFAULT_MIND_ELIXIR_CONFIG: AIConfig = {
+  provider: "openai-compatible",
+  apiKeys: { "openai-compatible": "mind-elixir" },
+  model: "MindElixirStar",
+  baseUrl: import.meta.env.DEV
+    ? "http://localhost:7001/api/v1"
+    : "https://mind-elixir-backend.fly.dev/api/v1",
+  baseUrls: {
+    "openai-compatible": import.meta.env.DEV
+      ? "http://localhost:7001/api/v1"
+      : "https://mind-elixir-backend.fly.dev/api/v1"
+  },
+  replyLanguage: "auto"
+}
+
 class BackgroundAIService {
   private providers: Record<string, ProviderConfig> = {
+    "mind-elixir": new OpenAIProvider(),
     openai: new OpenAIProvider(),
     "openai-compatible": new OpenAIProvider(),
     gemini: new GeminiProvider(),
@@ -236,12 +254,15 @@ class BackgroundAIService {
     signal?: AbortSignal
   ): Promise<void> {
     try {
-      const config = await this.getConfig()
-      const apiKey =
-        config?.apiKeys?.[config.provider as keyof typeof config.apiKeys]
+      let config = await this.getConfig()
+      let apiKey = config?.apiKeys?.[config.provider as keyof typeof config.apiKeys]
 
-      if (!config || !apiKey) {
-        throw new Error("AI功能未配置")
+      // Fall back to the built-in Mind Elixir endpoint when:
+      // (a) the user has not configured any provider, or
+      // (b) the user explicitly selected the "mind-elixir" provider.
+      if (!config || !apiKey || config.provider === "mind-elixir") {
+        config = DEFAULT_MIND_ELIXIR_CONFIG
+        apiKey = DEFAULT_MIND_ELIXIR_CONFIG.apiKeys["openai-compatible"]!
       }
 
       const provider = this.providers[config.provider]
