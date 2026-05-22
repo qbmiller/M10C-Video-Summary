@@ -152,6 +152,15 @@ function OptionsPage() {
         const data = await response.json()
         if (data.data) {
           setUser(data.data)
+          // Unlock the m10c badge for the user
+          try {
+            await fetch(`${BACKEND_BASE_URL}/api/user/badge/m10c`, {
+              method: "POST",
+              credentials: "include"
+            })
+          } catch (badgeError) {
+            console.error("Failed to unlock m10c badge:", badgeError)
+          }
         } else {
           setUser(null)
         }
