@@ -117,7 +117,7 @@ export const THEMES = {
 }
 
 // 语言代码映射
-export const LANGUAGE_CODES = {
+export const LANGUAGE_CODES: Record<string, string[]> = {
   zh: ["zh", "zh-CN", "zh-Hans", "zh-TW", "zh-Hant"],
   en: ["en", "en-US", "en-GB"],
   ja: ["ja", "ja-JP"],

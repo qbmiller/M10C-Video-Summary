@@ -1,4 +1,4 @@
-import type { MindElixirInstance } from "mind-elixir/dist/types"
+import type { MindElixirInstance } from "mind-elixir"
 
 export const fullscreen = (mei: MindElixirInstance) => {
   const el = mei.el!

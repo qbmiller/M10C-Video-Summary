@@ -1,0 +1,534 @@
+{
+  "extensionName": {
+    "message": "M10C | Página web y video a mapa mental",
+    "description": "Extension name"
+  },
+  "extensionDescription": {
+    "message": "Resume videos o convierte videos en mapas mentales",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "Asistente M10C",
+    "description": "Popup title"
+  },
+  "popupSubtitle": {
+    "message": "Herramienta de análisis de contenido inteligente",
+    "description": "Popup subtitle"
+  },
+  "videoPage": {
+    "message": "Página de video",
+    "description": "Video page type"
+  },
+  "articlePage": {
+    "message": "Página de artículo",
+    "description": "Article page type"
+  },
+  "unsupportedPage": {
+    "message": "Página no compatible",
+    "description": "Unsupported page type"
+  },
+  "videoPageDescription": {
+    "message": "Soporta extracción de subtítulos y resumen de IA",
+    "description": "Video page feature description"
+  },
+  "articlePageDescription": {
+    "message": "Soporta resumen de IA y generación de mapas mentales",
+    "description": "Article page feature description"
+  },
+  "unsupportedPageDescription": {
+    "message": "Por favor, visita páginas de videos o artículos",
+    "description": "Unsupported page tip"
+  },
+  "startSubtitlePanel": {
+    "message": "Iniciar panel de subtítulos",
+    "description": "Start subtitle panel button text"
+  },
+  "generateMindmap": {
+    "message": "Abrir panel",
+    "description": "Open panel button text"
+  },
+  "cannotUse": {
+    "message": "No disponible",
+    "description": "Cannot use button text"
+  },
+  "starting": {
+    "message": "Iniciando...",
+    "description": "Starting status text"
+  },
+  "aiServiceStatus": {
+    "message": "Estado del servicio de IA",
+    "description": "AI service status title"
+  },
+  "intelligentAnalysis": {
+    "message": "Función de análisis inteligente",
+    "description": "Intelligent analysis feature description"
+  },
+  "detecting": {
+    "message": "Detectando",
+    "description": "Detecting status"
+  },
+  "configured": {
+    "message": "✓ Configurado",
+    "description": "Configured status"
+  },
+  "notConfigured": {
+    "message": "⚠ No configurado",
+    "description": "Not configured status"
+  },
+  "configureAiTip": {
+    "message": "💡 Configura el servicio de IA para usar las funciones de resumen inteligente y mapa mental",
+    "description": "Configure AI service tip"
+  },
+  "aiConfigManagement": {
+    "message": "Gestión de configuración de IA",
+    "description": "AI config management button"
+  },
+  "configureAiService": {
+    "message": "Configurar servicio de IA",
+    "description": "Configure AI service button"
+  },
+  "features": {
+    "message": "✨ Características",
+    "description": "Features title"
+  },
+  "autoSubtitleExtraction": {
+    "message": "Extracción automática de subtítulos de YouTube/Bilibili",
+    "description": "Auto subtitle extraction feature"
+  },
+  "aiContentSummary": {
+    "message": "Análisis y resumen inteligente de contenido por IA",
+    "description": "AI content summary feature"
+  },
+  "articleMindmap": {
+    "message": "Generación de mapa mental a partir del contenido del artículo",
+    "description": "Article mindmap feature"
+  },
+  "oneClickJump": {
+    "message": "Salto de tiempo y posicionamiento de contenido con un solo clic",
+    "description": "One-click jump feature"
+  },
+  "optionsTitle": {
+    "message": "Resumen de subtítulos de video por IA - Configuración",
+    "description": "Options page title"
+  },
+  "aiServiceConfig": {
+    "message": "Configuración del servicio de IA",
+    "description": "AI service config title"
+  },
+  "enableAiSummary": {
+    "message": "Activar función de resumen de IA",
+    "description": "Enable AI summary label"
+  },
+  "enableSubtitleAiSummary": {
+    "message": "Activar resumen de subtítulos por IA",
+    "description": "Enable subtitle AI summary checkbox"
+  },
+  "aiProvider": {
+    "message": "Proveedor de IA",
+    "description": "AI provider label"
+  },
+  "modelSelection": {
+    "message": "Selección de modelo",
+    "description": "Model selection label"
+  },
+  "searchModels": {
+    "message": "Buscar modelos...",
+    "description": "Placeholder for search models input"
+  },
+  "usePresetModel": {
+    "message": "Usar modelo preestablecido",
+    "description": "Use preset model option"
+  },
+  "useCustomModel": {
+    "message": "Nombre de modelo personalizado",
+    "description": "Custom model option"
+  },
+  "apiAddress": {
+    "message": "Dirección de la API",
+    "description": "API address label"
+  },
+  "customApiAddressTip": {
+    "message": "Modifica aquí si necesitas usar una dirección de API personalizada",
+    "description": "Custom API address tip"
+  },
+  "saving": {
+    "message": "Guardando...",
+    "description": "Saving status"
+  },
+  "saved": {
+    "message": "Guardado",
+    "description": "Saved status"
+  },
+  "saveConfig": {
+    "message": "Guardar configuración",
+    "description": "Save config button"
+  },
+  "usageInstructions": {
+    "message": "Instrucciones de uso",
+    "description": "Usage instructions title"
+  },
+  "refreshing": {
+    "message": "Obteniendo...",
+    "description": "Refreshing models status"
+  },
+  "refresh": {
+    "message": "Actualizar",
+    "description": "Refresh button"
+  },
+  "refreshPage": {
+    "message": "Actualizar página",
+    "description": "Refresh page button"
+  },
+  "fetchingModels": {
+    "message": "Obteniendo lista de modelos...",
+    "description": "Fetching models status"
+  },
+  "autoFetchModelsTip": {
+    "message": "La lista de modelos se obtendrá automáticamente después de ingresar la clave API",
+    "description": "Auto fetch models tip"
+  },
+  "enterCustomModelName": {
+    "message": "Por favor, introduce el nombre del modelo, ej.: gpt-4-1106-preview",
+    "description": "Enter custom model name tip"
+  },
+  "subtitlePanel": {
+    "message": "Panel de subtítulos",
+    "description": "Subtitle panel title"
+  },
+  "loading": {
+    "message": "Cargando...",
+    "description": "Loading status"
+  },
+  "error": {
+    "message": "Error",
+    "description": "Error status"
+  },
+  "noSubtitles": {
+    "message": "No hay datos de subtítulos disponibles",
+    "description": "No subtitles tip"
+  },
+  "aiSummary": {
+    "message": "Resumen de IA",
+    "description": "AI summary button"
+  },
+  "generateMindmapBtn": {
+    "message": "Generar mapa mental",
+    "description": "Generate mindmap button"
+  },
+  "close": {
+    "message": "Cerrar",
+    "description": "Close button"
+  },
+  "fullscreen": {
+    "message": "Pantalla completa",
+    "description": "Fullscreen button"
+  },
+  "exitFullscreen": {
+    "message": "Salir de pantalla completa",
+    "description": "Exit fullscreen button"
+  },
+  "generating": {
+    "message": "Generando...",
+    "description": "Generating status"
+  },
+  "summarizing": {
+    "message": "Resumiendo...",
+    "description": "Summarizing status"
+  },
+  "jumpToTime": {
+    "message": "Ir a",
+    "description": "Jump to time"
+  },
+  "seconds": {
+    "message": "segundos",
+    "description": "Seconds unit"
+  },
+  "minutes": {
+    "message": "minutos",
+    "description": "Minutes unit"
+  },
+  "hours": {
+    "message": "horas",
+    "description": "Hours unit"
+  },
+  "videoAssistant": {
+    "message": "Asistente de video",
+    "description": "Video assistant title"
+  },
+  "youtubeSubtitle": {
+    "message": "Subtítulo de YouTube",
+    "description": "YouTube subtitle title"
+  },
+  "subtitles": {
+    "message": "Subtítulos",
+    "description": "Subtitles tab"
+  },
+  "mindmap": {
+    "message": "Mapa mental",
+    "description": "Mindmap tab"
+  },
+  "generateAiSummary": {
+    "message": "Generar resumen de IA",
+    "description": "Generate AI summary button"
+  },
+  "viewSummary": {
+    "message": "Ver resumen",
+    "description": "View summary button"
+  },
+  "regenerate": {
+    "message": "Regenerar",
+    "description": "Regenerate button"
+  },
+  "getSubtitlesFirst": {
+    "message": "Por favor, obtén los subtítulos primero antes de generar el resumen de IA",
+    "description": "Get subtitles tip"
+  },
+  "generatingAiSummary": {
+    "message": "Generando resumen de IA...",
+    "description": "Generating AI summary status"
+  },
+  "aiContentSummaryTitle": {
+    "message": "Resumen de contenido por IA",
+    "description": "AI content summary title"
+  },
+  "cached": {
+    "message": "Almacenado en caché",
+    "description": "Cached status"
+  },
+  "summary": {
+    "message": "Resumen:",
+    "description": "Summary label"
+  },
+  "keyPoints": {
+    "message": "Puntos clave:",
+    "description": "Key points label"
+  },
+  "mainTopics": {
+    "message": "Temas principales:",
+    "description": "Main topics label"
+  },
+  "generatingMindmap": {
+    "message": "Generando mapa mental...",
+    "description": "Generating mindmap status"
+  },
+  "mindmapGenerated": {
+    "message": "Mapa mental generado con éxito",
+    "description": "Mindmap generated successfully message"
+  },
+  "aiSummaryGenerated": {
+    "message": "Resumen de IA generado con éxito",
+    "description": "AI summary generated successfully tip"
+  },
+  "openedSuccessfully": {
+    "message": "Abierto con éxito",
+    "description": "Opened successfully tip"
+  },
+  "openInMindElixir": {
+    "message": "Abrir en Mind Elixir",
+    "description": "Open in Mind Elixir button"
+  },
+  "opening": {
+    "message": "Abriendo...",
+    "description": "Opening status"
+  },
+  "getSubtitlesForMindmap": {
+    "message": "Por favor, obtén los subtítulos primero antes de generar el mapa mental",
+    "description": "Get subtitles for mindmap tip"
+  },
+  "fetchSubtitlesFailed": {
+    "message": "Error al obtener los subtítulos:",
+    "description": "Fetch subtitles failed message"
+  },
+  "invalidSubtitleUrl": {
+    "message": "URL del archivo de subtítulos no válida",
+    "description": "Invalid subtitle URL message"
+  },
+  "subtitleFormatError": {
+    "message": "Error de formato de datos de subtítulos: se esperaba formato de array",
+    "description": "Subtitle format error message"
+  },
+  "noSubtitleOrLoginRequired": {
+    "message": "Es posible que este video no tenga subtítulos, o se requiere iniciar sesión para acceder",
+    "description": "No subtitle or login required message"
+  },
+  "getVideoInfoFailed": {
+    "message": "Error al obtener la información del video:",
+    "description": "Get video info failed message"
+  },
+  "subtitleLoadedCount": {
+    "message": "Subtítulos cargados con éxito, {count} elementos en total",
+    "description": "Subtitle loaded count message"
+  },
+  "unknownTitle": {
+    "message": "Título desconocido",
+    "description": "Unknown title"
+  },
+  "subtitleLogicFailed": {
+    "message": "Error en la lógica de subtítulos:",
+    "description": "Subtitle logic failed message"
+  },
+  "subtitleTimeout": {
+    "message": "Tiempo de espera agotado al obtener subtítulos. Por favor, asegúrate de que el video tenga subtítulos o intenta actualizar la página",
+    "description": "Subtitle fetch timeout error message"
+  },
+  "youtubeSubtitleFormatError": {
+    "message": "Error de formato de datos de subtítulos de YouTube:",
+    "description": "YouTube subtitle format error"
+  },
+  "expectedEventsArray": {
+    "message": "Error de formato de datos de subtítulos: se esperaba un array de eventos",
+    "description": "Expected events array error"
+  },
+  "loadSubtitleContentFailed": {
+    "message": "Error al cargar el contenido de los subtítulos:",
+    "description": "Load subtitle content failed"
+  },
+  "youtubeSubtitleLoadedCount": {
+    "message": "Subtítulos cargados con éxito, segmentos originales: {raw} elementos, fusionados: {merged} elementos",
+    "description": "YouTube subtitle loaded count"
+  },
+  "articleAssistant": {
+    "message": "📄 Asistente de artículos",
+    "description": "Article assistant title"
+  },
+  "noArticleContent": {
+    "message": "No hay contenido de artículo para resumir",
+    "description": "No article content error message"
+  },
+  "summaryFailed": {
+    "message": "Error en el resumen, por favor verifica la configuración de IA",
+    "description": "Summary failed error message"
+  },
+  "generateMindmapFailed": {
+    "message": "Error al generar el mapa mental",
+    "description": "Generate mindmap failed error message"
+  },
+  "openMindElixirFailed": {
+    "message": "Error al abrir Mind Elixir",
+    "description": "Open Mind Elixir failed error message"
+  },
+  "checkCacheFailed": {
+    "message": "Error al verificar la caché",
+    "description": "Check cache failed log message"
+  },
+  "articleDetectionFailed": {
+    "message": "Error en la detección del artículo",
+    "description": "Article detection failed error message"
+  },
+  "wordCount": {
+    "message": "Número de palabras",
+    "description": "Word count label"
+  },
+  "noAiSummary": {
+    "message": "No hay resumen de IA disponible",
+    "description": "No AI summary tip"
+  },
+  "clickToGenerateArticleSummary": {
+    "message": "Haz clic en el botón de arriba para generar el resumen de IA del artículo",
+    "description": "Click to generate article summary tip"
+  },
+  "noMindmap": {
+    "message": "No hay mapa mental disponible",
+    "description": "No mindmap tip"
+  },
+  "clickToGenerateArticleMindmap": {
+    "message": "Haz clic en el botón de arriba para generar el mapa mental del artículo",
+    "description": "Click to generate article mindmap tip"
+  },
+  "loadConfigFailed": {
+    "message": "Error al cargar la configuración",
+    "description": "Load config failed error message"
+  },
+  "saveConfigFailed": {
+    "message": "Error al guardar la configuración",
+    "description": "Save config failed error message"
+  },
+  "fetchModelsFailed": {
+    "message": "Error al obtener la lista de modelos",
+    "description": "Fetch models failed error message"
+  },
+  "enterApiKeyPlaceholder": {
+    "message": "Por favor, introduce la clave API de {provider}",
+    "description": "Enter API Key placeholder text"
+  },
+  "supportsAutoFetchModels": {
+    "message": "Soporta la obtención automática de la lista de modelos, también puedes introducir manualmente el nombre del modelo",
+    "description": "Supports auto fetch models tip"
+  },
+  "notSupportsAutoFetchModels": {
+    "message": "Este proveedor no soporta la obtención automática de la lista de modelos, puedes introducir manualmente el nombre del modelo",
+    "description": "Not supports auto fetch models tip"
+  },
+  "aiReplyLanguage": {
+    "message": "Idioma de respuesta de IA",
+    "description": "AI reply language selection label"
+  },
+  "aiReplyLanguageTip": {
+    "message": "Selecciona el idioma para las respuestas de la IA; la detección automática usará la configuración de idioma del navegador",
+    "description": "AI reply language selection tip"
+  },
+  "clickToGenerateVideoSummary": {
+    "message": "Haz clic en el botón de arriba para generar el resumen de IA del video",
+    "description": "Click to generate video summary tip"
+  },
+  "thinking": {
+    "message": "Pensando...",
+    "description": "Thinking status"
+  },
+  "connecting": {
+    "message": "Conectando...",
+    "description": "Connecting status"
+  },
+  "defaultModelTitle": {
+    "message": "Modelo integrado de Mind Elixir (no requiere clave API)",
+    "description": "Default model banner title"
+  },
+  "defaultModelDesc": {
+    "message": "Incluso sin configurar un proveedor de IA, puedes usar el modelo alojado integrado de Mind Elixir de inmediato. Consume el saldo de estrellas de tu cuenta de Mind Elixir.",
+    "description": "Default model banner description"
+  },
+  "defaultModelEndpoint": {
+    "message": "Punto final predeterminado",
+    "description": "Default model endpoint label"
+  },
+  "defaultModelRecharge": {
+    "message": "Recargar estrellas en",
+    "description": "Default model recharge link label"
+  },
+  "meProviderDesc": {
+    "message": "Usando el modelo integrado de Mind Elixir. No se necesita clave API — las solicitudes se facturan desde tu saldo de estrellas de Mind Elixir.",
+    "description": "Mind Elixir provider inline panel description"
+  },
+  "meProviderRecharge": {
+    "message": "Recargar estrellas:",
+    "description": "Mind Elixir provider recharge label"
+  },
+  "userProfile": {
+    "message": "Perfil de usuario",
+    "description": "User profile section title"
+  },
+  "notLoggedIn": {
+    "message": "Sesión no iniciada",
+    "description": "Not logged in status description"
+  },
+  "clickToLogin": {
+    "message": "Iniciar sesión en Mind Elixir",
+    "description": "Button to log in to Mind Elixir"
+  },
+  "starBalance": {
+    "message": "Saldo de estrellas",
+    "description": "User star balance label"
+  },
+  "refreshBalance": {
+    "message": "Actualizar",
+    "description": "Button to refresh balance"
+  },
+  "loginDescription": {
+    "message": "Inicia sesión para comprobar tu saldo de estrellas y usar los modelos predeterminados.",
+    "description": "Prompt for user to log in"
+  },
+  "logout": {
+    "message": "Cerrar sesión",
+    "description": "Logout button text"
+  }
+}
