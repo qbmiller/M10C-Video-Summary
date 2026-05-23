@@ -7,6 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Extension submission secrets
+.env.submit
+.env.submit.backup-*
+
 node_modules
 .output
 stats.html

@@ -1,0 +1,50 @@
+---
+name: WXT Extension Publishing
+description: Step-by-step instructions on how to package and publish a WXT-based browser extension to the Chrome Web Store using the `wxt submit` command.
+---
+
+# WXT Extension Publishing to Chrome Web Store
+
+This skill details the correct workflow for initializing authentication credentials and submitting a WXT browser extension to the Chrome Web Store. 
+
+## 1. Google Cloud Console Preparation
+To use the automated submission API, you must have an OAuth Client ID configured correctly:
+1. Go to your [Google Cloud Console Credentials Page](https://console.cloud.google.com/apis/credentials).
+2. Click **+ CREATE CREDENTIALS** and choose **OAuth client ID**.
+3. **CRITICAL STEP**: For the **Application type**, you must select **Desktop app** (桌面应用). If you select "Web application", the authorization flow will fail with a `redirect_uri_mismatch` error (`urn:ietf:wg:oauth:2.0:oob` is only allowed for native desktop apps).
+4. Save your **Client ID** and **Client Secret**.
+
+## 2. Initialize Submission Configuration
+Run the initialization command interactively:
+```bash
+pnpx wxt submit init
+```
+During the prompt:
+1. Select the stores you want to configure (e.g., `Chrome Web Store`).
+2. Enter your extension ID (found on the Chrome Developer Dashboard).
+3. Enter your **Client ID** and **Client Secret** (created as a "Desktop app" in step 1).
+4. When asked `Generate new refresh token?`, select **Yes**.
+5. The console will output an authorization URL starting with `https://accounts.google.com/o/oauth2/auth...`.
+6. Open the link in a browser, log in with your developer account, and grant access.
+7. Copy the **Auth Code** provided on the success page and paste it back into your terminal.
+
+This process will successfully write the configurations, including `CHROME_REFRESH_TOKEN`, to a local `.env.submit` file.
+
+> **Security Note:** Ensure that `.env.submit` and `.env.submit.backup-*` are added to your `.gitignore` to prevent leaking tokens.
+
+## 3. Package the Extension
+Before submitting, build and package the extension into a `.zip` file:
+```bash
+pnpm run zip
+# or simply run: wxt zip
+```
+The packaged file will be generated in the `.output/` folder (e.g., `.output/m10c-video-summary-extension-3.0.1-chrome.zip`).
+
+## 4. Submit for Review
+Finally, use the `wxt submit` CLI (which utilizes `publish-browser-extension` under the hood) to upload the zip to the Chrome Web Store and submit it for review:
+
+```bash
+pnpx wxt submit --chrome-zip .output/<YOUR_EXTENSION_ZIP_FILE_NAME>.zip
+```
+
+The CLI will check the ZIP file, fetch an access token, upload the ZIP, and automatically submit it for review.
