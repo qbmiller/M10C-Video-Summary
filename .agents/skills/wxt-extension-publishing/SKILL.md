@@ -28,6 +28,9 @@ During the prompt:
 6. Open the link in a browser, log in with your developer account, and grant access.
 7. Copy the **Auth Code** provided on the success page and paste it back into your terminal.
 
+> **💡 Pro-Tip for Firefox (`FIREFOX_EXTENSION_ID`):**  
+> If you are configuring Firefox and your Firefox Addon UUID contains curly braces (e.g., `{c8efa7cc-...}`), the underlying publishing tool currently has a bug that strips the braces and causes `404 Not Found` API errors. To fix this, use your extension's **URL Slug** (e.g., `m10c-web-page-video-to-mindmap`) as the `FIREFOX_EXTENSION_ID` instead of the UUID.
+
 This process will successfully write the configurations, including `CHROME_REFRESH_TOKEN`, to a local `.env.submit` file.
 
 > **Security Note:** Ensure that `.env.submit` and `.env.submit.backup-*` are added to your `.gitignore` to prevent leaking tokens.
