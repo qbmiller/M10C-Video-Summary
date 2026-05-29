@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2026-05-29
+
+### Added
+- **Traditional Chinese & Korean Localization**: Full localization support (`zh_TW`, `ko`) added for all UI strings, subtitles, AI summaries, option menus, and error messages.
+
+### Refactored
+- **Root Node AI Prompt Optimization**: Refactored the core background prompt generation rules to guarantee that the generated mindmap's root node is always the actual topic of the video/article, strictly forbidding generic placeholders like "Root".
+
+---
+
 ## [3.0.0] - 2026-05-09
 
 ### Added
