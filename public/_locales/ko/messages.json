@@ -1,0 +1,534 @@
+{
+  "extensionName": {
+    "message": "M10C | 웹 페이지 & 동영상을 마인드맵으로 변환",
+    "description": "확장 프로그램 이름"
+  },
+  "extensionDescription": {
+    "message": "동영상 내용을 요약하거나 동영상을 마인드맵으로 변환합니다.",
+    "description": "확장 프로그램 설명"
+  },
+  "popupTitle": {
+    "message": "M10C 어시스턴트",
+    "description": "팝업 제목"
+  },
+  "popupSubtitle": {
+    "message": "지능형 콘텐츠 분석 도구",
+    "description": "팝업 부제목"
+  },
+  "videoPage": {
+    "message": "동영상 페이지",
+    "description": "동영상 페이지 유형"
+  },
+  "articlePage": {
+    "message": "아티클 페이지",
+    "description": "아티클 페이지 유형"
+  },
+  "unsupportedPage": {
+    "message": "지원하지 않는 페이지",
+    "description": "지원하지 않는 페이지 유형"
+  },
+  "videoPageDescription": {
+    "message": "자막 추출 및 AI 요약 지원",
+    "description": "동영상 페이지 기능 설명"
+  },
+  "articlePageDescription": {
+    "message": "AI 요약 및 마인드맵 생성 지원",
+    "description": "아티클 페이지 기능 설명"
+  },
+  "unsupportedPageDescription": {
+    "message": "동영상 또는 아티클 페이지를 방문해 주세요.",
+    "description": "지원하지 않는 페이지 설명"
+  },
+  "startSubtitlePanel": {
+    "message": "자막 패널 시작",
+    "description": "자막 패널 시작 버튼 텍스트"
+  },
+  "generateMindmap": {
+    "message": "패널 열기",
+    "description": "패널 열기 버튼 텍스트"
+  },
+  "cannotUse": {
+    "message": "사용 불가",
+    "description": "사용 불가 버튼 텍스트"
+  },
+  "starting": {
+    "message": "시작 중...",
+    "description": "시작 중 상태 텍스트"
+  },
+  "aiServiceStatus": {
+    "message": "AI 서비스 상태",
+    "description": "AI 서비스 상태 제목"
+  },
+  "intelligentAnalysis": {
+    "message": "지능형 분석 기능",
+    "description": "지능형 분석 기능 설명"
+  },
+  "detecting": {
+    "message": "감지 중",
+    "description": "감지 중 상태"
+  },
+  "configured": {
+    "message": "✓ 설정됨",
+    "description": "설정됨 상태"
+  },
+  "notConfigured": {
+    "message": "⚠ 설정되지 않음",
+    "description": "설정되지 않음 상태"
+  },
+  "configureAiTip": {
+    "message": "💡 AI 서비스를 설정하면 지능형 요약 및 마인드맵 기능을 사용할 수 있습니다.",
+    "description": "AI 서비스 설정 팁"
+  },
+  "aiConfigManagement": {
+    "message": "AI 설정 관리",
+    "description": "AI 설정 관리 버튼"
+  },
+  "configureAiService": {
+    "message": "AI 서비스 설정",
+    "description": "AI 서비스 설정 버튼"
+  },
+  "features": {
+    "message": "✨ 주요 기능",
+    "description": "주요 기능 제목"
+  },
+  "autoSubtitleExtraction": {
+    "message": "YouTube/Bilibili 자막 자동 추출",
+    "description": "자막 자동 추출 기능"
+  },
+  "aiContentSummary": {
+    "message": "AI 지능형 콘텐츠 요약 분석",
+    "description": "AI 콘텐츠 요약 기능"
+  },
+  "articleMindmap": {
+    "message": "아티클 콘텐츠 마인드맵 생성",
+    "description": "아티클 마인드맵 기능"
+  },
+  "oneClickJump": {
+    "message": "클릭 한 번으로 시간 이동 및 내용 위치 찾기",
+    "description": "원클릭 시간 이동 기능"
+  },
+  "optionsTitle": {
+    "message": "동영상 자막 AI 요약 - 설정",
+    "description": "설정 페이지 제목"
+  },
+  "aiServiceConfig": {
+    "message": "AI 서비스 설정",
+    "description": "AI 서비스 설정 제목"
+  },
+  "enableAiSummary": {
+    "message": "AI 요약 기능 활성화",
+    "description": "AI 요약 활성화 라벨"
+  },
+  "enableSubtitleAiSummary": {
+    "message": "자막 AI 요약 활성화",
+    "description": "자막 AI 요약 활성화 체크박스"
+  },
+  "aiProvider": {
+    "message": "AI 서비스 제공업체",
+    "description": "AI 서비스 제공업체 라벨"
+  },
+  "modelSelection": {
+    "message": "모델 선택",
+    "description": "모델 선택 라벨"
+  },
+  "searchModels": {
+    "message": "모델 검색...",
+    "description": "모델 검색 플레이스홀더"
+  },
+  "usePresetModel": {
+    "message": "사전 설정된 모델 사용",
+    "description": "사전 설정된 모델 옵션"
+  },
+  "useCustomModel": {
+    "message": "사용자 정의 모델 이름",
+    "description": "사용자 정의 모델 옵션"
+  },
+  "apiAddress": {
+    "message": "API 주소",
+    "description": "API 주소 라벨"
+  },
+  "customApiAddressTip": {
+    "message": "사용자 정의 API 주소를 사용하려면 여기서 수정하세요.",
+    "description": "사용자 정의 API 주소 팁"
+  },
+  "saving": {
+    "message": "저장 중...",
+    "description": "저장 중 상태"
+  },
+  "saved": {
+    "message": "저장됨",
+    "description": "저장됨 상태"
+  },
+  "saveConfig": {
+    "message": "설정 저장",
+    "description": "설정 저장 버튼"
+  },
+  "usageInstructions": {
+    "message": "사용 방법",
+    "description": "사용 방법 제목"
+  },
+  "refreshing": {
+    "message": "가져오는 중...",
+    "description": "모델 목록 가져오기 상태"
+  },
+  "refresh": {
+    "message": "새로고침",
+    "description": "새로고침 버튼"
+  },
+  "refreshPage": {
+    "message": "페이지 새로고침",
+    "description": "페이지 새로고침 버튼"
+  },
+  "fetchingModels": {
+    "message": "모델 목록을 가져오는 중...",
+    "description": "모델 목록 가져오는 상태"
+  },
+  "autoFetchModelsTip": {
+    "message": "API Key를 입력하면 사용 가능한 모델 목록이 자동으로 다운로드됩니다.",
+    "description": "모델 자동 다운로드 팁"
+  },
+  "enterCustomModelName": {
+    "message": "모델 이름을 입력하세요 (예: gpt-4-1106-preview)",
+    "description": "모델 이름 입력 팁"
+  },
+  "subtitlePanel": {
+    "message": "자막 패널",
+    "description": "자막 패널 제목"
+  },
+  "loading": {
+    "message": "로딩 중...",
+    "description": "로딩 상태"
+  },
+  "error": {
+    "message": "오류",
+    "description": "오류 상태"
+  },
+  "noSubtitles": {
+    "message": "자막 데이터가 없습니다",
+    "description": "자막 데이터 없음 팁"
+  },
+  "aiSummary": {
+    "message": "AI 요약",
+    "description": "AI 요약 버튼"
+  },
+  "generateMindmapBtn": {
+    "message": "마인드맵 생성",
+    "description": "마인드맵 생성 버튼"
+  },
+  "close": {
+    "message": "닫기",
+    "description": "닫기 버튼"
+  },
+  "fullscreen": {
+    "message": "전체 화면",
+    "description": "전체 화면 버튼"
+  },
+  "exitFullscreen": {
+    "message": "전체 화면 종료",
+    "description": "전체 화면 종료 버튼"
+  },
+  "generating": {
+    "message": "생성 중...",
+    "description": "생성 중 상태"
+  },
+  "summarizing": {
+    "message": "요약 중...",
+    "description": "요약 중 상태"
+  },
+  "jumpToTime": {
+    "message": "이동",
+    "description": "시간 이동"
+  },
+  "seconds": {
+    "message": "초",
+    "description": "초 단위"
+  },
+  "minutes": {
+    "message": "분",
+    "description": "분 단위"
+  },
+  "hours": {
+    "message": "시간",
+    "description": "시간 단위"
+  },
+  "videoAssistant": {
+    "message": "동영상 어시스턴트",
+    "description": "동영상 어시스턴트 제목"
+  },
+  "youtubeSubtitle": {
+    "message": "YouTube 자막",
+    "description": "YouTube 자막 제목"
+  },
+  "subtitles": {
+    "message": "자막",
+    "description": "자막 탭"
+  },
+  "mindmap": {
+    "message": "마인드맵",
+    "description": "마인드맵 탭"
+  },
+  "generateAiSummary": {
+    "message": "AI 요약 생성",
+    "description": "AI 요약 생성 버튼"
+  },
+  "viewSummary": {
+    "message": "요약 보기",
+    "description": "요약 보기 버튼"
+  },
+  "regenerate": {
+    "message": "다시 생성",
+    "description": "다시 생성 버튼"
+  },
+  "getSubtitlesFirst": {
+    "message": "AI 요약을 생성하기 전에 먼저 자막을 가져오세요",
+    "description": "자막 먼저 가져오기 팁"
+  },
+  "generatingAiSummary": {
+    "message": "AI 요약 생성 중...",
+    "description": "AI 요약 생성 중 상태"
+  },
+  "aiContentSummaryTitle": {
+    "message": "AI 콘텐츠 요약",
+    "description": "AI 콘텐츠 요약 제목"
+  },
+  "cached": {
+    "message": "캐시됨",
+    "description": "캐시됨 상태"
+  },
+  "summary": {
+    "message": "요약:",
+    "description": "요약 라벨"
+  },
+  "keyPoints": {
+    "message": "핵심 요점:",
+    "description": "핵심 요점 라벨"
+  },
+  "mainTopics": {
+    "message": "주요 항목:",
+    "description": "주요 항목 라벨"
+  },
+  "generatingMindmap": {
+    "message": "마인드맵 생성 중...",
+    "description": "마인드맵 생성 중 상태"
+  },
+  "mindmapGenerated": {
+    "message": "마인드맵이 성공적으로 생성되었습니다",
+    "description": "마인드맵 생성 완료 메시지"
+  },
+  "aiSummaryGenerated": {
+    "message": "AI 요약이 성공적으로 생성되었습니다",
+    "description": "AI 요약 생성 완료 메시지"
+  },
+  "openedSuccessfully": {
+    "message": "성공적으로 열렸습니다",
+    "description": "열기 성공 메시지"
+  },
+  "openInMindElixir": {
+    "message": "Mind Elixir에서 열기",
+    "description": "Mind Elixir에서 열기 버튼"
+  },
+  "opening": {
+    "message": "열리는 중...",
+    "description": "열리는 중 상태"
+  },
+  "getSubtitlesForMindmap": {
+    "message": "마인드맵을 생성하기 전에 먼저 자막을 가져오세요",
+    "description": "마인드맵 자막 필요 팁"
+  },
+  "fetchSubtitlesFailed": {
+    "message": "자막 가져오기 실패:",
+    "description": "자막 가져오기 실패 메시지"
+  },
+  "invalidSubtitleUrl": {
+    "message": "유효하지 않은 자막 파일 URL",
+    "description": "유효하지 않은 자막 URL"
+  },
+  "subtitleFormatError": {
+    "message": "자막 데이터 형식 오류: 배열 형식이 필요합니다",
+    "description": "자막 형식 오류"
+  },
+  "noSubtitleOrLoginRequired": {
+    "message": "이 동영상에는 자막이 없거나, 액세스하려면 로그인이 필요할 수 있습니다",
+    "description": "자막 없음 혹은 로그인 필요 메시지"
+  },
+  "getVideoInfoFailed": {
+    "message": "동영상 정보 가져오기 실패:",
+    "description": "동영상 정보 실패 메시지"
+  },
+  "subtitleLoadedCount": {
+    "message": "자막을 성공적으로 불러왔습니다 (총 {count}개)",
+    "description": "자막 로드 성공 개수"
+  },
+  "unknownTitle": {
+    "message": "알 수 없는 제목",
+    "description": "알 수 없는 제목"
+  },
+  "subtitleLogicFailed": {
+    "message": "자막 처리 로직 실패:",
+    "description": "자막 로직 실패 메시지"
+  },
+  "subtitleTimeout": {
+    "message": "자막 가져오기 제한 시간 초과. 동영상에 자막이 있는지 확인하거나 페이지를 새로고침해 보세요.",
+    "description": "자막 시간 초과 오류"
+  },
+  "youtubeSubtitleFormatError": {
+    "message": "YouTube 자막 데이터 형식 오류:",
+    "description": "YouTube 자막 형식 오류"
+  },
+  "expectedEventsArray": {
+    "message": "자막 데이터 형식 오류: events 배열이 필요합니다",
+    "description": "events 배열 필요 오류"
+  },
+  "loadSubtitleContentFailed": {
+    "message": "자막 내용 로드 실패:",
+    "description": "자막 로드 실패 오류"
+  },
+  "youtubeSubtitleLoadedCount": {
+    "message": "자막을 성공적으로 불러왔습니다 (원본 세그먼트: {raw}개, 병합 후: {merged}개)",
+    "description": "YouTube 자막 로드 개수"
+  },
+  "articleAssistant": {
+    "message": "📄 아티클 어시스턴트",
+    "description": "아티클 어시스턴트 제목"
+  },
+  "noArticleContent": {
+    "message": "요약할 아티클 내용이 없습니다",
+    "description": "아티클 내용 없음 오류"
+  },
+  "summaryFailed": {
+    "message": "요약 실패. AI 설정을 확인해 주세요.",
+    "description": "요약 실패 오류"
+  },
+  "generateMindmapFailed": {
+    "message": "마인드맵 생성 실패",
+    "description": "마인드맵 생성 실패 오류"
+  },
+  "openMindElixirFailed": {
+    "message": "Mind Elixir 열기 실패",
+    "description": "Mind Elixir 열기 실패 오류"
+  },
+  "checkCacheFailed": {
+    "message": "캐시 확인 실패",
+    "description": "캐시 확인 실패 로그"
+  },
+  "articleDetectionFailed": {
+    "message": "아티클 감지 실패",
+    "description": "아티클 감지 실패 오류"
+  },
+  "wordCount": {
+    "message": "자수",
+    "description": "자수 라벨"
+  },
+  "noAiSummary": {
+    "message": "사용 가능한 AI 요약이 없습니다",
+    "description": "AI 요약 없음 팁"
+  },
+  "clickToGenerateArticleSummary": {
+    "message": "위 버튼을 클릭하여 아티클 AI 요약을 생성하세요",
+    "description": "아티클 AI 요약 생성 안내"
+  },
+  "noMindmap": {
+    "message": "사용 가능한 마인드맵이 없습니다",
+    "description": "마인드맵 없음 팁"
+  },
+  "clickToGenerateArticleMindmap": {
+    "message": "위 버튼을 클릭하여 아티클 마인드맵을 생성하세요",
+    "description": "아티클 마인드맵 생성 안내"
+  },
+  "loadConfigFailed": {
+    "message": "설정 불러오기 실패",
+    "description": "설정 로드 실패 오류"
+  },
+  "saveConfigFailed": {
+    "message": "설정 저장 실패",
+    "description": "설정 저장 실패 오류"
+  },
+  "fetchModelsFailed": {
+    "message": "모델 목록 가져오기 실패",
+    "description": "모델 목록 로드 실패 오류"
+  },
+  "enterApiKeyPlaceholder": {
+    "message": "{provider} API Key를 입력하세요",
+    "description": "API Key 플레이스홀더"
+  },
+  "supportsAutoFetchModels": {
+    "message": "모델 목록 자동 가져오기를 지원하며, 모델 이름을 수동으로 입력할 수도 있습니다",
+    "description": "모델 자동 가져오기 지원 안내"
+  },
+  "notSupportsAutoFetchModels": {
+    "message": "이 서비스 제공업체는 모델 목록 자동 가져오기를 지원하지 않으며, 모델 이름을 수동으로 입력할 수 있습니다",
+    "description": "모델 자동 가져오기 미지원 안내"
+  },
+  "aiReplyLanguage": {
+    "message": "AI 회신 언어",
+    "description": "AI 회신 언어 선택 라벨"
+  },
+  "aiReplyLanguageTip": {
+    "message": "AI 회신 시 사용할 언어를 선택하세요. 자동 감지는 브라우저 언어 설정을 따릅니다.",
+    "description": "AI 회신 언어 선택 안내"
+  },
+  "clickToGenerateVideoSummary": {
+    "message": "위 버튼을 클릭하여 동영상 AI 요약을 생성하세요",
+    "description": "동영상 AI 요약 생성 안내"
+  },
+  "thinking": {
+    "message": "생각 중...",
+    "description": "생각 중 상태"
+  },
+  "connecting": {
+    "message": "연결 중...",
+    "description": "연결 중 상태"
+  },
+  "defaultModelTitle": {
+    "message": "내장형 Mind Elixir 모델 (API Key 불필요)",
+    "description": "기본 모델 제목"
+  },
+  "defaultModelDesc": {
+    "message": "AI 서비스 제공업체를 설정하지 않아도 내장된 Mind Elixir 호스팅 모델을 즉시 사용할 수 있습니다. Mind Elixir 계정의 스타 잔액이 차감됩니다.",
+    "description": "기본 모델 설명"
+  },
+  "defaultModelEndpoint": {
+    "message": "기본 엔드포인트",
+    "description": "기본 모델 엔드포인트 라벨"
+  },
+  "defaultModelRecharge": {
+    "message": "스타 충전소",
+    "description": "스타 충전 링크"
+  },
+  "meProviderDesc": {
+    "message": "내장형 Mind Elixir 모델을 사용합니다. API 키가 필요 없으며 요청은 귀하의 Mind Elixir 스타 잔액에서 차감됩니다.",
+    "description": "Mind Elixir 제공업체 설명"
+  },
+  "meProviderRecharge": {
+    "message": "스타 충전:",
+    "description": "스타 충전 라벨"
+  },
+  "userProfile": {
+    "message": "사용자 프로필",
+    "description": "사용자 프로필 제목"
+  },
+  "notLoggedIn": {
+    "message": "로그인 안 됨",
+    "description": "로그인 안 됨 상태"
+  },
+  "clickToLogin": {
+    "message": "Mind Elixir 로그인",
+    "description": "로그인 버튼"
+  },
+  "starBalance": {
+    "message": "스타 잔액",
+    "description": "스타 잔액 라벨"
+  },
+  "refreshBalance": {
+    "message": "새로고침",
+    "description": "새로고침 버튼"
+  },
+  "loginDescription": {
+    "message": "로그인하여 스타 잔액을 확인하고 기본 모델을 사용해 보세요.",
+    "description": "로그인 안내 설명"
+  },
+  "logout": {
+    "message": "로그아웃",
+    "description": "로그아웃 버튼"
+  }
+}

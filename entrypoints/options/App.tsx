@@ -77,6 +77,7 @@ const REPLY_LANGUAGES = [
   { id: "auto", name: "Auto Detect" },
   { id: "en", name: "English" },
   { id: "zh-CN", name: "中文" },
+  { id: "zh-TW", name: "繁體中文" },
   { id: "ja", name: "日本語" },
   { id: "ko", name: "한국어" },
   { id: "fr", name: "Français" },

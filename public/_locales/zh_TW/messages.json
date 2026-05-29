@@ -1,0 +1,534 @@
+{
+  "extensionName": {
+    "message": "M10C | 網頁&影片轉心智圖",
+    "description": "插件名稱"
+  },
+  "extensionDescription": {
+    "message": "總結影片內容，或將影片轉換為心智圖",
+    "description": "插件描述"
+  },
+  "popupTitle": {
+    "message": "M10C 助手",
+    "description": "彈窗標題"
+  },
+  "popupSubtitle": {
+    "message": "智能內容分析工具",
+    "description": "彈窗副標題"
+  },
+  "videoPage": {
+    "message": "影片頁面",
+    "description": "影片頁面類型"
+  },
+  "articlePage": {
+    "message": "文章頁面",
+    "description": "文章頁面類型"
+  },
+  "unsupportedPage": {
+    "message": "不支援的頁面",
+    "description": "不支援的頁面類型"
+  },
+  "videoPageDescription": {
+    "message": "支援字幕擷取和 AI 總結",
+    "description": "影片頁面功能描述"
+  },
+  "articlePageDescription": {
+    "message": "支援 AI 總結和心智圖生成",
+    "description": "文章頁面功能描述"
+  },
+  "unsupportedPageDescription": {
+    "message": "請造訪影片或文章頁面",
+    "description": "不支援頁面的提示"
+  },
+  "startSubtitlePanel": {
+    "message": "啟動字幕面板",
+    "description": "啟動字幕面板按鈕文字"
+  },
+  "generateMindmap": {
+    "message": "開啟面板",
+    "description": "開啟面板按鈕文字"
+  },
+  "cannotUse": {
+    "message": "無法使用",
+    "description": "無法使用的按鈕文字"
+  },
+  "starting": {
+    "message": "啟動中...",
+    "description": "啟動中狀態文字"
+  },
+  "aiServiceStatus": {
+    "message": "AI 服務狀態",
+    "description": "AI服務狀態標題"
+  },
+  "intelligentAnalysis": {
+    "message": "智能分析功能",
+    "description": "智能分析功能描述"
+  },
+  "detecting": {
+    "message": "檢測中",
+    "description": "檢測中狀態"
+  },
+  "configured": {
+    "message": "✓ 已配置",
+    "description": "已配置狀態"
+  },
+  "notConfigured": {
+    "message": "⚠ 未配置",
+    "description": "未配置狀態"
+  },
+  "configureAiTip": {
+    "message": "💡 配置 AI 服務後可使用智能總結與心智圖功能",
+    "description": "配置AI服務提示"
+  },
+  "aiConfigManagement": {
+    "message": "AI 配置管理",
+    "description": "AI配置管理按鈕"
+  },
+  "configureAiService": {
+    "message": "配置 AI 服務",
+    "description": "配置AI服務按鈕"
+  },
+  "features": {
+    "message": "✨ 功能特性",
+    "description": "功能特性標題"
+  },
+  "autoSubtitleExtraction": {
+    "message": "YouTube/Bilibili 字幕自動擷取",
+    "description": "自動字幕提取功能"
+  },
+  "aiContentSummary": {
+    "message": "AI 智能內容總結分析",
+    "description": "AI內容总结功能"
+  },
+  "articleMindmap": {
+    "message": "文章內容心智圖生成",
+    "description": "文章思维导图功能"
+  },
+  "oneClickJump": {
+    "message": "一鍵時間跳轉與內容定位",
+    "description": "一鍵跳转功能"
+  },
+  "optionsTitle": {
+    "message": "影片字幕 AI 總結 - 配置",
+    "description": "選項頁面標題"
+  },
+  "aiServiceConfig": {
+    "message": "AI 服務配置",
+    "description": "AI服務配置標題"
+  },
+  "enableAiSummary": {
+    "message": "啟用 AI 總結功能",
+    "description": "啟用AI总结功能標籤"
+  },
+  "enableSubtitleAiSummary": {
+    "message": "啟用字幕 AI 總結",
+    "description": "啟用字幕AI总结複選框"
+  },
+  "aiProvider": {
+    "message": "AI 服務商",
+    "description": "AI服務商標籤"
+  },
+  "modelSelection": {
+    "message": "模型選擇",
+    "description": "模型選擇標籤"
+  },
+  "searchModels": {
+    "message": "搜尋模型...",
+    "description": "搜尋模型佔位符"
+  },
+  "usePresetModel": {
+    "message": "使用預設模型",
+    "description": "使用預設模型選項"
+  },
+  "useCustomModel": {
+    "message": "自訂模型名稱",
+    "description": "自訂模型選項"
+  },
+  "apiAddress": {
+    "message": "API 位址",
+    "description": "API地址標籤"
+  },
+  "customApiAddressTip": {
+    "message": "如需使用自訂 API 位址，請在此修改",
+    "description": "自訂API地址提示"
+  },
+  "saving": {
+    "message": "儲存中...",
+    "description": "儲存中狀態"
+  },
+  "saved": {
+    "message": "已儲存",
+    "description": "已儲存狀態"
+  },
+  "saveConfig": {
+    "message": "儲存配置",
+    "description": "儲存配置按鈕"
+  },
+  "usageInstructions": {
+    "message": "使用說明",
+    "description": "使用說明標題"
+  },
+  "refreshing": {
+    "message": "獲取中...",
+    "description": "重新整理模型清單狀態"
+  },
+  "refresh": {
+    "message": "重新整理",
+    "description": "重新整理按鈕"
+  },
+  "refreshPage": {
+    "message": "重新整理頁面",
+    "description": "重新整理頁面按鈕"
+  },
+  "fetchingModels": {
+    "message": "正在獲取模型清單...",
+    "description": "獲取模型清單狀態"
+  },
+  "autoFetchModelsTip": {
+    "message": "填寫 API Key 後將自動獲取可用模型清單",
+    "description": "自動獲取模型提示"
+  },
+  "enterCustomModelName": {
+    "message": "請輸入模型名稱，例如：gpt-4-1106-preview",
+    "description": "輸入自訂模型名稱提示"
+  },
+  "subtitlePanel": {
+    "message": "字幕面板",
+    "description": "字幕面板標題"
+  },
+  "loading": {
+    "message": "載入中...",
+    "description": "載入狀態"
+  },
+  "error": {
+    "message": "錯誤",
+    "description": "錯誤狀態"
+  },
+  "noSubtitles": {
+    "message": "暫無字幕資料",
+    "description": "無字幕資料提示"
+  },
+  "aiSummary": {
+    "message": "AI 總結",
+    "description": "AI總結按鈕"
+  },
+  "generateMindmapBtn": {
+    "message": "生成心智圖",
+    "description": "生成心智圖按鈕"
+  },
+  "close": {
+    "message": "關閉",
+    "description": "關閉按鈕"
+  },
+  "fullscreen": {
+    "message": "全螢幕",
+    "description": "全螢幕按鈕"
+  },
+  "exitFullscreen": {
+    "message": "退出全螢幕",
+    "description": "退出全螢幕按鈕"
+  },
+  "generating": {
+    "message": "生成中...",
+    "description": "生成中狀態"
+  },
+  "summarizing": {
+    "message": "總結中...",
+    "description": "總結中狀態"
+  },
+  "jumpToTime": {
+    "message": "跳轉到",
+    "description": "跳轉到時間"
+  },
+  "seconds": {
+    "message": "秒",
+    "description": "秒單位"
+  },
+  "minutes": {
+    "message": "分鐘",
+    "description": "分鐘單位"
+  },
+  "hours": {
+    "message": "小時",
+    "description": "小時單位"
+  },
+  "videoAssistant": {
+    "message": "影片助手",
+    "description": "影片助手標題"
+  },
+  "youtubeSubtitle": {
+    "message": "YouTube 字幕",
+    "description": "YouTube字幕標題"
+  },
+  "subtitles": {
+    "message": "字幕",
+    "description": "字幕標籤"
+  },
+  "mindmap": {
+    "message": "心智圖",
+    "description": "心智圖標籤"
+  },
+  "generateAiSummary": {
+    "message": "生成 AI 總結",
+    "description": "生成AI總結按鈕"
+  },
+  "viewSummary": {
+    "message": "查看總結",
+    "description": "查看總結按鈕"
+  },
+  "regenerate": {
+    "message": "重新生成",
+    "description": "重新生成按鈕"
+  },
+  "getSubtitlesFirst": {
+    "message": "請先獲取字幕後再生成 AI 總結",
+    "description": "獲取字幕提示"
+  },
+  "generatingAiSummary": {
+    "message": "正在生成 AI 總結...",
+    "description": "生成AI總結狀態"
+  },
+  "aiContentSummaryTitle": {
+    "message": "AI 內容總結",
+    "description": "AI內容總結標題"
+  },
+  "cached": {
+    "message": "已快取",
+    "description": "已快取狀態"
+  },
+  "summary": {
+    "message": "概要:",
+    "description": "概要標籤"
+  },
+  "keyPoints": {
+    "message": "關鍵要點:",
+    "description": "關鍵要點標籤"
+  },
+  "mainTopics": {
+    "message": "主要話題:",
+    "description": "主要話題標籤"
+  },
+  "generatingMindmap": {
+    "message": "正在生成心智圖...",
+    "description": "生成心智圖狀態"
+  },
+  "mindmapGenerated": {
+    "message": "心智圖生成成功",
+    "description": "心智圖生成成功提示"
+  },
+  "aiSummaryGenerated": {
+    "message": "AI 總結生成成功",
+    "description": "AI總結生成成功提示"
+  },
+  "openedSuccessfully": {
+    "message": "開啟成功",
+    "description": "開啟成功提示"
+  },
+  "openInMindElixir": {
+    "message": "在 Mind Elixir 開啟",
+    "description": "在Mind Elixir開啟按鈕"
+  },
+  "opening": {
+    "message": "正在開啟...",
+    "description": "正在開啟狀態"
+  },
+  "getSubtitlesForMindmap": {
+    "message": "請先獲取字幕後再生成心智圖",
+    "description": "獲取字幕生成心智圖提示"
+  },
+  "fetchSubtitlesFailed": {
+    "message": "獲取字幕失敗:",
+    "description": "獲取字幕失敗消息"
+  },
+  "invalidSubtitleUrl": {
+    "message": "字幕檔案位址無效",
+    "description": "字幕檔案位址無效消息"
+  },
+  "subtitleFormatError": {
+    "message": "字幕資料格式錯誤：期望陣列格式",
+    "description": "字幕資料格式錯誤消息"
+  },
+  "noSubtitleOrLoginRequired": {
+    "message": "該影片可能確實沒有字幕，或需要登入後才能存取",
+    "description": "無字幕或需要登入消息"
+  },
+  "getVideoInfoFailed": {
+    "message": "獲取影片資訊失敗:",
+    "description": "獲取影片資訊失敗消息"
+  },
+  "subtitleLoadedCount": {
+    "message": "字幕載入成功，共 {count} 條",
+    "description": "字幕載入成功計數消息"
+  },
+  "unknownTitle": {
+    "message": "未知標題",
+    "description": "未知標題"
+  },
+  "subtitleLogicFailed": {
+    "message": "字幕邏輯失敗:",
+    "description": "字幕邏輯失敗消息"
+  },
+  "subtitleTimeout": {
+    "message": "獲取字幕逾時，請確保影片有字幕，或嘗試重新整理頁面",
+    "description": "字幕獲取逾時錯誤消息"
+  },
+  "youtubeSubtitleFormatError": {
+    "message": "YouTube 字幕資料格式錯誤:",
+    "description": "YouTube字幕格式錯誤"
+  },
+  "expectedEventsArray": {
+    "message": "字幕資料格式錯誤：期望包含 events 陣列",
+    "description": "期望events陣列錯誤"
+  },
+  "loadSubtitleContentFailed": {
+    "message": "載入字幕內容失敗:",
+    "description": "載入字幕內容失敗"
+  },
+  "youtubeSubtitleLoadedCount": {
+    "message": "字幕載入成功，原始片段：{raw} 條，合併後：{merged} 條",
+    "description": "YouTube字幕載入成功計數"
+  },
+  "articleAssistant": {
+    "message": "📄 文章助手",
+    "description": "文章助手標題"
+  },
+  "noArticleContent": {
+    "message": "沒有文章內容可以總結",
+    "description": "沒有文章內容錯誤消息"
+  },
+  "summaryFailed": {
+    "message": "總結失敗，請檢查 AI 配置",
+    "description": "總結失敗錯誤消息"
+  },
+  "generateMindmapFailed": {
+    "message": "生成心智圖失敗",
+    "description": "生成心智圖失敗錯誤消息"
+  },
+  "openMindElixirFailed": {
+    "message": "開啟 Mind Elixir 失敗",
+    "description": "開啟Mind Elixir失敗錯誤消息"
+  },
+  "checkCacheFailed": {
+    "message": "檢查快取失敗",
+    "description": "檢查快取失敗日誌消息"
+  },
+  "articleDetectionFailed": {
+    "message": "文章檢測失敗",
+    "description": "文章檢測失敗錯誤消息"
+  },
+  "wordCount": {
+    "message": "字數",
+    "description": "字數標籤"
+  },
+  "noAiSummary": {
+    "message": "暫無 AI 總結",
+    "description": "暫無AI總結提示"
+  },
+  "clickToGenerateArticleSummary": {
+    "message": "點擊上方按鈕生成文章 AI 總結",
+    "description": "點擊生成文章總結提示"
+  },
+  "noMindmap": {
+    "message": "暫無心智圖",
+    "description": "暫無心智圖提示"
+  },
+  "clickToGenerateArticleMindmap": {
+    "message": "點擊上方按鈕生成文章心智圖",
+    "description": "點擊生成文章心智圖提示"
+  },
+  "loadConfigFailed": {
+    "message": "載入配置失敗",
+    "description": "載入配置失敗錯誤消息"
+  },
+  "saveConfigFailed": {
+    "message": "儲存配置失敗",
+    "description": "儲存配置失敗錯誤消息"
+  },
+  "fetchModelsFailed": {
+    "message": "獲取模型清單失敗",
+    "description": "獲取模型清單失敗錯誤消息"
+  },
+  "enterApiKeyPlaceholder": {
+    "message": "請輸入 {provider} 的 API Key",
+    "description": "輸入API Key佔位符文本"
+  },
+  "supportsAutoFetchModels": {
+    "message": "支援自動獲取模型清單，也可手動輸入模型名稱",
+    "description": "支援自動獲取模型提示"
+  },
+  "notSupportsAutoFetchModels": {
+    "message": "該服務商暫不支援自動獲取模型清單，可手動輸入模型名稱",
+    "description": "不支援自動獲取模型提示"
+  },
+  "aiReplyLanguage": {
+    "message": "AI 回覆語言",
+    "description": "AI回覆語言選擇標籤"
+  },
+  "aiReplyLanguageTip": {
+    "message": "選擇 AI 回覆時使用的語言，自動偵測將根據瀏覽器語言設定",
+    "description": "AI回覆語言選擇提示"
+  },
+  "clickToGenerateVideoSummary": {
+    "message": "點擊上方按鈕生成影片 AI 總結",
+    "description": "點擊生成影片總結提示"
+  },
+  "thinking": {
+    "message": "思考中...",
+    "description": "思考中狀態"
+  },
+  "connecting": {
+    "message": "連線中...",
+    "description": "連線中狀態"
+  },
+  "defaultModelTitle": {
+    "message": "內建 Mind Elixir 模型（無需 API Key）",
+    "description": "預設模型橫幅標題"
+  },
+  "defaultModelDesc": {
+    "message": "即使不配置 AI 服務商，也可以直接使用內建的 Mind Elixir 託管模型，消耗 Mind Elixir 帳戶的星星餘額。",
+    "description": "預設模型橫幅描述"
+  },
+  "defaultModelEndpoint": {
+    "message": "預設介面",
+    "description": "預設模型介面標籤"
+  },
+  "defaultModelRecharge": {
+    "message": "加值星星請造訪",
+    "description": "預設模型充值連結標籤"
+  },
+  "meProviderDesc": {
+    "message": "使用內建 Mind Elixir 模型，無需 API Key，請求將從您的 Mind Elixir 星星餘額中扣除。",
+    "description": "Mind Elixir 服務商面板描述"
+  },
+  "meProviderRecharge": {
+    "message": "加值星星：",
+    "description": "Mind Elixir 服務商充值標籤"
+  },
+  "userProfile": {
+    "message": "使用者資料",
+    "description": "使用者個人資料標題"
+  },
+  "notLoggedIn": {
+    "message": "未登入",
+    "description": "未登入狀態描述"
+  },
+  "clickToLogin": {
+    "message": "登入 Mind Elixir",
+    "description": "登入 Mind Elixir 按鈕"
+  },
+  "starBalance": {
+    "message": "星星餘額",
+    "description": "星星餘額標籤"
+  },
+  "refreshBalance": {
+    "message": "重新整理",
+    "description": "重新整理餘額按鈕"
+  },
+  "loginDescription": {
+    "message": "登入後可查看星星餘額並直接使用內建託管模型。",
+    "description": "使用者登入提示"
+  },
+  "logout": {
+    "message": "登出",
+    "description": "登出按鈕"
+  }
+}
