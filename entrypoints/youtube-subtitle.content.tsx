@@ -333,7 +333,7 @@ function YouTubeSubtitlePanel() {
 }
 
 export default defineContentScript({
-  matches: ["https://www.youtube.com/watch*"],
+  matches: ["https://www.youtube.com/*"],
   async main(ctx) {
     const ui = await createShadowRootUi(ctx, {
       name: "youtube-subtitle-panel",
