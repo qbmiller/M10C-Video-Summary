@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.1] - 2026-05-31
+
+### Added
+- **Login Status Polling**: Implemented periodic polling to detect and update the extension's login state after the user completes login on the website.
+- **Badge Caching**: Cached the obtained m10c badge state locally in the extension to prevent repeated backend requests.
+
+### Fixed
+- **YouTube Title Sync**: Fixed the video title in the subtitle panel not updating when navigating between videos on YouTube.
+- **YouTube Content Script Injection**: Fixed the content script failing to auto-inject on initial YouTube page load by updating the match pattern to support SPA navigation.
+
+---
+
 ## [3.1.0] - 2026-05-29
+
 
 ### Added
 - **Traditional Chinese & Korean Localization**: Full localization support (`zh_TW`, `ko`) added for all UI strings, subtitles, AI summaries, option menus, and error messages.
