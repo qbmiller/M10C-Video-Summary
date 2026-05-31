@@ -1,5 +1,5 @@
 import { Check, ChevronsUpDown, Search, Star, RefreshCw, LogOut, LogIn, User } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { storage } from "@wxt-dev/storage"
 
 import { Button } from "~/components/ui/button"
@@ -142,9 +142,34 @@ function OptionsPage() {
 
   const [user, setUser] = useState<UserData | null>(null)
   const [loadingUser, setLoadingUser] = useState(false)
+  const [isPolling, setIsPolling] = useState(false)
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  const fetchUser = async () => {
-    setLoadingUser(true)
+  const stopPolling = () => {
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current)
+      pollingIntervalRef.current = null
+    }
+    setIsPolling(false)
+  }
+
+  const startPolling = () => {
+    stopPolling()
+    setIsPolling(true)
+    let attempts = 0
+    const maxAttempts = 20 // 20 attempts * 5 seconds = 1.6 minutes
+
+    pollingIntervalRef.current = setInterval(async () => {
+      attempts++
+      const userData = await fetchUser(true) // Silent check
+      if (userData || attempts >= maxAttempts) {
+        stopPolling()
+      }
+    }, 5000)
+  }
+
+  const fetchUser = async (silent = false) => {
+    if (!silent) setLoadingUser(true)
     try {
       const response = await fetch(`${BACKEND_BASE_URL}/api/user`, {
         credentials: "include"
@@ -155,13 +180,21 @@ function OptionsPage() {
           setUser(data.data)
           // Unlock the m10c badge for the user
           try {
-            await fetch(`${BACKEND_BASE_URL}/api/user/badge/m10c`, {
-              method: "POST",
-              credentials: "include"
-            })
+            const badgeKey = `local:m10cBadgeUnlocked:${data.data.id || data.data._id || data.data.email || "guest"}` as `local:${string}`
+            const hasBadge = await storage.getItem<boolean>(badgeKey)
+            if (!hasBadge) {
+              const badgeRes = await fetch(`${BACKEND_BASE_URL}/api/user/badge/m10c`, {
+                method: "POST",
+                credentials: "include"
+              })
+              if (badgeRes.ok) {
+                await storage.setItem(badgeKey, true)
+              }
+            }
           } catch (badgeError) {
             console.error("Failed to unlock m10c badge:", badgeError)
           }
+          return data.data
         } else {
           setUser(null)
         }
@@ -172,11 +205,13 @@ function OptionsPage() {
       console.error("Fetch user failed:", error)
       setUser(null)
     } finally {
-      setLoadingUser(false)
+      if (!silent) setLoadingUser(false)
     }
+    return null
   }
 
   const handleLogout = async () => {
+    stopPolling()
     try {
       await fetch(`${BACKEND_BASE_URL}/api/user/logout`, {
         method: "POST",
@@ -191,11 +226,22 @@ function OptionsPage() {
 
   const handleLogin = () => {
     window.open(`${BACKEND_BASE_URL}/oauth/authme/login/cloud`, "_blank")
+    startPolling()
   }
 
   useEffect(() => {
     loadConfig()
     fetchUser()
+
+    const handleFocus = () => {
+      fetchUser(true)
+    }
+    window.addEventListener("focus", handleFocus)
+
+    return () => {
+      stopPolling()
+      window.removeEventListener("focus", handleFocus)
+    }
   }, [])
 
   const loadConfig = async () => {
@@ -308,6 +354,7 @@ function OptionsPage() {
   }
 
   const handleProviderChange = async (providerId: string) => {
+    stopPolling()
     const provider = AI_PROVIDERS.find((p) => p.id === providerId)
     if (provider) {
       // 从存储中加载完整配置，以获取该服务商之前保存的baseUrl
@@ -462,7 +509,7 @@ function OptionsPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={fetchUser}
+                        onClick={() => fetchUser()}
                         className="h-9 gap-1.5 text-amber-800 hover:text-amber-950 hover:bg-amber-100/50 dark:text-amber-200 dark:hover:text-amber-50 dark:hover:bg-amber-900/30"
                       >
                         <RefreshCw className="h-3.5 w-3.5" />
@@ -492,10 +539,15 @@ function OptionsPage() {
                     </div>
                     <Button
                       onClick={handleLogin}
+                      disabled={isPolling}
                       className="bg-amber-600 hover:bg-amber-700 text-white gap-1.5 h-10 px-4 rounded-xl shadow-sm border border-amber-700/20"
                     >
-                      <LogIn className="h-4 w-4" />
-                      <span>{t("clickToLogin")}</span>
+                      {isPolling ? (
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <LogIn className="h-4 w-4" />
+                      )}
+                      <span>{isPolling ? t("connecting") : t("clickToLogin")}</span>
                     </Button>
                   </div>
                 )}
