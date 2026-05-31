@@ -13,7 +13,7 @@ Before releasing, determine the appropriate semantic version bump (Major, Minor,
 1. Open [package.json](file:///Users/darksouls/projects/m10c/package.json).
 2. Locate the `"version"` field:
    ```json
-   "version": "3.1.0"
+   "version": "3.1.1"
    ```
 3. Increment the version accordingly and save the file.
 
@@ -64,3 +64,22 @@ Use the unified WXT submit tool to upload the zip packages to both the Chrome We
    ```
 
 WXT will automatically read `.env.submit` to acquire tokens, upload both files in parallel, wait for Firefox validation (verifying `0 errors`), and submit the updates for store review.
+
+## 5. Git Tagging
+After a successful submission, create and push a git tag to permanently mark the release in version control.
+
+1. Commit the version bump and changelog changes (if not already committed):
+   ```bash
+   git add package.json CHANGELOG.md
+   git commit -m "chore: release v<version>"
+   ```
+2. Create an annotated tag:
+   ```bash
+   git tag -a v<version> -m "v<version>"
+   ```
+3. Push the tag to the remote:
+   ```bash
+   git push origin v<version>
+   ```
+
+The tag should follow the format `v<MAJOR>.<MINOR>.<PATCH>` (e.g., `v3.1.1`) to match the version in `package.json`.
