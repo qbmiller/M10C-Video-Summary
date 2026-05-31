@@ -152,12 +152,15 @@ function YouTubeSubtitlePanel() {
       await waitForCCButtonAndEnable()
 
       // 设置超时，如果15秒内没有收到URL则停止
-      setTimeout(() => {
+      setTimeout(async () => {
         if (isListening) {
           isListening = false
           chrome.runtime.onMessage.removeListener(urlListener)
           setError(t("subtitleTimeout"))
           setLoading(false)
+          // 超时时也更新一次标题（此时页面标题应已加载完毕）
+          const latestTitle = await getVideoTitle()
+          setVideoInfo((prev) => prev ? { ...prev, title: latestTitle } : prev)
         }
       }, 15000)
     } catch (error) {
@@ -210,6 +213,9 @@ function YouTubeSubtitlePanel() {
 
         setSubtitles(mergedSubtitles)
         setLoading(false)
+        // 字幕加载成功时更新标题（确保标题与当前视频同步）
+        const latestTitle = await getVideoTitle()
+        setVideoInfo((prev) => prev ? { ...prev, title: latestTitle } : prev)
         console.log(
           t("youtubeSubtitleLoadedCount", [
             rawSubtitles.length.toString(),
@@ -220,11 +226,17 @@ function YouTubeSubtitlePanel() {
         console.error(t("youtubeSubtitleFormatError"), data)
         setError(t("expectedEventsArray"))
         setLoading(false)
+        // 格式错误时也更新标题
+        const latestTitle = await getVideoTitle()
+        setVideoInfo((prev) => prev ? { ...prev, title: latestTitle } : prev)
       }
     } catch (error) {
       console.error(t("loadSubtitleContentFailed"), error)
       setError(t("loadSubtitleContentFailed") + " " + (error as Error).message)
       setLoading(false)
+      // 加载失败时也更新标题
+      const latestTitle = await getVideoTitle()
+      setVideoInfo((prev) => prev ? { ...prev, title: latestTitle } : prev)
     }
   }
 
