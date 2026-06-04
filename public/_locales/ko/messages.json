@@ -542,5 +542,9 @@
   "mindElixirLoginRequired": {
     "message": "설정 페이지에서 Mind Elixir에 로그인하십시오",
     "description": "Mind Elixir 로그인 요구 메시지"
+  },
+  "mindElixirInsufficientBalance": {
+    "message": "Mind Elixir 스타 잔액이 부족합니다. 충전해 주세요.",
+    "description": "Mind Elixir 스타 잔액 부족 메시지"
   }
 }

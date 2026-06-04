@@ -542,5 +542,9 @@
   "mindElixirLoginRequired": {
     "message": "設定ページで Mind Elixir にログインしてください",
     "description": "Mind Elixir へのログインが必要なメッセージ"
+  },
+  "mindElixirInsufficientBalance": {
+    "message": "Mind Elixir のスター残高が不足しています。チャージしてください。",
+    "description": "Mind Elixir のスター残高不足のメッセージ"
   }
 }

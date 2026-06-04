@@ -542,5 +542,9 @@
   "mindElixirLoginRequired": {
     "message": "请在设置页面登录 Mind Elixir",
     "description": "需要登录 Mind Elixir 的提示"
+  },
+  "mindElixirInsufficientBalance": {
+    "message": "Mind Elixir 星星余额不足，请充值",
+    "description": "Mind Elixir 星星余额不足的提示"
   }
 }

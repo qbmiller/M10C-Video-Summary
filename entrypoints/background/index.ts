@@ -299,7 +299,10 @@ class BackgroundAIService {
 
       if (!response.ok) {
         const text = await response.text()
-        if (response.status === 403 && isMindElixir) {
+        if (response.status === 402 && isMindElixir) {
+          throw new Error(t("mindElixirInsufficientBalance"))
+        }
+        if ((response.status === 403 || response.status === 401) && isMindElixir) {
           throw new Error(t("mindElixirLoginRequired"))
         }
 
