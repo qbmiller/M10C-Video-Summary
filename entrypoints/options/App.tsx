@@ -118,9 +118,7 @@ interface UserData {
   star?: number
 }
 
-const BACKEND_BASE_URL = import.meta.env.DEV
-  ? "http://localhost:7001"
-  : "https://mind-elixir-backend.fly.dev"
+const BACKEND_BASE_URL = import.meta.env.WXT_BACKEND_BASE_URL
 
 function OptionsPage() {
   const [aiConfig, setAiConfig] = useState<AIConfig>({

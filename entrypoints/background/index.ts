@@ -206,19 +206,17 @@ class ClaudeProvider implements ProviderConfig {
   }
 }
 
+const BACKEND_BASE_URL = import.meta.env.WXT_BACKEND_BASE_URL
+
 // Default fallback endpoint powered by Mind Elixir Star balance.
 // Used when the user has not configured a personal AI provider.
 const DEFAULT_MIND_ELIXIR_CONFIG: AIConfig = {
   provider: "openai-compatible",
   apiKeys: { "openai-compatible": "mind-elixir" },
   model: "MindElixirStar",
-  baseUrl: import.meta.env.DEV
-    ? "http://localhost:7001/api/v1"
-    : "https://mind-elixir-backend.fly.dev/api/v1",
+  baseUrl: `${BACKEND_BASE_URL}/api/v1`,
   baseUrls: {
-    "openai-compatible": import.meta.env.DEV
-      ? "http://localhost:7001/api/v1"
-      : "https://mind-elixir-backend.fly.dev/api/v1"
+    "openai-compatible": `${BACKEND_BASE_URL}/api/v1`
   },
   replyLanguage: "auto"
 }
