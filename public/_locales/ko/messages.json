@@ -534,5 +534,13 @@
   "drag": {
     "message": "드래그",
     "description": "Drag button tooltip"
+  },
+  "apiRequestFailed": {
+    "message": "$1 API 요청 실패: $2 $3 - $4",
+    "description": "API 요청 실패 오류 메시지"
+  },
+  "mindElixirLoginRequired": {
+    "message": "설정 페이지에서 Mind Elixir에 로그인하십시오",
+    "description": "Mind Elixir 로그인 요구 메시지"
   }
 }

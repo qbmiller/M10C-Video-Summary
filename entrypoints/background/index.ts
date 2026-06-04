@@ -1,5 +1,6 @@
 import { PROMPTS } from "./prompts"
 import { storage } from "@wxt-dev/storage"
+import { t } from "~/utils/i18n"
 
 interface AIConfig {
   provider: string
@@ -255,14 +256,25 @@ class BackgroundAIService {
   ): Promise<void> {
     try {
       let config = await this.getConfig()
-      let apiKey = config?.apiKeys?.[config.provider as keyof typeof config.apiKeys]
+      const originalProvider = config?.provider || "mind-elixir"
+      let apiKey = config && config.provider ? config.apiKeys?.[config.provider as keyof typeof config.apiKeys] : undefined
 
       // Fall back to the built-in Mind Elixir endpoint when:
       // (a) the user has not configured any provider, or
       // (b) the user explicitly selected the "mind-elixir" provider.
-      if (!config || !apiKey || config.provider === "mind-elixir") {
+      const isMindElixir = !config || !apiKey || originalProvider === "mind-elixir"
+
+      if (isMindElixir) {
         config = DEFAULT_MIND_ELIXIR_CONFIG
         apiKey = DEFAULT_MIND_ELIXIR_CONFIG.apiKeys["openai-compatible"]!
+      }
+
+      if (!config) {
+        throw new Error("AI configuration is missing")
+      }
+
+      if (!apiKey) {
+        throw new Error("API Key is missing")
       }
 
       const provider = this.providers[config.provider]
@@ -289,8 +301,18 @@ class BackgroundAIService {
 
       if (!response.ok) {
         const text = await response.text()
+        if (response.status === 403 && isMindElixir) {
+          throw new Error(t("mindElixirLoginRequired"))
+        }
+
+        const displayProvider = isMindElixir ? "Mind Elixir" : (originalProvider || "AI")
         throw new Error(
-          `${config.provider} API请求失败: ${response.status} ${response.statusText} - ${text}`
+          t("apiRequestFailed", [
+            displayProvider,
+            response.status.toString(),
+            response.statusText || "",
+            text || ""
+          ])
         )
       }
 

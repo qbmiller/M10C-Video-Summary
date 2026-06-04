@@ -534,5 +534,13 @@
   "drag": {
     "message": "拖拽移動",
     "description": "拖拽按鈕提示"
+  },
+  "apiRequestFailed": {
+    "message": "$1 API請求失敗: $2 $3 - $4",
+    "description": "API請求失敗錯誤消息"
+  },
+  "mindElixirLoginRequired": {
+    "message": "請在設置頁面登錄 Mind Elixir",
+    "description": "需要登錄 Mind Elixir 的提示"
   }
 }

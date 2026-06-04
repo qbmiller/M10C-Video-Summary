@@ -534,5 +534,13 @@
   "drag": {
     "message": "Arrastrar",
     "description": "Drag button tooltip"
+  },
+  "apiRequestFailed": {
+    "message": "La solicitud de la API de $1 falló: $2 $3 - $4",
+    "description": "Mensaje de error de solicitud de API fallida"
+  },
+  "mindElixirLoginRequired": {
+    "message": "Inicie sesión en Mind Elixir en la página de configuración",
+    "description": "Mensaje de inicio de sesión requerido de Mind Elixir"
   }
 }

@@ -534,5 +534,13 @@
   "drag": {
     "message": "ドラッグ",
     "description": "Drag button tooltip"
+  },
+  "apiRequestFailed": {
+    "message": "$1 APIリクエストが失敗しました: $2 $3 - $4",
+    "description": "APIリクエスト失敗のエラーメッセージ"
+  },
+  "mindElixirLoginRequired": {
+    "message": "設定ページで Mind Elixir にログインしてください",
+    "description": "Mind Elixir へのログインが必要なメッセージ"
   }
 }

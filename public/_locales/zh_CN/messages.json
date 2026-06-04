@@ -534,5 +534,13 @@
   "drag": {
     "message": "拖拽移动",
     "description": "拖拽按钮提示"
+  },
+  "apiRequestFailed": {
+    "message": "$1 API请求失败: $2 $3 - $4",
+    "description": "API请求失败错误消息"
+  },
+  "mindElixirLoginRequired": {
+    "message": "请在设置页面登录 Mind Elixir",
+    "description": "需要登录 Mind Elixir 的提示"
   }
 }
