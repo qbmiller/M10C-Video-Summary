@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { storage } from "@wxt-dev/storage";
 
 export function useDraggable(
@@ -7,6 +7,7 @@ export function useDraggable(
 ) {
   const isDragging = useRef(false);
   const startOffset = useRef({ x: 0, y: 0 });
+  const [isPositionLoaded, setIsPositionLoaded] = useState(!storageKey);
 
   // Handle position validation and constraint
   const constrainPosition = useCallback((
@@ -26,7 +27,12 @@ export function useDraggable(
 
   // Load initial position from storage
   useEffect(() => {
-    if (!storageKey || !panelRef.current) return;
+    if (!storageKey) {
+      setIsPositionLoaded(true);
+      return;
+    }
+
+    if (!panelRef.current) return;
 
     const loadPosition = async () => {
       try {
@@ -45,6 +51,8 @@ export function useDraggable(
         }
       } catch (err) {
         console.error("Failed to load panel position:", err);
+      } finally {
+        setIsPositionLoaded(true);
       }
     };
 
@@ -142,5 +150,5 @@ export function useDraggable(
     [panelRef, storageKey, constrainPosition]
   );
 
-  return { onMouseDown };
+  return { onMouseDown, isPositionLoaded };
 }

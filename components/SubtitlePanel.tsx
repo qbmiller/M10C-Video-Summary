@@ -43,7 +43,7 @@ export function SubtitlePanel({
   onClose,
 }: SubtitlePanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const { onMouseDown } = useDraggable(panelRef, "video_panel_pos");
+  const { onMouseDown, isPositionLoaded } = useDraggable(panelRef, "video_panel_pos");
   const [activeTab, setActiveTab] = useState("subtitles");
 
   // 获取思维导图缓存键
@@ -121,6 +121,7 @@ export function SubtitlePanel({
     <div
       ref={panelRef}
       className="w-[350px] h-[600px] bg-white border border-gray-300 rounded p-2 shadow-lg fixed top-[80px] right-[20px] z-[9999] overflow-hidden flex flex-col"
+      style={{ visibility: isPositionLoaded ? "visible" : "hidden" }}
     >
       <div className="mb-[12px]">
         <div className="flex justify-between items-center mb-[8px]">

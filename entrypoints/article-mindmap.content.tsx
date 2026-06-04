@@ -22,12 +22,16 @@ import elixirStyles from "mind-elixir/style.css?inline"
 import overrideStyles from "@/assets/mind-elixir-override.css?inline"
 import sonnerStyles from "sonner/dist/styles.css?inline"
 
-function ArticleMindmapPanel() {
-  const [articleInfo, setArticleInfo] = useState<ArticleInfo | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
+function ArticleMindmapPanelContent({
+  articleInfo,
+  setIsVisible
+}: {
+  articleInfo: ArticleInfo
+  setIsVisible: (v: boolean) => void
+}) {
   const [activeTab, setActiveTab] = useState("summary")
   const panelRef = useRef<HTMLDivElement>(null)
-  const { onMouseDown } = useDraggable(panelRef, "article_panel_pos")
+  const { onMouseDown, isPositionLoaded } = useDraggable(panelRef, "article_panel_pos")
 
   // 获取文章内容
   const getArticleContent = () => {
@@ -70,46 +74,11 @@ function ArticleMindmapPanel() {
     return `mindmap_${btoa(articleInfo.url)}`
   }
 
-  // 监听来自popup的消息
-  useEffect(() => {
-    const messageListener = (message: any) => {
-      console.log("Article content script received message:", message);
-      if (message.type === "SHOW_ARTICLE_MINDMAP_PANEL") {
-        console.log("Setting Article panel to visible");
-        setIsVisible(true)
-      }
-    }
-
-    chrome.runtime.onMessage.addListener(messageListener)
-    return () => chrome.runtime.onMessage.removeListener(messageListener)
-  }, [articleInfo])
-
-  // 初始化检测文章信息（但不显示面板）
-  useEffect(() => {
-    const initDetection = async () => {
-      try {
-        const detected = detectArticle()
-        if (detected) {
-          setArticleInfo(detected)
-        }
-      } catch (error) {
-        console.error(t("articleDetectionFailed"), error)
-      }
-    }
-
-    // 延迟执行，确保页面加载完成
-    const timer = setTimeout(initDetection, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (!isVisible || !articleInfo) {
-    return null
-  }
-
   return (
     <div
       ref={panelRef}
-      className="w-[350px] h-[600px] bg-white border border-gray-300 rounded p-2 shadow-lg fixed top-[80px] right-[20px] z-[9999] overflow-hidden flex flex-col">
+      className="w-[350px] h-[600px] bg-white border border-gray-300 rounded p-2 shadow-lg fixed top-[80px] right-[20px] z-[9999] overflow-hidden flex flex-col"
+      style={{ visibility: isPositionLoaded ? "visible" : "hidden" }}>
       <div className="mb-[12px]">
         <div className="flex justify-between items-center mb-[8px]">
           <h3 className="m-0 text-[16px] font-semibold text-gray-900 select-none">
@@ -191,6 +160,54 @@ function ArticleMindmapPanel() {
       </Tabs>
       <Toaster />
     </div>
+  )
+}
+
+function ArticleMindmapPanel() {
+  const [articleInfo, setArticleInfo] = useState<ArticleInfo | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  // 监听来自popup的消息
+  useEffect(() => {
+    const messageListener = (message: any) => {
+      console.log("Article content script received message:", message);
+      if (message.type === "SHOW_ARTICLE_MINDMAP_PANEL") {
+        console.log("Setting Article panel to visible");
+        setIsVisible(true)
+      }
+    }
+
+    chrome.runtime.onMessage.addListener(messageListener)
+    return () => chrome.runtime.onMessage.removeListener(messageListener)
+  }, [articleInfo])
+
+  // 初始化检测文章信息（但不显示面板）
+  useEffect(() => {
+    const initDetection = async () => {
+      try {
+        const detected = detectArticle()
+        if (detected) {
+          setArticleInfo(detected)
+        }
+      } catch (error) {
+        console.error(t("articleDetectionFailed"), error)
+      }
+    }
+
+    // 延迟执行，确保页面加载完成
+    const timer = setTimeout(initDetection, 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!isVisible || !articleInfo) {
+    return null
+  }
+
+  return (
+    <ArticleMindmapPanelContent
+      articleInfo={articleInfo}
+      setIsVisible={setIsVisible}
+    />
   )
 }
 
