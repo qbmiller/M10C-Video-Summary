@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.2] - 2026-06-04
+
+### Added
+- **Panel Draggability**: Added dragging support for `SubtitlePanel` and `ArticlePanel` using a custom `useDraggable` hook. Includes viewport boundary constraints, persistent local storage of panel positions, and localized drag handle tooltips.
+- **Localized Drag Tooltips**: Added translations for the drag button tooltip (`drag`) across multiple languages: English, Spanish, Japanese, Korean, Simplified Chinese, and Traditional Chinese.
+
+---
+
 ## [3.1.1] - 2026-05-31
 
 ### Added
