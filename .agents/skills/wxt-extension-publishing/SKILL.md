@@ -1,9 +1,9 @@
 ---
 name: WXT Extension Publishing
-description: Step-by-step instructions on how to package and publish a WXT-based browser extension to the Chrome Web Store using the `wxt submit` command.
+description: Step-by-step instructions on how to package and publish a WXT-based browser extension to the Chrome, Firefox, and Edge stores using the `wxt submit` command.
 ---
 
-# WXT Extension Publishing to Chrome Web Store
+# WXT Extension Publishing
 
 This skill details the correct workflow for initializing authentication credentials and submitting a WXT browser extension to the Chrome Web Store. 
 
@@ -31,7 +31,10 @@ During the prompt:
 > **💡 Pro-Tip for Firefox (`FIREFOX_EXTENSION_ID`):**  
 > If you are configuring Firefox and your Firefox Addon UUID contains curly braces (e.g., `{c8efa7cc-...}`), the underlying publishing tool currently has a bug that strips the braces and causes `404 Not Found` API errors. To fix this, use your extension's **URL Slug** (e.g., `m10c-web-page-video-to-mindmap`) as the `FIREFOX_EXTENSION_ID` instead of the UUID.
 
-This process will successfully write the configurations, including `CHROME_REFRESH_TOKEN`, to a local `.env.submit` file.
+> **💡 Note for Edge (`EDGE_PRODUCT_ID`, `EDGE_CLIENT_ID`, `EDGE_API_KEY`):**  
+> For the Edge Addons store, you'll need the **Product ID** (found at the top of your Edge Developer Dashboard) and API Credentials (Client ID and API Key v1.1). Follow Microsoft's documentation to generate the API credentials in the Partner Center.
+
+This process will successfully write the configurations, including `CHROME_REFRESH_TOKEN` and `EDGE_API_KEY`, to a local `.env.submit` file.
 
 > **Security Note:** Ensure that `.env.submit` and `.env.submit.backup-*` are added to your `.gitignore` to prevent leaking tokens.
 
@@ -44,10 +47,16 @@ pnpm run zip
 The packaged file will be generated in the `.output/` folder (e.g., `.output/m10c-video-summary-extension-3.0.1-chrome.zip`).
 
 ## 4. Submit for Review
-Finally, use the `wxt submit` CLI (which utilizes `publish-browser-extension` under the hood) to upload the zip to the Chrome Web Store and submit it for review:
+Finally, use the `wxt submit` CLI (which utilizes `publish-browser-extension` under the hood) to upload the zip to the stores and submit it for review:
 
 ```bash
-pnpx wxt submit --chrome-zip .output/<YOUR_EXTENSION_ZIP_FILE_NAME>.zip
+# Submit only to Chrome:
+pnpx wxt submit --chrome-zip .output/<YOUR_EXTENSION_ZIP_FILE_NAME>-chrome.zip
+
+# Submit to Chrome and Edge:
+pnpx wxt submit \
+  --chrome-zip .output/<YOUR_EXTENSION_ZIP_FILE_NAME>-chrome.zip \
+  --edge-zip .output/<YOUR_EXTENSION_ZIP_FILE_NAME>-chrome.zip
 ```
 
-The CLI will check the ZIP file, fetch an access token, upload the ZIP, and automatically submit it for review.
+The CLI will check the ZIP files, fetch the required access tokens/APIs, upload the ZIPs, and automatically submit them for review.

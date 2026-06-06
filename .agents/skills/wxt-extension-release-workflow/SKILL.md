@@ -1,11 +1,11 @@
 ---
 name: WXT Extension Release Workflow
-description: A complete step-by-step workflow for upgrading the extension version, documenting updates in CHANGELOG.md, packaging the extension for Chrome and Firefox, and submitting the release to both web stores in a single workflow.
+description: A complete step-by-step workflow for upgrading the extension version, documenting updates in CHANGELOG.md, packaging the extension for Chrome, Firefox, and Edge, and submitting the release to the web stores in a single workflow.
 ---
 
 # WXT Extension Release Workflow
 
-This skill outlines the standard, unified workflow to release a new version of the extension to both the **Chrome Web Store** and the **Firefox Addon Store** simultaneously.
+This skill outlines the standard, unified workflow to release a new version of the extension to the **Chrome Web Store**, **Firefox Addon Store**, and **Microsoft Edge Addons Store** simultaneously.
 
 ## 1. Version Bumping
 Before releasing, determine the appropriate semantic version bump (Major, Minor, or Patch) based on the changes made, and update it:
@@ -33,9 +33,9 @@ Document all notable changes under the new version in [CHANGELOG.md](file:///Use
 2. Follow semantic labeling (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`) and ensure a clean separator `---` between releases.
 
 ## 3. Package and Zip the Extension
-WXT packages the extension separately for Chromium (MV3) and Firefox (MV2). Mozilla also strictly requires uploading the source code for bundled extensions.
+WXT packages the extension separately for Chromium (MV3) and Firefox (MV2). Microsoft Edge is Chromium-based and uses the exact same build artifact (`-chrome.zip`) as Chrome. Mozilla Firefox strictly requires uploading the source code for bundled extensions.
 
-1. **Build for Chrome**:
+1. **Build for Chrome and Edge**:
    ```bash
    pnpm run zip
    ```
@@ -52,7 +52,7 @@ WXT packages the extension separately for Chromium (MV3) and Firefox (MV2). Mozi
 Verify that all three files are successfully generated in the `.output/` directory before proceeding.
 
 ## 4. Multi-Store Submission
-Use the unified WXT submit tool to upload the zip packages to both the Chrome Web Store and the Firefox Addon Store in parallel.
+Use the unified WXT submit tool to upload the zip packages to the Chrome Web Store, Firefox Addon Store, and Microsoft Edge Addons Store in parallel.
 
 1. Ensure the submission secrets are set in `.env.submit` (never commit this file to git).
 2. Run the submission command:
@@ -60,10 +60,11 @@ Use the unified WXT submit tool to upload the zip packages to both the Chrome We
    pnpm wxt submit \
      --chrome-zip .output/m10c-video-summary-extension-<version>-chrome.zip \
      --firefox-zip .output/m10c-video-summary-extension-<version>-firefox.zip \
-     --firefox-sources-zip .output/m10c-video-summary-extension-<version>-sources.zip
+     --firefox-sources-zip .output/m10c-video-summary-extension-<version>-sources.zip \
+     --edge-zip .output/m10c-video-summary-extension-<version>-chrome.zip
    ```
 
-WXT will automatically read `.env.submit` to acquire tokens, upload both files in parallel, wait for Firefox validation (verifying `0 errors`), and submit the updates for store review.
+WXT will automatically read `.env.submit` to acquire tokens and API keys, upload all files in parallel, wait for Firefox validation (verifying `0 errors`), and submit the updates for store review.
 
 ## 5. Git Tagging
 After a successful submission, create and push a git tag to permanently mark the release in version control.
