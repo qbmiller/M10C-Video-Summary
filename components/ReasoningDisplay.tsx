@@ -1,5 +1,5 @@
 import { Brain } from "lucide-react"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 
 import { ScrollArea } from "~components/ui/scroll-area"
 import { t } from "~utils/i18n"
@@ -9,6 +9,12 @@ interface ReasoningDisplayProps {
 }
 
 export function ReasoningDisplay({ reasoning }: ReasoningDisplayProps) {
+  const bottomRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [reasoning])
+
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4 text-gray-600">
       <div className="mb-4 text-center">
@@ -25,9 +31,10 @@ export function ReasoningDisplay({ reasoning }: ReasoningDisplayProps) {
         )}
       </div>
       {reasoning && (
-        <ScrollArea className="w-full h-full max-h-[300px] border rounded-md bg-gray-50/50 p-4">
+        <ScrollArea className="w-full h-full max-h-[300px]">
           <div className="text-xs text-gray-500 whitespace-pre-wrap font-mono leading-relaxed">
             {reasoning}
+            <div ref={bottomRef} />
           </div>
         </ScrollArea>
       )}
