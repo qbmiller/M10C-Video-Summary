@@ -88,7 +88,7 @@ function ArticleMindmapPanelContent({
             <Button
               variant="ghost"
               size="sm"
-              className="p-1 h-6 w-6 cursor-grab active:cursor-grabbing text-gray-500 hover:text-gray-700"
+              className="p-1 h-6 w-6 cursor-grab active:cursor-grabbing text-gray-500"
               onMouseDown={onMouseDown}
               title={t("drag")}>
               <GripVertical className="w-4 h-4" />
@@ -97,7 +97,7 @@ function ArticleMindmapPanelContent({
               onClick={() => setIsVisible(false)}
               variant="ghost"
               size="sm"
-              className="p-1 h-6 w-6"
+              className="p-1 h-6 w-6 text-gray-500"
               title={t("close")}>
               <svg
                 className="w-4 h-4"
