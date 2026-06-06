@@ -355,10 +355,6 @@
     "message": "動画情報の取得に失敗しました:",
     "description": "動画情報取得失敗メッセージ"
   },
-  "subtitleLoadedCount": {
-    "message": "字幕が正常に読み込まれました。計 {count} 件",
-    "description": "字幕読み込み成功カウントメッセージ"
-  },
   "unknownTitle": {
     "message": "不明なタイトル",
     "description": "不明なタイトル"
@@ -382,10 +378,6 @@
   "loadSubtitleContentFailed": {
     "message": "字幕内容の読み込みに失敗しました:",
     "description": "字幕内容読み込み失敗"
-  },
-  "youtubeSubtitleLoadedCount": {
-    "message": "字幕が正常に読み込まれました。オリジナルセグメント：{raw} 件、結合後：{merged} 件",
-    "description": "YouTube字幕読み込み成功カウント"
   },
   "articleAssistant": {
     "message": "📄 記事アシスタント",
@@ -448,7 +440,7 @@
     "description": "モデルリスト取得失敗エラーメッセージ"
   },
   "enterApiKeyPlaceholder": {
-    "message": "{provider} のAPIキーを入力してください",
+    "message": "$1 のAPIキーを入力してください",
     "description": "APIキー入力プレースホルダーテキスト"
   },
   "supportsAutoFetchModels": {

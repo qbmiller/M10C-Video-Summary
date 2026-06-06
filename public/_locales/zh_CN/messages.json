@@ -355,10 +355,6 @@
     "message": "获取视频信息失败:",
     "description": "获取视频信息失败消息"
   },
-  "subtitleLoadedCount": {
-    "message": "字幕加载成功，共 {count} 条",
-    "description": "字幕加载成功计数消息"
-  },
   "unknownTitle": {
     "message": "未知标题",
     "description": "未知标题"
@@ -382,10 +378,6 @@
   "loadSubtitleContentFailed": {
     "message": "加载字幕内容失败:",
     "description": "加载字幕内容失败"
-  },
-  "youtubeSubtitleLoadedCount": {
-    "message": "字幕加载成功，原始片段: {raw} 条，合并后: {merged} 条",
-    "description": "YouTube字幕加载成功计数"
   },
   "articleAssistant": {
     "message": "📄 文章助手",
@@ -448,7 +440,7 @@
     "description": "获取模型列表失败错误消息"
   },
   "enterApiKeyPlaceholder": {
-    "message": "请输入{provider}的API Key",
+    "message": "请输入$1的API Key",
     "description": "输入API Key占位符文本"
   },
   "supportsAutoFetchModels": {

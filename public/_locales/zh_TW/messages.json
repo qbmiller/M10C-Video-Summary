@@ -355,10 +355,6 @@
     "message": "獲取影片資訊失敗:",
     "description": "獲取影片資訊失敗消息"
   },
-  "subtitleLoadedCount": {
-    "message": "字幕載入成功，共 {count} 條",
-    "description": "字幕載入成功計數消息"
-  },
   "unknownTitle": {
     "message": "未知標題",
     "description": "未知標題"
@@ -382,10 +378,6 @@
   "loadSubtitleContentFailed": {
     "message": "載入字幕內容失敗:",
     "description": "載入字幕內容失敗"
-  },
-  "youtubeSubtitleLoadedCount": {
-    "message": "字幕載入成功，原始片段：{raw} 條，合併後：{merged} 條",
-    "description": "YouTube字幕載入成功計數"
   },
   "articleAssistant": {
     "message": "📄 文章助手",
@@ -448,7 +440,7 @@
     "description": "獲取模型清單失敗錯誤消息"
   },
   "enterApiKeyPlaceholder": {
-    "message": "請輸入 {provider} 的 API Key",
+    "message": "請輸入 $1 的 API Key",
     "description": "輸入API Key佔位符文本"
   },
   "supportsAutoFetchModels": {

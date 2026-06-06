@@ -355,10 +355,6 @@
     "message": "Error al obtener la información del video:",
     "description": "Get video info failed message"
   },
-  "subtitleLoadedCount": {
-    "message": "Subtítulos cargados con éxito, {count} elementos en total",
-    "description": "Subtitle loaded count message"
-  },
   "unknownTitle": {
     "message": "Título desconocido",
     "description": "Unknown title"
@@ -382,10 +378,6 @@
   "loadSubtitleContentFailed": {
     "message": "Error al cargar el contenido de los subtítulos:",
     "description": "Load subtitle content failed"
-  },
-  "youtubeSubtitleLoadedCount": {
-    "message": "Subtítulos cargados con éxito, segmentos originales: {raw} elementos, fusionados: {merged} elementos",
-    "description": "YouTube subtitle loaded count"
   },
   "articleAssistant": {
     "message": "📄 Asistente de artículos",
@@ -448,7 +440,7 @@
     "description": "Fetch models failed error message"
   },
   "enterApiKeyPlaceholder": {
-    "message": "Por favor, introduce la clave API de {provider}",
+    "message": "Por favor, introduce la clave API de $1",
     "description": "Enter API Key placeholder text"
   },
   "supportsAutoFetchModels": {

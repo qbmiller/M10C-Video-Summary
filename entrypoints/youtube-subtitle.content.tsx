@@ -216,12 +216,7 @@ function YouTubeSubtitlePanel() {
         // 字幕加载成功时更新标题（确保标题与当前视频同步）
         const latestTitle = await getVideoTitle()
         setVideoInfo((prev) => prev ? { ...prev, title: latestTitle } : prev)
-        console.log(
-          t("youtubeSubtitleLoadedCount", [
-            rawSubtitles.length.toString(),
-            mergedSubtitles.length.toString()
-          ])
-        )
+        console.log(`字幕加载成功，原始片段: ${rawSubtitles.length} 条，合并后: ${mergedSubtitles.length} 条`)
       } else {
         console.error(t("youtubeSubtitleFormatError"), data)
         setError(t("expectedEventsArray"))

@@ -146,9 +146,7 @@ function BilibiliSubtitlePanel() {
 
       if (subtitleData.body && Array.isArray(subtitleData.body)) {
         setSubtitles(subtitleData.body)
-        console.log(
-          t("subtitleLoadedCount", subtitleData.body.length.toString())
-        )
+        console.log(`字幕加载成功，共 ${subtitleData.body.length} 条`)
       } else {
         console.error("字幕数据不是数组格式:", subtitleData.body)
         setError(t("subtitleFormatError"))

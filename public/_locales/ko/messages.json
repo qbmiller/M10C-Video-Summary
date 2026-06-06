@@ -355,10 +355,6 @@
     "message": "동영상 정보 가져오기 실패:",
     "description": "동영상 정보 실패 메시지"
   },
-  "subtitleLoadedCount": {
-    "message": "자막을 성공적으로 불러왔습니다 (총 {count}개)",
-    "description": "자막 로드 성공 개수"
-  },
   "unknownTitle": {
     "message": "알 수 없는 제목",
     "description": "알 수 없는 제목"
@@ -382,10 +378,6 @@
   "loadSubtitleContentFailed": {
     "message": "자막 내용 로드 실패:",
     "description": "자막 로드 실패 오류"
-  },
-  "youtubeSubtitleLoadedCount": {
-    "message": "자막을 성공적으로 불러왔습니다 (원본 세그먼트: {raw}개, 병합 후: {merged}개)",
-    "description": "YouTube 자막 로드 개수"
   },
   "articleAssistant": {
     "message": "📄 아티클 어시스턴트",
@@ -448,7 +440,7 @@
     "description": "모델 목록 로드 실패 오류"
   },
   "enterApiKeyPlaceholder": {
-    "message": "{provider} API Key를 입력하세요",
+    "message": "$1 API Key를 입력하세요",
     "description": "API Key 플레이스홀더"
   },
   "supportsAutoFetchModels": {
