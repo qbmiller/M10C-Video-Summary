@@ -540,11 +540,11 @@
     "description": "API 요청 실패 오류 메시지"
   },
   "mindElixirLoginRequired": {
-    "message": "설정 페이지에서 Mind Elixir에 로그인하십시오",
+    "message": "설정 페이지에서 Mind Elixir에 로그인하거나, 자신의 AI API Key를 설정하세요",
     "description": "Mind Elixir 로그인 요구 메시지"
   },
   "mindElixirInsufficientBalance": {
-    "message": "Mind Elixir 스타 잔액이 부족합니다. 충전해 주세요.",
+    "message": "Mind Elixir 스타 잔액이 부족합니다. 충전하거나, 설정 페이지에서 자신의 AI API Key를 설정하세요.",
     "description": "Mind Elixir 스타 잔액 부족 메시지"
   }
 }

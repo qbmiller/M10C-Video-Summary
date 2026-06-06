@@ -540,11 +540,11 @@
     "description": "API请求失败错误消息"
   },
   "mindElixirLoginRequired": {
-    "message": "请在设置页面登录 Mind Elixir",
+    "message": "请在设置页面登录 Mind Elixir，或配置自己的 AI API Key",
     "description": "需要登录 Mind Elixir 的提示"
   },
   "mindElixirInsufficientBalance": {
-    "message": "Mind Elixir 星星余额不足，请充值",
+    "message": "Mind Elixir 星星余额不足，请充值，或在设置页面配置自己的 AI API Key",
     "description": "Mind Elixir 星星余额不足的提示"
   }
 }

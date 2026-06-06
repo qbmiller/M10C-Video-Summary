@@ -540,11 +540,11 @@
     "description": "Mensaje de error de solicitud de API fallida"
   },
   "mindElixirLoginRequired": {
-    "message": "Inicie sesión en Mind Elixir en la página de configuración",
+    "message": "Inicia sesión en Mind Elixir en la página de configuración, o configura tu propia clave API de IA",
     "description": "Mensaje de inicio de sesión requerido de Mind Elixir"
   },
   "mindElixirInsufficientBalance": {
-    "message": "Saldo de estrellas de Mind Elixir insuficiente. Por favor, recarga.",
+    "message": "Saldo de estrellas de Mind Elixir insuficiente. Por favor, recarga, o configura tu propia clave API de IA en la configuración.",
     "description": "Mensaje de saldo insuficiente de Mind Elixir"
   }
 }

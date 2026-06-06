@@ -113,7 +113,7 @@ export function MindmapDisplay({
 
     const content = generateConfig.getContent()
     if (!content) {
-      toast.error("没有内容可以生成思维导图")
+      toast.error(t("generateMindmapFailed"))
       return
     }
 
@@ -121,7 +121,6 @@ export function MindmapDisplay({
       setMindmapLoading(true)
       setMindmapData(null) // Clear previous data
       setReasoning("")
-      toast.loading(t("generatingMindmap"))
 
       const messageData: any = {
         action: generateConfig.action,
@@ -188,11 +187,8 @@ export function MindmapDisplay({
             setMindmapData(data)
             await saveCacheData(data)
             setCacheLoaded(false)
-            toast.dismiss()
-            toast.success(t("mindmapGenerated"))
           } catch (e) {
             console.error("Final parse error:", e)
-            toast.dismiss()
             toast.error(t("generateMindmapFailed"))
           } finally {
             setMindmapLoading(false)
@@ -200,7 +196,6 @@ export function MindmapDisplay({
           }
         } else if (msg.type === "error") {
           console.error("生成思维导图失败:", msg.error)
-          toast.dismiss()
           toast.error(msg.error || t("generateMindmapFailed"))
           setMindmapLoading(false)
           port.disconnect()
@@ -208,10 +203,7 @@ export function MindmapDisplay({
       })
     } catch (error) {
       console.error("启动生成思维导图失败:", error)
-      toast.dismiss()
-      toast.error(
-        error instanceof Error ? error.message : t("generateMindmapFailed")
-      )
+      toast.error(error instanceof Error ? error.message : t("generateMindmapFailed"))
       setMindmapLoading(false)
     }
   }

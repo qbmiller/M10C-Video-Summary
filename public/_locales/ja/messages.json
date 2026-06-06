@@ -540,11 +540,11 @@
     "description": "APIリクエスト失敗のエラーメッセージ"
   },
   "mindElixirLoginRequired": {
-    "message": "設定ページで Mind Elixir にログインしてください",
+    "message": "設定ページで Mind Elixir にログインするか、自分の AI API Key を設定してください",
     "description": "Mind Elixir へのログインが必要なメッセージ"
   },
   "mindElixirInsufficientBalance": {
-    "message": "Mind Elixir のスター残高が不足しています。チャージしてください。",
+    "message": "Mind Elixir のスター残高が不足しています。チャージするか、設定ページで自分の AI API Key を設定してください。",
     "description": "Mind Elixir のスター残高不足のメッセージ"
   }
 }

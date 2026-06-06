@@ -540,11 +540,11 @@
     "description": "API request failed error message"
   },
   "mindElixirLoginRequired": {
-    "message": "Please log in to Mind Elixir on the settings page",
+    "message": "Please log in to Mind Elixir on the settings page, or configure your own AI API Key",
     "description": "Mind Elixir login required message"
   },
   "mindElixirInsufficientBalance": {
-    "message": "Insufficient Mind Elixir Star balance. Please recharge.",
+    "message": "Insufficient Mind Elixir Star balance. Please recharge, or configure your own AI API Key in settings.",
     "description": "Mind Elixir insufficient balance message"
   }
 }
