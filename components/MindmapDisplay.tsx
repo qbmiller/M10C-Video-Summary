@@ -11,6 +11,7 @@ import MindElixirReact, {
 } from "~/components/MindElixirReact"
 import { ReasoningDisplay } from "~/components/ReasoningDisplay"
 import { Button } from "~/components/ui/button"
+import { Tooltip } from "~/components/ui/tooltip"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -358,12 +359,16 @@ export function MindmapDisplay({
     if (mindmapLoading) return t("generating")
     if (serverCacheFetching) return t("fetchingCachedMindmap")
     if (showContentReadyButton) {
-      const baseLabel = t("contentReady")
-      return remainingAttempts !== null ? `${baseLabel} (${remainingAttempts})` : baseLabel
+      return t("contentReady")
     }
     if (mindmapData) return t("regenerate")
     return generateButtonText || t("generateMindmapBtn")
   })()
+
+  const tooltipContent =
+    showContentReadyButton && remainingAttempts !== null
+      ? t("remainingAttemptsTooltip", String(remainingAttempts))
+      : null
 
   const mainButtonDisabled = mindmapLoading || serverCacheFetching || (quotaExceeded && !mindmapData)
 
@@ -378,14 +383,16 @@ export function MindmapDisplay({
   return (
     <div className="flex-1 flex flex-col h-full">
       <div className="flex mb-2 gap-2 justify-between">
-        <Button
-          className="flex-grow"
-          onClick={handleMainButtonClick}
-          disabled={mainButtonDisabled}
-          size="sm"
-          title={mainButtonLabel}>
-          {mainButtonLabel}
-        </Button>
+        <Tooltip content={tooltipContent} className="flex-grow">
+          <Button
+            className="flex-grow w-full"
+            onClick={handleMainButtonClick}
+            disabled={mainButtonDisabled}
+            size="sm"
+            title={tooltipContent ? undefined : mainButtonLabel}>
+            {mainButtonLabel}
+          </Button>
+        </Tooltip>
 
         {!mindmapLoading && mindmapData && (
           <>

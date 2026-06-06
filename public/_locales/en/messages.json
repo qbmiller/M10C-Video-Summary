@@ -550,5 +550,9 @@
   "fetchingCachedMindmap": {
     "message": "Loading cached mindmap...",
     "description": "Button label while fetching cached mindmap from server"
+  },
+  "remainingAttemptsTooltip": {
+    "message": "$1 attempts remaining this month",
+    "description": "Hover button tooltip showing remaining attempts"
   }
 }

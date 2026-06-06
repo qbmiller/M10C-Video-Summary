@@ -550,5 +550,9 @@
   "fetchingCachedMindmap": {
     "message": "加载缓存思维导图...",
     "description": "从服务器获取缓存思维导图时的按钮文字"
+  },
+  "remainingAttemptsTooltip": {
+    "message": "本月剩余 $1 次",
+    "description": "Hover button tooltip showing remaining attempts"
   }
 }

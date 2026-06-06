@@ -550,5 +550,9 @@
   "fetchingCachedMindmap": {
     "message": "케시된 마인드맵 로드 중...",
     "description": "서버에서 캐시된 마인드맵을 가져오는 중인 버튼 레이블"
+  },
+  "remainingAttemptsTooltip": {
+    "message": "이번 달 남은 횟수: $1회",
+    "description": "Hover button tooltip showing remaining attempts"
   }
 }

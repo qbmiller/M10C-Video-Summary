@@ -550,5 +550,9 @@
   "fetchingCachedMindmap": {
     "message": "Cargando mapa mental en caché...",
     "description": "Etiqueta del botón mientras se obtiene el mapa mental en caché del servidor"
+  },
+  "remainingAttemptsTooltip": {
+    "message": "$1 intentos restantes este mes",
+    "description": "Hover button tooltip showing remaining attempts"
   }
 }

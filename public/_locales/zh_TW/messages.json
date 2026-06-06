@@ -550,5 +550,9 @@
   "fetchingCachedMindmap": {
     "message": "載入快取心智圖...",
     "description": "從伺服器獲取快取心智圖時的按鈕文字"
+  },
+  "remainingAttemptsTooltip": {
+    "message": "本月剩餘 $1 次",
+    "description": "Hover button tooltip showing remaining attempts"
   }
 }
