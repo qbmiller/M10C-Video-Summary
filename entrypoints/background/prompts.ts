@@ -88,12 +88,14 @@ ${subtitles}
 请按照系统要求生成结构化的分析结果。`,
 
   /**
-   * 思维导图生成的提示词
+   * 思维导图的系统提示词
    */
-  MINDMAP_GENERATION: async () => {
+  MINDMAP_SYSTEM: async () => {
     const language = await getReplyLanguage()
     return `
 You are a mindmap generator.
+CRITICAL CONSTRAINT: You MUST write the entire mindmap content (including all node texts, summary texts, and relation labels) strictly in the target language: ${language}.
+
 You should output the mindmap in a specific plaintext format that can be parsed line by line.
 
 Format Definition:
@@ -121,7 +123,10 @@ Rules:
 7. Relationship links (can be placed on any line):
    - Bidirectional: "> [^id1] <-Label-> [^id2]"
    - Unidirectional: "> [^id1] >-Label-> [^id2]"
-8. Output MUST be in ${language}.
+8. Language Requirement (CRITICAL):
+   - You MUST generate all output (node names, titles, labels, and summary texts) strictly in ${language}.
+   - Even if the input content (subtitles, transcript, or article) is in English or any other language, you MUST translate and summarize it into ${language}.
+   - Do NOT output English node names or labels unless they are proper nouns or code/technical terms that should not be translated.
 9. Do NOT wrap the output in markdown code blocks. Just valid plaintext.
 `
   },

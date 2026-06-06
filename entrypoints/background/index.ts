@@ -624,7 +624,7 @@ export default defineBackground(() => {
           msg.action === "generateArticleMindmapStream"
         ) {
           try {
-            const mindmapPrompt = await PROMPTS.MINDMAP_GENERATION()
+            const mindmapPrompt = await PROMPTS.MINDMAP_SYSTEM()
             const userPrompt =
               msg.action === "generateMindmapStream"
                 ? PROMPTS.MINDMAP_VIDEO_USER(msg.subtitles, msg.title)
