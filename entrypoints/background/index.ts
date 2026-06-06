@@ -5,18 +5,22 @@ import { t } from "~/utils/i18n"
 interface AIConfig {
   provider: string
   apiKeys: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string
     "openai-compatible"?: string
+    openrouter?: string
   }
   model: string
   baseUrl?: string
   baseUrls?: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string
     "openai-compatible"?: string
+    openrouter?: string
   }
   customModel?: string
   replyLanguage?: string
@@ -211,12 +215,12 @@ const BACKEND_BASE_URL = import.meta.env.WXT_BACKEND_BASE_URL
 // Default fallback endpoint powered by Mind Elixir Star balance.
 // Used when the user has not configured a personal AI provider.
 const DEFAULT_MIND_ELIXIR_CONFIG: AIConfig = {
-  provider: "openai-compatible",
-  apiKeys: { "openai-compatible": "mind-elixir" },
+  provider: "mind-elixir",
+  apiKeys: { "mind-elixir": "mind-elixir" },
   model: "MindElixirStar",
   baseUrl: `${BACKEND_BASE_URL}/api/v1`,
   baseUrls: {
-    "openai-compatible": `${BACKEND_BASE_URL}/api/v1`
+    "mind-elixir": `${BACKEND_BASE_URL}/api/v1`
   },
   replyLanguage: "auto"
 }
@@ -264,7 +268,7 @@ class BackgroundAIService {
 
       if (isMindElixir) {
         config = DEFAULT_MIND_ELIXIR_CONFIG
-        apiKey = DEFAULT_MIND_ELIXIR_CONFIG.apiKeys["openai-compatible"]!
+        apiKey = DEFAULT_MIND_ELIXIR_CONFIG.apiKeys["mind-elixir"]!
       }
 
       if (!config) {

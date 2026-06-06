@@ -90,6 +90,7 @@ const REPLY_LANGUAGES = [
 interface AIConfig {
   provider: string
   apiKeys: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string
@@ -99,6 +100,7 @@ interface AIConfig {
   model: string
   baseUrl?: string
   baseUrls?: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string

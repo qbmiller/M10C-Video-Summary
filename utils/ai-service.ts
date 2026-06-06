@@ -3,18 +3,22 @@ import { storage } from "@wxt-dev/storage"
 export interface AIConfig {
   provider: string
   apiKeys: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string
     "openai-compatible"?: string
+    openrouter?: string
   }
   model: string
   baseUrl?: string
   baseUrls?: {
+    "mind-elixir"?: string
     openai?: string
     gemini?: string
     claude?: string
     "openai-compatible"?: string
+    openrouter?: string
   }
 
   customModel?: string
