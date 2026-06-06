@@ -76,7 +76,7 @@
     "description": "未配置状态"
   },
   "configureAiTip": {
-    "message": "💡 配置AI服务后可使用智能总结和思维导图功能",
+    "message": "配置AI服务后可使用智能总结和思维导图功能",
     "description": "配置AI服务提示"
   },
   "aiConfigManagement": {

@@ -76,7 +76,7 @@
     "description": "Not configured status"
   },
   "configureAiTip": {
-    "message": "💡 Configura el servicio de IA para usar las funciones de resumen inteligente y mapa mental",
+    "message": "Configura el servicio de IA para usar las funciones de resumen inteligente y mapa mental",
     "description": "Configure AI service tip"
   },
   "aiConfigManagement": {

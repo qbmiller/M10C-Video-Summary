@@ -76,7 +76,7 @@
     "description": "설정되지 않음 상태"
   },
   "configureAiTip": {
-    "message": "💡 AI 서비스를 설정하면 지능형 요약 및 마인드맵 기능을 사용할 수 있습니다.",
+    "message": "AI 서비스를 설정하면 지능형 요약 및 마인드맵 기능을 사용할 수 있습니다.",
     "description": "AI 서비스 설정 팁"
   },
   "aiConfigManagement": {

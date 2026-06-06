@@ -76,7 +76,7 @@
     "description": "Not configured status"
   },
   "configureAiTip": {
-    "message": "💡 Configure AI service to use intelligent summary and mindmap features",
+    "message": "Configure AI service to use intelligent summary and mindmap features",
     "description": "Configure AI service tip"
   },
   "aiConfigManagement": {

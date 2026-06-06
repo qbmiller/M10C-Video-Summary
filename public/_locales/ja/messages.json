@@ -76,7 +76,7 @@
     "description": "未設定ステータス"
   },
   "configureAiTip": {
-    "message": "💡 AIサービスを設定すると、インテリジェント要約およびマインドマップ機能が使用可能になります",
+    "message": "AIサービスを設定すると、インテリジェント要約およびマインドマップ機能が使用可能になります",
     "description": "AIサービス設定ヒント"
   },
   "aiConfigManagement": {

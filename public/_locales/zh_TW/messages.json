@@ -76,7 +76,7 @@
     "description": "未配置狀態"
   },
   "configureAiTip": {
-    "message": "💡 配置 AI 服務後可使用智能總結與心智圖功能",
+    "message": "配置 AI 服務後可使用智能總結與心智圖功能",
     "description": "配置AI服務提示"
   },
   "aiConfigManagement": {
