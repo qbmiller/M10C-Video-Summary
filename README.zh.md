@@ -1,8 +1,26 @@
-# M10C
+<p align="center">
+  <img src="./assets/icon.png" width="120" alt="M10C Logo" />
+</p>
+
+<h1 align="center">M10C</h1>
+
+<p align="center">
+  一个可以分析视频和文章内容，生成总结和思维导图的浏览器插件。
+</p>
+
+<p align="center">
+  简体中文 | <a href="./README.md">English</a>
+</p>
+
+---
 
 ![M10C 主图](./assets/Main.jpg)
 
-[下载地址](https://chromewebstore.google.com/detail/ioadcalaliollffeejdkcncckkjieobp?authuser=0&hl=en)
+### 📥 下载地址
+
+- **Chrome 浏览器**: [Chrome Web Store](https://chromewebstore.google.com/detail/m10c-web-page-video-to-mi/ioadcalaliollffeejdkcncckkjieobp?hl=en-US&utm_source=mind-elixir-desktop)
+- **Firefox 浏览器**: [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/m10c-web-page-video-to-mindmap/)
+- **Edge 浏览器**: [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/lmefhcbjkfhafclalgjjjleppfolkmdk)
 
 一个可以分析视频和文章内容，生成总结和思维导图的 Chrome 插件。
 
@@ -10,9 +28,9 @@
 
 ### 🎬 智能视频内容总结
 
-**支持 YouTube 和 Bilibili 平台**
+**支持平台:** [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com) [![Bilibili](https://img.shields.io/badge/Bilibili-00AEEC?style=for-the-badge&logo=bilibili&logoColor=white)](https://www.bilibili.com)
 
-- 自动提取视频字幕内容，支持多语言字幕切换
+- 自动提取视频字幕内容
 - 一键生成视频内容的AI智能总结，包括概要、关键要点和主要话题
 - 点击字幕可直接跳转到对应视频时间点，提升观看效率
 - 智能缓存机制，避免重复生成，节省API调用成本
@@ -59,6 +77,16 @@
 - 🌟 **首选**: Google Gemini（免费，效果好）
 - 🔄 **备选**: 硅基流动、OpenRouter
 - 💰 **高级**: OpenAI GPT 或 Anthropic Claude（付费，性能最佳）
+
+### 🌟 无 Key 方案 (星星算力)
+
+如果你没有自己的 AI 服务商 API Key，或者不想进行复杂的配置，可以直接登录 Mind Elixir 账号使用**内置托管模型（星星算力）**：
+- ⚡ **开箱即用**: 无需配置任何 API Key，登录即可直接使用。
+- 🪙 **按需消耗**: 扣除星星余额，10 颗星星约可处理 80 个长视频。
+- 🔄 **跨应用共享**: 星星余额可在 Mind Elixir 整个应用生态中通用（例如在 [Ebook to Mindmap](https://ebook2me-next.mind-elixir.com) 中也通用）。
+- ⏳ **永不过期**: 充值或获取的星星余额永久有效，无时间限制。
+
+*充值或管理星星请访问 [Mind Elixir 官网](https://app.mind-elixir.com/recharge)。*
 
 ## 技术架构
 

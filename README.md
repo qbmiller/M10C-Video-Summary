@@ -1,8 +1,26 @@
-# M10C
+<p align="center">
+  <img src="./assets/icon.png" width="120" alt="M10C Logo" />
+</p>
+
+<h1 align="center">M10C</h1>
+
+<p align="center">
+  A browser extension that analyzes video and article content to generate summaries and mind maps.
+</p>
+
+<p align="center">
+  <a href="./README.zh.md">简体中文</a> | English
+</p>
+
+---
 
 ![M10C Main Image](./assets/Main.jpg)
 
-[Download Link](https://chromewebstore.google.com/detail/ioadcalaliollffeejdkcncckkjieobp?authuser=0&hl=en)
+### 📥 Download Links
+
+- **Chrome Web Store**: [M10C Web Page Video to MindMap](https://chromewebstore.google.com/detail/m10c-web-page-video-to-mi/ioadcalaliollffeejdkcncckkjieobp?hl=en-US&utm_source=mind-elixir-desktop)
+- **Firefox Add-ons**: [M10C Web Page Video to MindMap](https://addons.mozilla.org/en-US/firefox/addon/m10c-web-page-video-to-mindmap/)
+- **Microsoft Edge Add-ons**: [M10C Web Page Video to MindMap](https://microsoftedge.microsoft.com/addons/detail/lmefhcbjkfhafclalgjjjleppfolkmdk)
 
 A Chrome extension that analyzes video and article content to generate summaries and mind maps.
 
@@ -10,9 +28,9 @@ A Chrome extension that analyzes video and article content to generate summaries
 
 ### 🎬 Intelligent Video Content Summarization
 
-**Supports YouTube and Bilibili Platforms**
+**Supported Platforms:** [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com) [![Bilibili](https://img.shields.io/badge/Bilibili-00AEEC?style=for-the-badge&logo=bilibili&logoColor=white)](https://www.bilibili.com)
 
-- Automatically extracts video subtitle content with multi-language subtitle switching support
+- Automatically extracts video subtitle content
 - One-click AI-powered video content summarization including overview, key points, and main topics
 - Click subtitles to jump directly to corresponding video timestamps, improving viewing efficiency
 - Smart caching mechanism to avoid duplicate generation and save API call costs
@@ -59,6 +77,16 @@ A Chrome extension that analyzes video and article content to generate summaries
 - 🌟 **First Choice**: Google Gemini (Free, excellent results)
 - 🔄 **Alternative**: SiliconFlow, OpenRouter
 - 💰 **Premium**: OpenAI GPT or Anthropic Claude (Paid, best performance)
+
+### 🌟 No-Key Solution (Star Compute)
+
+If you don't have your own AI service provider API Key, or don't want to go through complex configuration, you can log in to your Mind Elixir account and use the **Built-in Hosted Model (Star Compute)**:
+- ⚡ **Out of the Box**: No API Key configuration required, just log in and use it directly.
+- 🪙 **Pay-as-you-go**: Deducts from your Star balance, 10 Stars can process approximately 80 long videos.
+- 🔄 **Cross-App Sharing**: Star balance is shared across the entire Mind Elixir ecosystem (e.g., also usable in [Ebook to Mindmap](https://ebook2me-next.mind-elixir.com)).
+- ⏳ **Never Expires**: Stars purchased or obtained never expire.
+
+*To recharge or manage Stars, please visit [Mind Elixir](https://app.mind-elixir.com/recharge).*
 
 ## Technical Architecture
 
