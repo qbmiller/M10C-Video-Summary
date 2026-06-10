@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.0] - 2026-06-10
+
+### Added
+- **Free Generation Quota System**: Implemented campaign-based free usage tracking with updated UI feedback, allowing users to try the extension without an account.
+- **Usage Tooltip**: Added a tooltip component on the mindmap action button to display remaining free usage attempts.
+- **Server-side Mindmap Caching**: Implemented server-side caching for generated mindmaps and automatic browser-language detection for AI responses.
+- **Auto-scroll for Reasoning Display**: The `ReasoningDisplay` component now automatically scrolls to the bottom as new reasoning content streams in.
+
+### Fixed
+- **Provider Fallback**: Fixed provider fallback and BYOK detection when an API key is missing.
+
+### Refactored / Chore
+- **Prompt & Stream Refactor**: Updated prompt structures and response parsing logic for improved stream handling.
+- **Options Page Simplification**: Simplified options page layout, removed redundant `apiKeyLabel` field from AI provider definitions, and improved responsive styling.
+- **Locale Cleanup**: Removed emoji prefixes from AI configuration tooltips across all locales.
+- **Chore**: Adjusted mindmap system prompt.
+
+---
+
 ## [3.2.0] - 2026-06-06
 
 ### Added
