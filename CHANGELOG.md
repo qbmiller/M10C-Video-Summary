@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.0] - 2026-06-14
+
+### Added
+- **Options Page in New Tab**: Moved the options page to open in a dedicated new tab for a better configuration experience.
+
+### Fixed
+- **Scrollbar Behavior**: Prevented the scrollbar from being hidden when a dropdown menu is displayed.
+- **Vite 8 Compatibility**: Removed deprecated esbuild config to resolve Vite 8 oxc warning.
+
+### Refactored / Chore
+- **AI Config Data Format**: Refactored the AI provider configuration storage format (`aiConfigV2`) with a cleaner, flatter structure for per-provider settings.
+- **UI Updates**: Minor UI adjustments across components.
+
+---
+
 ## [3.3.0] - 2026-06-10
 
 ### Added
