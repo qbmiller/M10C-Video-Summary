@@ -46,15 +46,15 @@ const AI_PROVIDERS: AIProvider[] = [
     baseUrl: "https://api.anthropic.com/v1"
   },
   {
-    id: "openai-compatible",
-    name: "OpenAI Compatible API",
-    baseUrl: "https://api.example.com/v1",
-    modelsEndpoint: "/models"
-  },
-  {
     id: "openrouter",
     name: "OpenRouter",
     baseUrl: "https://openrouter.ai/api/v1",
+    modelsEndpoint: "/models"
+  },
+  {
+    id: "openai-compatible",
+    name: "OpenAI Compatible API",
+    baseUrl: "https://api.example.com/v1",
     modelsEndpoint: "/models"
   }
 ]
@@ -531,6 +531,7 @@ function OptionsPage() {
                   id="api-address"
                   type="text"
                   className="h-10 text-sm"
+                  disabled={aiConfig.activeProvider !== "openai-compatible"}
                   value={currentProviderCfg.baseUrl || ""}
                   onChange={(e) => {
                     const activeId = aiConfig.activeProvider
@@ -661,15 +662,15 @@ function OptionsPage() {
               )}
             </div>
 
-            {fetchingModels && (
+            {fetchingModels ? (
               <p className="text-[10px] text-muted-foreground ml-0">
                 {t("fetchingModels")}
               </p>
+            ) : (
+              <p className="text-[10px] text-muted-foreground">
+                {t("supportsAutoFetchModels")}
+              </p>
             )}
-
-            <p className="text-[10px] text-muted-foreground">
-              {t("supportsAutoFetchModels")}
-            </p>
           </div>
         )}
 
