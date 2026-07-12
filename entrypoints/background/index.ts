@@ -3,6 +3,7 @@ import { storage } from "@wxt-dev/storage"
 import { t, getMatchedBrowserLanguage } from "~/utils/i18n"
 import type { AIConfig } from "~/utils/ai-service"
 import { DEFAULT_MIND_ELIXIR_PROVIDER } from "~/utils/ai-service"
+import { buildBlogMarkdown } from "~/utils/blog-content"
 
 interface APIRequestConfig {
   url: string
@@ -121,8 +122,7 @@ class GeminiProvider implements ProviderHandler {
           }
         ],
         generationConfig: {
-          temperature: 0.3,
-          responseMimeType: "application/json"
+          temperature: 0.3
         }
       }
     }
@@ -477,6 +477,71 @@ export default defineBackground(() => {
     if (request.action === "clearCapturedSubtitleUrl") {
       capturedSubtitleUrl = null
       sendResponse({ success: true })
+    }
+
+    if (request.action === "publishArticleSummary") {
+      const publish = async () => {
+        const config = await backgroundAIService.getConfig()
+        const publishConfig = config?.blogPublish
+        const postUrl = publishConfig?.postUrl?.trim()
+        const headerName = publishConfig?.headerName?.trim()
+        const token = publishConfig?.token?.trim()
+
+        if (!postUrl || !headerName || !token) {
+          throw new Error(t("blogPublishNotConfigured"))
+        }
+
+        let url: URL
+        try {
+          url = new URL(postUrl)
+        } catch {
+          throw new Error(t("blogPublishInvalidUrl"))
+        }
+        if (url.protocol !== "http:" && url.protocol !== "https:") {
+          throw new Error(t("blogPublishInvalidUrl"))
+        }
+
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 15000)
+
+        try {
+          const headers = new Headers({ "Content-Type": "application/json" })
+          headers.set(headerName, token)
+          const response = await fetch(url.toString(), {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              title: request.title,
+              content: buildBlogMarkdown({
+                title: request.title,
+                articleUrl: request.articleUrl,
+                summary: request.summary,
+                summarizedAt: request.summarizedAt
+              })
+            }),
+            signal: controller.signal
+          })
+
+          if (!response.ok) {
+            throw new Error(`${t("blogPublishFailed")} (HTTP ${response.status})`)
+          }
+        } finally {
+          clearTimeout(timeout)
+        }
+      }
+
+      publish()
+        .then(() => sendResponse({ success: true }))
+        .catch((error) => {
+          const message =
+            error instanceof DOMException && error.name === "AbortError"
+              ? t("blogPublishTimeout")
+              : error instanceof Error
+                ? error.message
+                : t("blogPublishFailed")
+          sendResponse({ success: false, error: message })
+        })
+      return true
     }
 
     if (request.action === "checkMindmapCache") {

@@ -574,5 +574,18 @@
   "freeGenerationExhausted": {
     "message": "免费生成次数已用完，将消耗星星",
     "description": "免费生成次数用完时的提示"
-  }
+  },
+  "blogPublishConfig": { "message": "Blog 发布配置", "description": "Blog 发布配置标题" },
+  "blogPublishConfigTip": { "message": "配置文章摘要中“发送到 Blog”按钮使用的接口。", "description": "Blog 发布配置说明" },
+  "blogPostUrl": { "message": "POST URL", "description": "Blog 接口地址" },
+  "blogHeaderName": { "message": "Header 名称", "description": "Blog 鉴权 Header 名称" },
+  "blogHeaderToken": { "message": "Header Token", "description": "Blog 鉴权 Token" },
+  "blogHeaderTokenPlaceholder": { "message": "请输入 Token 值", "description": "Blog Token 占位文案" },
+  "sendToBlog": { "message": "发送到 Blog", "description": "手动发布按钮" },
+  "sendingToBlog": { "message": "发送中...", "description": "手动发布进行中" },
+  "blogPublishSucceeded": { "message": "已发送到 Blog", "description": "手动发布成功" },
+  "blogPublishFailed": { "message": "发送到 Blog 失败", "description": "手动发布失败" },
+  "blogPublishNotConfigured": { "message": "请先配置 Blog POST URL、Header 名称和 Token", "description": "Blog 配置缺失" },
+  "blogPublishInvalidUrl": { "message": "Blog POST URL 必须使用 HTTP 或 HTTPS", "description": "Blog URL 无效" },
+  "blogPublishTimeout": { "message": "Blog 请求超时", "description": "Blog 请求超时" }
 }

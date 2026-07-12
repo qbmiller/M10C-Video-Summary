@@ -400,6 +400,20 @@ function OptionsPage() {
     })
   }
 
+  const updateBlogPublishConfig = (
+    field: "postUrl" | "headerName" | "token",
+    value: string
+  ) => {
+    setAiConfig((current) => ({
+      ...current,
+      blogPublish: {
+        ...current.blogPublish,
+        headerName: current.blogPublish?.headerName || "Authorization",
+        [field]: value
+      }
+    }))
+  }
+
   const currentProvider = AI_PROVIDERS.find((p) => p.id === aiConfig.activeProvider)
   const currentProviderCfg = aiConfig.providers[aiConfig.activeProvider] || {}
 
@@ -720,6 +734,59 @@ function OptionsPage() {
           <p className="text-[10px] text-muted-foreground mt-0.5">
             {t("aiReplyLanguageTip")}
           </p>
+        </div>
+
+        <div className="space-y-4 border-t border-border pt-4 mt-2">
+          <div>
+            <Label className="text-sm font-semibold text-foreground">
+              {t("blogPublishConfig")}
+            </Label>
+            <p className="text-[10px] text-muted-foreground mt-0.5">
+              {t("blogPublishConfigTip")}
+            </p>
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="blog-post-url" className="text-sm font-medium text-foreground">
+              {t("blogPostUrl")}
+            </Label>
+            <Input
+              id="blog-post-url"
+              type="url"
+              className="h-10 text-sm"
+              value={aiConfig.blogPublish?.postUrl || ""}
+              onChange={(event) => updateBlogPublishConfig("postUrl", event.target.value)}
+              placeholder="https://example.com/api/articles"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="blog-header-name" className="text-sm font-medium text-foreground">
+              {t("blogHeaderName")}
+            </Label>
+            <Input
+              id="blog-header-name"
+              type="text"
+              className="h-10 text-sm"
+              value={aiConfig.blogPublish?.headerName || "Authorization"}
+              onChange={(event) => updateBlogPublishConfig("headerName", event.target.value)}
+              placeholder="Authorization"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="blog-header-token" className="text-sm font-medium text-foreground">
+              {t("blogHeaderToken")}
+            </Label>
+            <Input
+              id="blog-header-token"
+              type="password"
+              className="h-10 text-sm"
+              value={aiConfig.blogPublish?.token || ""}
+              onChange={(event) => updateBlogPublishConfig("token", event.target.value)}
+              placeholder={t("blogHeaderTokenPlaceholder")}
+            />
+          </div>
         </div>
 
         <div className="pt-2">
