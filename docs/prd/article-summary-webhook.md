@@ -2,7 +2,7 @@
 
 用户可以在文章页面生成 AI 摘要，但摘要目前只保留在浏览器扩展本地，无法按需发送到用户自己的 Blog、知识库或其他内容系统。用户需要手动复制摘要、文章地址和时间信息，再到外部系统中粘贴，流程重复且容易遗漏来源或时间。
 
-用户希望在扩展配置页中设置一个 POST 接口地址和用于鉴权的 Header Token。当文章摘要成功生成后，用户可以手动点击按钮，把文章 URL、摘要正文、总结时间等必要属性发送到该接口，并清楚知道发布是否成功。
+用户希望在扩展配置页中设置一个 POST 接口地址和用于鉴权的 Header Token。当文章或视频摘要成功生成后，用户可以手动点击按钮，把来源 URL、摘要正文、总结时间等必要属性发送到该接口，并清楚知道发布是否成功。
 
 ## Solution
 
@@ -10,7 +10,7 @@
 
 当文章助手中存在完整摘要时，用户可以点击“发送到 Blog”。扩展仅在点击后通过 Background 网络层向配置的接口发送 JSON。请求包含文章 URL、文章标题、摘要正文和总结时间。发布成功或失败都在文章助手中显示明确反馈；发布失败不影响摘要查看和本地缓存，用户可以再次点击重试。
 
-该功能仅应用于文章摘要，不在本期自动发布视频摘要或思维导图。
+该功能应用于文章摘要和 YouTube/Bilibili 视频摘要，不发布思维导图。
 
 ## User Stories
 
@@ -62,10 +62,10 @@
 - 发送时 POST URL、Header 名称和 Token 均为必填。URL 必须能正确解析，并且协议只能为 `http:` 或 `https:`。
 - 使用扩展现有本地存储保存配置。Token 输入框使用密码类型，默认不以明文显示已保存内容。
 - 仅在用户点击“发送到 Blog”时发布。流式片段、摘要完成事件、生成错误、缓存摘要加载、Tab 切换和面板重新打开均不触发。
-- 通过现有摘要生成配置边界向共享摘要组件传递文章元数据，保持共享组件可复用；本期只有文章摘要选择启用发布元数据。
+- 通过现有摘要生成配置边界向共享摘要组件传递来源标题和 URL，文章与视频摘要复用同一发布入口。
 - 外部请求统一由 Background 上下文通过专用 runtime 消息执行，Content Script 不直接请求目标接口。
 - 请求使用 `POST`、`Content-Type: application/json` 和用户配置的自定义 Header。Token 不出现在 URL 或 JSON Body 中。
-- 请求体严格只包含 `title` 和 `content`。`content` 是 Markdown 文档，内部统一包含一级标题、原文 URL、总结时间和 AI 总结正文；结构化 JSON 摘要会转换为“内容摘要、关键要点、主要话题”章节。
+- 请求体严格只包含 `title` 和 `content`。`content` 是 Markdown 文档，内部统一包含一级标题、来源 URL、总结时间和 AI 总结正文；结构化 JSON 摘要会转换为“内容摘要、关键要点、主要话题”章节。
 - `summarizedAt` 是 AI 生成完成时记录的 UTC ISO 8601 时间。
 - HTTP 2xx 均视为成功；网络错误、超时和非 2xx 响应视为失败，不要求成功响应具有固定 JSON 格式。
 - 请求必须有有限超时时间，建议默认 15 秒。
@@ -79,7 +79,7 @@
 
 ## Testing Decisions
 
-- 主要测试边界是最高层的“用户点击发送文章摘要”工作流：给定已保存的发布配置和完整摘要，观察 Background POST 请求及用户可见发布状态。
+- 主要测试边界是最高层的“用户点击发送摘要”工作流：分别给定文章或视频来源元数据和完整摘要，观察 Background POST 请求及用户可见发布状态。
 - 测试只断言外部行为，不绑定 React 状态结构、私有方法、Helper 调用次数或存储实现细节。
 - 仓库当前没有自动化测试框架或测试文件，需要增加兼容 TypeScript/Vite 的轻量测试运行器和浏览器扩展 API Mock。
 - 验证摘要生成完成、重新生成、加载缓存和打开面板均不会发出 POST。
@@ -97,7 +97,6 @@
 
 ## Out of Scope
 
-- 发布视频/字幕摘要。
 - 发布思维导图或思维导图图片。
 - 支持 POST 以外的 HTTP 方法。
 - 配置多个任意 Header。
@@ -119,7 +118,7 @@
 ```json
 {
   "title": "Example article",
-  "content": "# Example article\n\n> 原文：[https://example.com/posts/ai](https://example.com/posts/ai)\n\n> 总结时间：2026-07-12T08:00:00.000Z\n\n---\n\n## 内容摘要\n\nThe completed AI summary..."
+  "content": "# Example article\n\n> 来源：[https://example.com/posts/ai](https://example.com/posts/ai)\n\n> 总结时间：2026-07-12T08:00:00.000Z\n\n---\n\n## 内容摘要\n\nThe completed AI summary..."
 }
 ```
 

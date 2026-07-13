@@ -38,12 +38,12 @@ function formatSummaryBody(rawSummary: string): string {
 
 export function buildBlogMarkdown({
   title,
-  articleUrl,
+  sourceUrl,
   summary,
   summarizedAt
 }: {
   title: string
-  articleUrl: string
+  sourceUrl: string
   summary: string
   summarizedAt: string
 }): string {
@@ -52,7 +52,7 @@ export function buildBlogMarkdown({
 
   return [
     `# ${displayTitle}`,
-    `> 原文：[${articleUrl}](${articleUrl})`,
+    `> 来源：[${sourceUrl}](${sourceUrl})`,
     `> 总结时间：${summarizedAt}`,
     "---",
     summaryBody

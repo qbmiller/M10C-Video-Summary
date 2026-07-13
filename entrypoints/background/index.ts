@@ -479,7 +479,7 @@ export default defineBackground(() => {
       sendResponse({ success: true })
     }
 
-    if (request.action === "publishArticleSummary") {
+    if (request.action === "publishSummaryToBlog") {
       const publish = async () => {
         const config = await backgroundAIService.getConfig()
         const publishConfig = config?.blogPublish
@@ -514,7 +514,7 @@ export default defineBackground(() => {
               title: request.title,
               content: buildBlogMarkdown({
                 title: request.title,
-                articleUrl: request.articleUrl,
+                sourceUrl: request.sourceUrl,
                 summary: request.summary,
                 summarizedAt: request.summarizedAt
               })

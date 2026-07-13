@@ -17,6 +17,8 @@ import { cn } from "~/lib/utils"
 import { t, getMatchedBrowserLanguage } from "~/utils/i18n"
 import type { AIConfig, ProviderConfig } from "~/utils/ai-service"
 import { DEFAULT_MIND_ELIXIR_PROVIDER } from "~/utils/ai-service"
+import { DEFAULT_SUMMARY_PROMPT } from "~/utils/summary-prompt"
+import { DEFAULT_MINDMAP_PROMPT } from "~/utils/mindmap-prompt"
 
 interface AIProvider {
   id: string
@@ -89,6 +91,8 @@ function OptionsPage() {
   const [aiConfig, setAiConfig] = useState<AIConfig>({
     activeProvider: "mind-elixir",
     replyLanguage: getMatchedBrowserLanguage(navigator.language),
+    summaryPrompt: DEFAULT_SUMMARY_PROMPT,
+    mindmapPrompt: DEFAULT_MINDMAP_PROMPT,
     providers: {}
   })
   const [saving, setSaving] = useState(false)
@@ -215,7 +219,11 @@ function OptionsPage() {
         if (!config.replyLanguage || config.replyLanguage === "auto") {
           config.replyLanguage = getMatchedBrowserLanguage(navigator.language)
         }
-        setAiConfig(config)
+        setAiConfig({
+          ...config,
+          summaryPrompt: config.summaryPrompt || DEFAULT_SUMMARY_PROMPT,
+          mindmapPrompt: config.mindmapPrompt || DEFAULT_MINDMAP_PROMPT
+        })
 
         // 如果有API Key且支持获取模型，尝试获取模型列表
         const provider = AI_PROVIDERS.find((p) => p.id === config.activeProvider)
@@ -734,6 +742,72 @@ function OptionsPage() {
           <p className="text-[10px] text-muted-foreground mt-0.5">
             {t("aiReplyLanguageTip")}
           </p>
+        </div>
+
+        <div className="space-y-4 border-t border-border pt-4 mt-2">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <Label htmlFor="summary-prompt" className="text-sm font-semibold text-foreground">
+                {t("summaryPrompt")}
+              </Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-7 text-xs"
+                onClick={() => setAiConfig((current) => ({
+                  ...current,
+                  summaryPrompt: DEFAULT_SUMMARY_PROMPT
+                }))}>
+                {t("restoreDefaultPrompt")}
+              </Button>
+            </div>
+            <textarea
+              id="summary-prompt"
+              className="flex min-h-[280px] w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-xs leading-relaxed ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              value={aiConfig.summaryPrompt || DEFAULT_SUMMARY_PROMPT}
+              onChange={(event) => setAiConfig({
+                ...aiConfig,
+                summaryPrompt: event.target.value
+              })}
+            />
+            <p className="text-[10px] text-muted-foreground">
+              {t("summaryPromptTip")}
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4 border-t border-border pt-4 mt-2">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <Label htmlFor="mindmap-prompt" className="text-sm font-semibold text-foreground">
+                {t("mindmapPrompt")}
+              </Label>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-7 text-xs"
+                onClick={() => setAiConfig((current) => ({
+                  ...current,
+                  mindmapPrompt: DEFAULT_MINDMAP_PROMPT
+                }))}>
+                {t("restoreDefaultPrompt")}
+              </Button>
+            </div>
+            <textarea
+              id="mindmap-prompt"
+              className="flex min-h-[320px] w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-xs leading-relaxed ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              value={aiConfig.mindmapPrompt || DEFAULT_MINDMAP_PROMPT}
+              onChange={(event) => setAiConfig({
+                ...aiConfig,
+                mindmapPrompt: event.target.value
+              })}
+            />
+            <p className="text-[10px] text-muted-foreground">
+              {t("mindmapPromptTip")}
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4 border-t border-border pt-4 mt-2">

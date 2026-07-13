@@ -15,6 +15,8 @@ export interface BlogPublishConfig {
 export interface AIConfig {
   activeProvider: string
   replyLanguage?: string
+  summaryPrompt?: string
+  mindmapPrompt?: string
   providers: Record<string, ProviderConfig>
   blogPublish?: BlogPublishConfig
 }

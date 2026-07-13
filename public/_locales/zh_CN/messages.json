@@ -575,6 +575,11 @@
     "message": "免费生成次数已用完，将消耗星星",
     "description": "免费生成次数用完时的提示"
   },
+  "summaryPrompt": { "message": "摘要 Prompt", "description": "摘要 Prompt 配置标题" },
+  "summaryPromptTip": { "message": "文章和视频摘要共用此 Prompt。修改并保存后将覆盖系统默认值；{{language}} 会替换为当前回复语言。", "description": "摘要 Prompt 配置说明" },
+  "mindmapPrompt": { "message": "思维导图 Prompt", "description": "思维导图 Prompt 配置标题" },
+  "mindmapPromptTip": { "message": "文章和视频思维导图共用此 Prompt。修改并保存后将覆盖系统默认值；{{language}} 会替换为当前回复语言。", "description": "思维导图 Prompt 配置说明" },
+  "restoreDefaultPrompt": { "message": "恢复默认", "description": "恢复默认摘要 Prompt" },
   "blogPublishConfig": { "message": "Blog 发布配置", "description": "Blog 发布配置标题" },
   "blogPublishConfigTip": { "message": "配置文章摘要中“发送到 Blog”按钮使用的接口。", "description": "Blog 发布配置说明" },
   "blogPostUrl": { "message": "POST URL", "description": "Blog 接口地址" },

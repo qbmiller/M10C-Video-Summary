@@ -21,8 +21,8 @@ interface SummaryDisplayProps {
   generateButtonText?: string
   noSummaryText?: string
   generatePromptText?: string
-  publishArticle?: {
-    url: string
+  publishSource?: {
+    sourceUrl: string
     title: string
   }
 }
@@ -33,7 +33,7 @@ export function SummaryDisplay({
   generateButtonText,
   noSummaryText,
   generatePromptText,
-  publishArticle
+  publishSource
 }: SummaryDisplayProps) {
   const [markdownContent, setMarkdownContent] = useState<string>("")
   const [aiLoading, setAiLoading] = useState(false)
@@ -92,14 +92,14 @@ export function SummaryDisplay({
   }
 
   const handlePublish = async () => {
-    if (!publishArticle || !markdownContent || publishing) return
+    if (!publishSource || !markdownContent || publishing) return
 
     setPublishing(true)
     try {
       const response = await chrome.runtime.sendMessage({
-        action: "publishArticleSummary",
-        articleUrl: publishArticle.url,
-        title: publishArticle.title,
+        action: "publishSummaryToBlog",
+        sourceUrl: publishSource.sourceUrl,
+        title: publishSource.title,
         summary: markdownContent,
         summarizedAt: new Date(summaryTimestamp || Date.now()).toISOString()
       })
@@ -218,7 +218,7 @@ export function SummaryDisplay({
               ? t("regenerate")
               : generateButtonText || t("generateAiSummary")}
         </Button>
-        {markdownContent && publishArticle && (
+        {markdownContent && publishSource && (
           <Button
             size="sm"
             onClick={handlePublish}

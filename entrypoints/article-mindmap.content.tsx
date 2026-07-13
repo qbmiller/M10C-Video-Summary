@@ -139,8 +139,8 @@ function ArticleMindmapPanelContent({
           <SummaryDisplay
             generateConfig={summaryGenerateConfig}
             cacheKey={getSummaryCacheKey()}
-            publishArticle={{
-              url: articleInfo.url,
+            publishSource={{
+              sourceUrl: articleInfo.url,
               title: articleInfo.title
             }}
             noSummaryText={t("noAiSummary")}
