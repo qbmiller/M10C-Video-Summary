@@ -65,7 +65,6 @@ class OpenAIProvider implements ProviderHandler {
       body: {
         model: model,
         messages: messages,
-        temperature: 0.3,
         stream: stream
       }
     }
@@ -123,7 +122,7 @@ class GeminiProvider implements ProviderHandler {
           }
         ],
         generationConfig: {
-          temperature: 0.3
+          responseMimeType: "application/json"
         }
       }
     }
