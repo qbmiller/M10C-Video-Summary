@@ -14,6 +14,15 @@
 
 ---
 
+#### 个人魔改版
+1.支持配置 导入导出
+2.支持总结完 一键发送到 自己配置的博客地址
+3. 支持自定义配置 prompt 
+4. 支持配置 AI provider 等
+
+
+---
+
 ![M10C Main Image](./assets/Main.jpg)
 
 ### 📥 Download Links
