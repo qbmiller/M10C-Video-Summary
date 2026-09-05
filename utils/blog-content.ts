@@ -4,6 +4,26 @@ interface StructuredSummary {
   main_topics?: unknown
 }
 
+export interface BlogEditorDraft {
+  version: 1
+  content: string
+  expiresAt: number
+}
+
+const BLOG_EDITOR_DRAFT_TTL_MS = 30 * 60 * 1000
+
+export function buildSummaryClipboardText(
+  summary: string,
+  sourceUrl?: string
+): string {
+  const trimmedSummary = summary.trimEnd()
+  const trimmedSourceUrl = sourceUrl?.trim()
+
+  if (!trimmedSourceUrl) return trimmedSummary
+
+  return `${trimmedSummary}\n\n原文地址：${trimmedSourceUrl}`
+}
+
 function asStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return []
   return value.filter((item): item is string => typeof item === "string")
@@ -59,4 +79,32 @@ export function buildBlogMarkdown({
   ]
     .filter(Boolean)
     .join("\n\n")
+}
+
+export function buildBlogEditorDraft({
+  title,
+  sourceUrl,
+  summary,
+  summarizedAt,
+  now = Date.now()
+}: {
+  title: string
+  sourceUrl: string
+  summary: string
+  summarizedAt: string
+  now?: number
+}): BlogEditorDraft {
+  return {
+    version: 1,
+    content: buildBlogMarkdown({ title, sourceUrl, summary, summarizedAt }),
+    expiresAt: now + BLOG_EDITOR_DRAFT_TTL_MS
+  }
+}
+
+export function normalizeBlogOpenUrl(value: string): string {
+  const url = new URL(value.trim())
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    throw new Error("Open URL 必须使用 HTTP 或 HTTPS")
+  }
+  return url.toString()
 }

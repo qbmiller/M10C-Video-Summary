@@ -4,6 +4,7 @@ import { toast } from "sonner"
 import { storage } from "@wxt-dev/storage"
 import { Button } from "~/components/ui/button"
 import { ScrollArea } from "~/components/ui/scroll-area"
+import { buildSummaryClipboardText } from "~/utils/blog-content"
 import { t } from "~/utils/i18n"
 
 import { ReasoningDisplay } from "./ReasoningDisplay"
@@ -85,7 +86,9 @@ export function SummaryDisplay({
 
   const handleCopy = () => {
     if (!markdownContent) return
-    navigator.clipboard.writeText(markdownContent)
+    navigator.clipboard.writeText(
+      buildSummaryClipboardText(markdownContent, publishSource?.sourceUrl)
+    )
     setIsCopied(true)
     toast.success("Success")
     setTimeout(() => setIsCopied(false), 2000)
@@ -107,7 +110,7 @@ export function SummaryDisplay({
       if (!response?.success) {
         throw new Error(response?.error || t("blogPublishFailed"))
       }
-      toast.success(t("blogPublishSucceeded"))
+      toast.success(response.opened ? t("blogEditorOpened") : t("blogPublishSucceeded"))
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t("blogPublishFailed"))
     } finally {

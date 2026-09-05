@@ -7,10 +7,13 @@ export interface ProviderConfig {
 }
 
 export interface BlogPublishConfig {
+  openUrl?: string
   postUrl?: string
   headerName?: string
   token?: string
 }
+
+export const DEFAULT_BLOG_OPEN_URL = "https://www.xiaomi318.com/admin/write"
 
 export interface AIConfig {
   activeProvider: string

@@ -16,7 +16,10 @@ import {
 import { cn } from "~/lib/utils"
 import { t, getMatchedBrowserLanguage } from "~/utils/i18n"
 import type { AIConfig, ProviderConfig } from "~/utils/ai-service"
-import { DEFAULT_MIND_ELIXIR_PROVIDER } from "~/utils/ai-service"
+import {
+  DEFAULT_BLOG_OPEN_URL,
+  DEFAULT_MIND_ELIXIR_PROVIDER
+} from "~/utils/ai-service"
 import { DEFAULT_SUMMARY_PROMPT } from "~/utils/summary-prompt"
 import { DEFAULT_MINDMAP_PROMPT } from "~/utils/mindmap-prompt"
 import { createConfigBackup, parseConfigBackup } from "~/utils/config-backup"
@@ -94,7 +97,10 @@ function OptionsPage() {
     replyLanguage: getMatchedBrowserLanguage(navigator.language),
     summaryPrompt: DEFAULT_SUMMARY_PROMPT,
     mindmapPrompt: DEFAULT_MINDMAP_PROMPT,
-    providers: {}
+    providers: {},
+    blogPublish: {
+      openUrl: DEFAULT_BLOG_OPEN_URL
+    }
   })
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -228,7 +234,11 @@ function OptionsPage() {
         setAiConfig({
           ...config,
           summaryPrompt: config.summaryPrompt || DEFAULT_SUMMARY_PROMPT,
-          mindmapPrompt: config.mindmapPrompt || DEFAULT_MINDMAP_PROMPT
+          mindmapPrompt: config.mindmapPrompt || DEFAULT_MINDMAP_PROMPT,
+          blogPublish: {
+            ...config.blogPublish,
+            openUrl: config.blogPublish?.openUrl ?? DEFAULT_BLOG_OPEN_URL
+          }
         })
 
         // 如果有API Key且支持获取模型，尝试获取模型列表
@@ -454,7 +464,7 @@ function OptionsPage() {
   }
 
   const updateBlogPublishConfig = (
-    field: "postUrl" | "headerName" | "token",
+    field: "openUrl" | "postUrl" | "headerName" | "token",
     value: string
   ) => {
     setAiConfig((current) => ({
@@ -862,6 +872,23 @@ function OptionsPage() {
             </Label>
             <p className="text-[10px] text-muted-foreground mt-0.5">
               {t("blogPublishConfigTip")}
+            </p>
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="blog-open-url" className="text-sm font-medium text-foreground">
+              {t("blogOpenUrl")}
+            </Label>
+            <Input
+              id="blog-open-url"
+              type="url"
+              className="h-10 text-sm"
+              value={aiConfig.blogPublish?.openUrl ?? DEFAULT_BLOG_OPEN_URL}
+              onChange={(event) => updateBlogPublishConfig("openUrl", event.target.value)}
+              placeholder={DEFAULT_BLOG_OPEN_URL}
+            />
+            <p className="text-[10px] text-muted-foreground">
+              {t("blogOpenUrlTip")}
             </p>
           </div>
 

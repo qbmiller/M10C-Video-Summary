@@ -3,7 +3,12 @@ import { storage } from "@wxt-dev/storage"
 import { t, getMatchedBrowserLanguage } from "~/utils/i18n"
 import type { AIConfig } from "~/utils/ai-service"
 import { DEFAULT_MIND_ELIXIR_PROVIDER } from "~/utils/ai-service"
-import { buildBlogMarkdown } from "~/utils/blog-content"
+import {
+  buildBlogEditorDraft,
+  buildBlogMarkdown,
+  normalizeBlogOpenUrl,
+  type BlogEditorDraft
+} from "~/utils/blog-content"
 import { consumeSseLines, flushSseBuffer } from "~/utils/sse-stream"
 
 interface APIRequestConfig {
@@ -422,6 +427,57 @@ class BackgroundAIService {
   }
 }
 
+const BLOG_EDITOR_DRAFT_STORAGE_KEY = "m10c:blog-editor-draft"
+const BLOG_EDITOR_DRAFT_EVENT = "m10c:blog-editor-draft"
+
+function waitForTabComplete(tabId: number): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      chrome.tabs.onUpdated.removeListener(handleUpdated)
+      reject(new Error("打开 Blog 编辑页面超时"))
+    }, 15000)
+
+    const finish = () => {
+      clearTimeout(timeout)
+      chrome.tabs.onUpdated.removeListener(handleUpdated)
+      resolve()
+    }
+
+    const handleUpdated = (updatedTabId: number, changeInfo: chrome.tabs.TabChangeInfo) => {
+      if (updatedTabId === tabId && changeInfo.status === "complete") finish()
+    }
+
+    chrome.tabs.onUpdated.addListener(handleUpdated)
+    chrome.tabs.get(tabId).then((tab) => {
+      if (tab.status === "complete") finish()
+    }).catch((error) => {
+      clearTimeout(timeout)
+      chrome.tabs.onUpdated.removeListener(handleUpdated)
+      reject(error)
+    })
+  })
+}
+
+async function openBlogEditor(openUrl: string, draft: BlogEditorDraft): Promise<void> {
+  const tab = await chrome.tabs.create({ url: openUrl })
+  if (typeof tab.id !== "number") throw new Error("无法打开 Blog 编辑页面")
+
+  await waitForTabComplete(tab.id)
+  await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    world: "MAIN",
+    func: (storageKey: string, eventName: string, draftJson: string) => {
+      localStorage.setItem(storageKey, draftJson)
+      window.dispatchEvent(new CustomEvent(eventName, { detail: draftJson }))
+    },
+    args: [
+      BLOG_EDITOR_DRAFT_STORAGE_KEY,
+      BLOG_EDITOR_DRAFT_EVENT,
+      JSON.stringify(draft)
+    ]
+  })
+}
+
 export default defineBackground(() => {
   const backgroundAIService = new BackgroundAIService()
   let capturedSubtitleUrl: string | null = null
@@ -484,9 +540,30 @@ export default defineBackground(() => {
       const publish = async () => {
         const config = await backgroundAIService.getConfig()
         const publishConfig = config?.blogPublish
+        const openUrl = publishConfig?.openUrl?.trim()
         const postUrl = publishConfig?.postUrl?.trim()
         const headerName = publishConfig?.headerName?.trim()
         const token = publishConfig?.token?.trim()
+
+        const blogContent = buildBlogMarkdown({
+          title: request.title,
+          sourceUrl: request.sourceUrl,
+          summary: request.summary,
+          summarizedAt: request.summarizedAt
+        })
+
+        if (openUrl) {
+          await openBlogEditor(
+            normalizeBlogOpenUrl(openUrl),
+            buildBlogEditorDraft({
+              title: request.title,
+              sourceUrl: request.sourceUrl,
+              summary: request.summary,
+              summarizedAt: request.summarizedAt
+            })
+          )
+          return { opened: true }
+        }
 
         if (!postUrl || !headerName || !token) {
           throw new Error(t("blogPublishNotConfigured"))
@@ -508,31 +585,57 @@ export default defineBackground(() => {
         try {
           const headers = new Headers({ "Content-Type": "application/json" })
           headers.set(headerName, token)
+          const payload = {
+            title: request.title,
+            content: blogContent
+          }
+
+          console.info("[Send to Blog] 开始请求", {
+            url: url.toString(),
+            method: "POST",
+            headerName,
+            payload
+          })
+
           const response = await fetch(url.toString(), {
             method: "POST",
             headers,
-            body: JSON.stringify({
-              title: request.title,
-              content: buildBlogMarkdown({
-                title: request.title,
-                sourceUrl: request.sourceUrl,
-                summary: request.summary,
-                summarizedAt: request.summarizedAt
-              })
-            }),
+            body: JSON.stringify(payload),
             signal: controller.signal
           })
 
           if (!response.ok) {
-            throw new Error(`${t("blogPublishFailed")} (HTTP ${response.status})`)
+            const responseBody = await response.text().catch(() => "")
+            const responseDetails = responseBody.trim() || response.statusText
+
+            console.error("[Send to Blog] 请求失败", {
+              url: url.toString(),
+              status: response.status,
+              statusText: response.statusText,
+              responseHeaders: Object.fromEntries(response.headers.entries()),
+              responseBody,
+              payload
+            })
+
+            const errorDetails = responseDetails.slice(0, 1000)
+            throw new Error(
+              `${t("blogPublishFailed")} (HTTP ${response.status})${
+                errorDetails ? `：${errorDetails}` : ""
+              }`
+            )
           }
+
+          console.info("[Send to Blog] 请求成功", {
+            url: url.toString(),
+            status: response.status
+          })
         } finally {
           clearTimeout(timeout)
         }
       }
 
       publish()
-        .then(() => sendResponse({ success: true }))
+        .then((result) => sendResponse({ success: true, ...result }))
         .catch((error) => {
           const message =
             error instanceof DOMException && error.name === "AbortError"

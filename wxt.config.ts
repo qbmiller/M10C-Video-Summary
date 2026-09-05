@@ -16,7 +16,7 @@ export default defineConfig({
     name: '__MSG_extensionName__',
     description: '__MSG_extensionDescription__',
     default_locale: 'en',
-    permissions: ['activeTab', 'storage', 'webRequest'],
+    permissions: ['activeTab', 'storage', 'webRequest', 'scripting'],
     host_permissions: [
       'https://*/*',
       'http://*/*',
